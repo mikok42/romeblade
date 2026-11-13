@@ -1,12 +1,14 @@
 # RomeBlade bridge (RTW ↔ M&B)
 
+## CLI (M&B 1.011 na tym dysku)
+
+**Nie** — `mount&blade.exe` nie ma przełącznika, który pomija launcher albo od razu ładuje misję / Custom Battle / Wave Battle. Moduł bierze z `HKCU\Software\MountAndBladeKeys\last_module`; potem zawsze SkinMagic (**Graj w Mount&Blade**), potem New Game (INIT Wave).
+
 ## One instruction (next try)
 
-1. Close **only** Rome / bridge / Arm / M&B windows from the last try (nie zabijaj innych procesów).
-2. Run **`start_romeblade.bat`** → scroll → **UZBRÓJ** → **Begin Battle**.
-3. Expect: swallow → M&B launcher → auto **Graj w Mount&Blade** → auto **New Game** → **Wave Battle** (nie zostaje na launcherze).
-
-Log: `out\bridge_events.log` — szukaj `mb_launcher_play`, potem `mb_wave_enter_clicked`.
+1. Zamknij **okna** Rome / bridge / Arm / Mount&Blade z poprzedniej próby (nie zabijaj innych procesów).
+2. `start_romeblade.bat` → scroll → **UZBRÓJ** → **Begin Battle**.
+3. W logu kolejno: `mb_exe_started` (albo `mb_reuse_windows`) → **`mb_launcher_play`** (pid mount&blade) → `mb_wave_enter_clicked`. Jeśli znów tylko launcher bez `mb_launcher_play` — daj znać.
 
 ## Why F5 failed (log proof 2026-11-13 13:58)
 

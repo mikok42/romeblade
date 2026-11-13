@@ -22,140 +22,199 @@ def set_mb_module(module_name):
 # Launcher Play button labels (EN + PL). language.txt on this machine is "pl".
 _LAUNCHER_PLAY_NEEDLES = (
     "graj w mount",
-    "graj",
     "play mount",
+    "graj w",
     "play mount&blade",
 )
+# Image name filter — never match Cursor / RomeAndBlade title windows.
+_MB_EXE_SUBSTR = "mount&blade"
 
 
-def _mb_top_windows():
+def _mb_owned_windows():
+    """Windows belonging to mount&blade.exe only (not title-substring matches)."""
     from . import win_input
 
-    wins = win_input.find_windows("Mount") or win_input.find_windows("Blade")
-    return wins or []
+    return win_input.find_windows_for_exe(_MB_EXE_SUBSTR, visible_only=False)
 
 
-def dismiss_mb_launcher(timeout=60):
-    """Click the SkinMagic launcher Play button (EN/PL). Does not kill processes.
+def _click_play_on_hwnd(hwnd, title):
+    from . import win_input
 
-    Returns True if Play was clicked (or launcher already gone / no Play button
-    because the game window is already up).
+    btn, btn_text = win_input.find_button_hwnd(hwnd, _LAUNCHER_PLAY_NEEDLES)
+    win_input.focus_window(hwnd)
+    time.sleep(0.25)
+    if btn:
+        # Triple attempt: BM_CLICK, physical click on button, Enter (default btn).
+        try:
+            win_input.bm_click(btn)
+        except Exception:
+            pass
+        time.sleep(0.15)
+        win_input.click_control_center(btn, pause=0.2)
+        time.sleep(0.15)
+        win_input.tap_vk(win_input.VK_RETURN, pause=0.3)
+        return btn_text or "Play"
+    # No enumerated button (odd SkinMagic theme) — Enter + center-ish click.
+    w, h = win_input.window_client_size(hwnd)
+    if w > 0 and h > 0:
+        # Play is typically mid-lower on the small launcher dialog.
+        win_input.click_window_client_frac(hwnd, 0.50, 0.62, pause=0.25)
+        win_input.click_window_client_frac(hwnd, 0.50, 0.72, pause=0.25)
+    win_input.tap_vk(win_input.VK_RETURN, pause=0.3)
+    return "(fallback Enter/frac)"
+
+
+def dismiss_mb_launcher(timeout=90):
+    """Click SkinMagic launcher Play on a mount&blade.exe-owned window.
+
+    Does not kill processes. Returns True if Play clicked or game already up.
     """
     from . import blog
     from . import win_input
 
     t0 = time.time()
     while time.time() - t0 < timeout:
-        for hwnd, title in _mb_top_windows():
-            btn, btn_text = win_input.find_button_hwnd(hwnd, _LAUNCHER_PLAY_NEEDLES)
-            if not btn:
-                # Already past launcher: large client area, no Play button.
-                w, h = win_input.window_client_size(hwnd)
-                if w >= 800 and h >= 600:
-                    print("BRIDGE: M&B game window already up %dx%d" % (w, h))
-                    blog.event("mb_launcher_skip", reason="game_window", w=w, h=h)
-                    return True
-                continue
-            win_input.focus_window(hwnd)
-            time.sleep(0.3)
-            try:
-                win_input.bm_click(btn)
-            except Exception:
-                win_input.click_control_center(btn)
-            print(
-                "BRIDGE: launcher Play clicked (%s) on '%s'"
-                % (btn_text.replace("&&", "&"), title)
-            )
-            blog.event("mb_launcher_play", button=btn_text, title=title)
-            return True
+        wins = _mb_owned_windows()
+        for hwnd, title, pid, exe in wins:
+            btn, _ = win_input.find_button_hwnd(hwnd, _LAUNCHER_PLAY_NEEDLES)
+            w, h = win_input.window_client_size(hwnd)
+            if btn:
+                label = _click_play_on_hwnd(hwnd, title)
+                print(
+                    "BRIDGE: launcher Play on pid=%s '%s' via %s"
+                    % (pid, title, label.replace("&&", "&"))
+                )
+                blog.event(
+                    "mb_launcher_play",
+                    button=label,
+                    title=title,
+                    pid=pid,
+                    w=w,
+                    h=h,
+                )
+                return True
+            # Game DirectX window: large client, no Win32 Play button.
+            if w >= 640 and h >= 480 and user32_is_visible(hwnd):
+                print(
+                    "BRIDGE: M&B game window already up pid=%s %dx%d '%s'"
+                    % (pid, w, h, title)
+                )
+                blog.event(
+                    "mb_launcher_skip",
+                    reason="game_window",
+                    w=w,
+                    h=h,
+                    pid=pid,
+                    title=title,
+                )
+                return True
         time.sleep(0.4)
-    print("BRIDGE: M&B launcher Play not found")
-    blog.event("mb_launcher_fail", reason="no_play_button")
+    print("BRIDGE: M&B launcher Play not found (no mount&blade.exe window)")
+    blog.event("mb_launcher_fail", reason="no_mb_window")
     return False
 
 
+def user32_is_visible(hwnd):
+    from . import win_input
+
+    return bool(win_input.user32.IsWindowVisible(hwnd))
+
+
 def wait_mb_game_window(timeout=120):
-    """Wait until the DirectX game window is up (launcher dialog gone)."""
+    """Wait until mount&blade.exe owns a large window without a Play button."""
     from . import win_input
 
     t0 = time.time()
     while time.time() - t0 < timeout:
-        for hwnd, title in _mb_top_windows():
+        for hwnd, title, pid, exe in _mb_owned_windows():
             btn, _ = win_input.find_button_hwnd(hwnd, _LAUNCHER_PLAY_NEEDLES)
             w, h = win_input.window_client_size(hwnd)
-            # Game window: no Play button, reasonably large (windowed or FS).
-            if btn is None and (w >= 640 and h >= 480):
-                return hwnd, title, w, h
+            if btn is None and w >= 640 and h >= 480:
+                return hwnd, title, w, h, pid
         time.sleep(0.5)
-    return None, None, 0, 0
+    return None, None, 0, 0, 0
 
 
 def enter_wave_from_main_menu(timeout=120):
     """Launcher Play → wait for game → New Game → Wave Battle (menu INIT).
 
-    Does not kill processes; no-ops if windows missing.
+    Windows are resolved by process image mount&blade.exe only — never by the
+    substring 'Blade' (that matched the Cursor 'RomeAndBlade' window and left
+    the real launcher sitting idle). Does not kill processes.
     """
     from . import blog
     from . import win_input
 
-    if not dismiss_mb_launcher(timeout=min(60, timeout)):
-        # Last resort: Enter often activates the default Play button.
-        hwnd = win_input.wait_for_window("Mount", timeout=5) or win_input.wait_for_window(
-            "Blade", timeout=3
-        )
-        if hwnd:
-            win_input.focus_window(hwnd)
-            win_input.tap_vk(win_input.VK_RETURN, pause=0.5)
-            blog.event("mb_launcher_enter_fallback")
-            print("BRIDGE: launcher fallback VK_RETURN")
-        else:
-            blog.event("mb_wave_enter_fail", reason="no_launcher")
-            return False
+    # 1.011 has no CLI to skip launcher or jump into a mission — only
+    # HKCU\\...\\last_module + SkinMagic Play, then in-game New Game.
+    if not dismiss_mb_launcher(timeout=min(90, timeout)):
+        blog.event("mb_wave_enter_fail", reason="no_launcher")
+        return False
 
-    hwnd, title, w, h = wait_mb_game_window(timeout=timeout)
+    hwnd, title, w, h, pid = wait_mb_game_window(timeout=timeout)
     if not hwnd:
         print("BRIDGE: M&B game window not found after launcher")
         blog.event("mb_wave_enter_fail", reason="no_game_window")
         return False
-    print("BRIDGE: M&B game window '%s' %dx%d — clicking New Game" % (title, w, h))
-    blog.event("mb_game_window", title=title, w=w, h=h)
+    print(
+        "BRIDGE: M&B game window pid=%s '%s' %dx%d - clicking New Game"
+        % (pid, title, w, h)
+    )
+    blog.event("mb_game_window", title=title, w=w, h=h, pid=pid)
     win_input.focus_window(hwnd)
-    # Main menu fade-in after load.
     time.sleep(3.0)
-    # New Game is the top main-menu button (center column).
     for fy in (0.42, 0.48, 0.36, 0.52):
         x, y = win_input.click_window_client_frac(hwnd, 0.5, fy, pause=0.7)
         print("BRIDGE: click New Game candidate @ %d,%d (fy=%.2f)" % (x, y, fy))
-    blog.event("mb_wave_enter_clicked")
+    blog.event("mb_wave_enter_clicked", pid=pid)
     return True
 
 
 def start_mb(module_name=None, enter_wave=True):
+    """Set last_module, start mount&blade.exe (not runme), dismiss launcher, Wave.
+
+    CLI note (1.011 on this disk): no working -m / mission switch in the exe.
+    Module comes from registry last_module; SkinMagic launcher still appears.
+    """
     module_name = module_name or config.MB_MODULE
     set_mb_module(module_name)
     if not os.path.isfile(config.MB_EXE):
         raise RuntimeError("M&B exe missing: %s" % config.MB_EXE)
-    # Do not kill an already-running M&B; only launch if none is up.
-    already = process_running("mount&blade")
-    if already:
-        print("BRIDGE: M&B already running - skip new process, try enter wave")
+
+    from . import blog
+
+    owned = _mb_owned_windows()
+    if owned:
+        print(
+            "BRIDGE: mount&blade.exe already has %d window(s) - reuse, no kill"
+            % len(owned)
+        )
+        blog.event("mb_reuse_windows", count=len(owned))
         proc = None
-    else:
-        # Direct exe (not runme.exe). last_module already set; launcher still
-        # appears but Play will load RomeBladeRTS without touching Native.
+    elif process_running(_MB_EXE_SUBSTR):
+        # Process without a usable top-level window — still do not kill; launch
+        # a fresh exe so the user gets a launcher we can click (second instance
+        # is better than clicking Cursor by mistake).
+        print("BRIDGE: mount&blade.exe running without window - starting another")
+        blog.event("mb_start_extra_instance", reason="no_window")
         proc = subprocess.Popen(
             [config.MB_EXE],
             cwd=config.MB_ROOT,
             close_fds=True,
         )
+    else:
+        proc = subprocess.Popen(
+            [config.MB_EXE],
+            cwd=config.MB_ROOT,
+            close_fds=True,
+        )
+        blog.event("mb_exe_started", module=module_name)
     if enter_wave:
         try:
             enter_wave_from_main_menu(timeout=120)
         except Exception as e:
             print("BRIDGE: auto-enter wave failed:", e)
             try:
-                from . import blog
-
                 blog.event("mb_wave_enter_fail", reason=str(e))
             except Exception:
                 pass

@@ -144,10 +144,92 @@ def window_class(hwnd):
     return buf.value
 
 
+def window_pid(hwnd):
+    pid = wt.DWORD(0)
+    user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
+    return int(pid.value)
+
+
 def window_client_size(hwnd):
     rect = wt.RECT()
     user32.GetClientRect(hwnd, ctypes.byref(rect))
     return int(rect.right), int(rect.bottom)
+
+
+def _pid_to_exe_map():
+    """pid -> lowercase exe base name via Toolhelp snapshot."""
+    kernel32 = ctypes.windll.kernel32
+    TH32CS_SNAPPROCESS = 0x00000002
+
+    class PROCESSENTRY32W(ctypes.Structure):
+        _fields_ = [
+            ("dwSize", wt.DWORD),
+            ("cntUsage", wt.DWORD),
+            ("th32ProcessID", wt.DWORD),
+            ("th32DefaultHeapID", ctypes.POINTER(ctypes.c_ulong)),
+            ("th32ModuleID", wt.DWORD),
+            ("cntThreads", wt.DWORD),
+            ("th32ParentProcessID", wt.DWORD),
+            ("pcPriClassBase", ctypes.c_long),
+            ("dwFlags", wt.DWORD),
+            ("szExeFile", wt.WCHAR * 260),
+        ]
+
+    out = {}
+    snap = kernel32.CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0)
+    if snap == ctypes.c_void_p(-1).value or snap == -1:
+        return out
+    try:
+        entry = PROCESSENTRY32W()
+        entry.dwSize = ctypes.sizeof(PROCESSENTRY32W)
+        if not kernel32.Process32FirstW(snap, ctypes.byref(entry)):
+            return out
+        while True:
+            out[int(entry.th32ProcessID)] = entry.szExeFile.lower()
+            if not kernel32.Process32NextW(snap, ctypes.byref(entry)):
+                break
+    finally:
+        kernel32.CloseHandle(snap)
+    return out
+
+
+def find_windows_for_exe(exe_substr, visible_only=False):
+    """Top-level windows owned by a process whose image name contains exe_substr.
+
+    Critical: do NOT match by loose title needles like 'Blade' — that hits
+    Cursor / repo windows titled 'RomeAndBlade'.
+    """
+    want = exe_substr.lower()
+    pmap = _pid_to_exe_map()
+    found = []
+
+    def cb(hwnd, _lparam):
+        if visible_only and not user32.IsWindowVisible(hwnd):
+            return True
+        pid = window_pid(hwnd)
+        exe = pmap.get(pid, "")
+        if want not in exe:
+            return True
+        # Skip invisible tool windows with empty titles unless they have children
+        # (SkinMagic launcher is visible with title Mount&Blade).
+        title = window_title(hwnd)
+        if not user32.IsWindowVisible(hwnd) and not title:
+            return True
+        found.append((hwnd, title or "", pid, exe))
+        return True
+
+    user32.EnumWindows(EnumWindowsProc(cb), 0)
+    return found
+
+
+def wait_for_exe_window(exe_substr, timeout=90, poll=0.4, visible_only=False):
+    t0 = time.time()
+    while time.time() - t0 < timeout:
+        found = find_windows_for_exe(exe_substr, visible_only=visible_only)
+        if found:
+            return found
+        time.sleep(poll)
+    return []
 
 
 def enum_child_windows(hwnd):
