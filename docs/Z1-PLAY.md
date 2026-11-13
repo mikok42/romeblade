@@ -5,36 +5,37 @@
 | Piece | Where |
 |-------|--------|
 | Module | `C:\Program Files (x86)\Steam\steamapps\common\Mount and Blade\Modules\RomeBladeRTS` |
-| Module System 1.010 (sources) | `c:\Users\Mikok\Documents\RomeAndBlade\tools\romeblade_rts_ms\` |
-| Stock MS zip | `c:\Users\Mikok\Documents\RomeAndBlade\tools\module_system_1010\` |
-| Python 2.7.18 | `C:\Python27\python.exe` (used only to compile) |
+| Module System sources | `c:\Users\Mikok\Documents\RomeAndBlade\tools\romeblade_rts_ms\` |
+| Python 2.7.18 | `C:\Python27\python.exe` (compile only) |
 
-**Native was not modified.** Only a new `Modules\RomeBladeRTS` folder was added (seeded from Native, then rebuilt).
+**Native was not modified.** Only `Modules\RomeBladeRTS` is added/updated.
 
 ## How to launch
 
-1. Start **Mount & Blade** (Steam appid 22100).
-2. In the module dropdown (launcher / main menu module list), pick **RomeBladeRTS** (not Native).
-3. Start a **Quick Battle** / custom battle with both sides filled (try ~50 vs 50 first, then raise).
-4. In battle:
-   - **F10** — toggle bird's-eye RTS camera on/off
-   - **WASD** / arrows — pan; **Q/E** — height; **Shift** — faster pan
-   - **Backspace** — stock battle order panel (F1–F4 groups, etc.)
-   - **F9** — HOLD at ground under camera (point-order prototype)
-   - **F8** — CHARGE everyone
-   - **F7** — FOLLOW
+1. Start **Mount & Blade**.
+2. Pick module **RomeBladeRTS**.
+3. Start a **Quick Battle**.
+4. On-screen **CONTROLS** legend appears at battle start (`tutorial_message`).
 
-## Answers Z1 must produce (prototype intent)
+## Controls
 
-1. **Player body while camera is up:** stashed high above the field (`position_set_z`) + continuous HP lock to 100%. There is **no** true invulnerability or AI hand-off op in stock 1.011 — this is the best available handling.
-2. **Orders from above:** stock Backspace panel works; F9 adds hold-at-camera-ground via `team_set_order_position`.
-3. **Soldier count / FPS:** measure on this PC in Quick Battle; raise troop counts until it stutters.
+| Key | Action |
+|-----|--------|
+| **F10** | Toggle bird's-eye camera |
+| **WASD** / arrows | Move camera on the **horizontal plane**, relative to where the camera looks (W/S forward-back, A/D strafe) |
+| **Q** | Camera **down** |
+| **E** | Camera **up** |
+| **Shift** | Faster camera move |
+| **Backspace** | Stock order panel (auto-kept open while bird-eye is on; if you close it, it reopens) |
+| **F9** | HOLD everyone at ground under camera |
+| **F8** | CHARGE |
+| **F7** | FOLLOW |
 
-## Rebuild after script edits
+While bird-eye is on, the player body is frozen at a stashed high position + HP locked so WASD does not walk the soldier. There is no true input-disable op in stock 1.011.
+
+## Rebuild
 
 ```bat
 cd /d c:\Users\Mikok\Documents\RomeAndBlade\tools\romeblade_rts_ms
 build_module.bat
 ```
-
-Exports into `Modules\RomeBladeRTS\` (see `module_info.py`).
