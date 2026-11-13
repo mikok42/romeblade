@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""RomeBlade bridge — intercept RTW Begin Battle, fight in M&B, apply result.
+"""RomeBlade bridge - intercept RTW Begin Battle, fight in M&B, apply result.
 
 Trigger (chosen design):
   1) Detect the pre-battle scroll via on-screen match of prebattle_*.tga art.
@@ -9,7 +9,7 @@ Trigger (chosen design):
   4) Launch Mount & Blade module RomeBladeRTS.
   5) After a result line in rgl_log.txt (or --simulate-result), write
      romeblade_result.sav, install it as quicksave.sav (backing up any
-     existing quicksave first), and send Ctrl+L — no Load Game menu.
+     existing quicksave first), and send Ctrl+L - no Load Game menu.
 
 The starter .bat launches this bridge then Rome in the player's normal
 fullscreen mode. This module does not start RTW itself unless asked.
@@ -108,15 +108,39 @@ def prepare_armies(state):
         a, b = by[top["index_a"]], by[top["index_b"]]
         method = "hostile_men_rank"
         print(
-            "BRIDGE: WARNING using men-ranked hostile pair — not map-adjacent proof"
+            "BRIDGE: WARNING using men-ranked hostile pair - not map-adjacent proof"
         )
     state.army_a, state.army_b = a, b
     state.battle_spec = battle_select.battle_spec(path, a, b)
     try:
         meta_mb = prepare_mb.prepare_from_spec(state.battle_spec)
-        print("BRIDGE: prepare_mb", meta_mb.get("menus_patched"))
+        patched = meta_mb.get("menus_patched") or {}
+        print("BRIDGE: prepare_mb", patched)
+        ra = meta_mb.get("roles_a") or {}
+        rb = meta_mb.get("roles_b") or {}
+        print(
+            "BRIDGE: wave roles A inf/mis/cav=%s/%s/%s  B=%s/%s/%s"
+            % (
+                ra.get("infantry"),
+                ra.get("missile"),
+                ra.get("cavalry"),
+                rb.get("infantry"),
+                rb.get("missile"),
+                rb.get("cavalry"),
+            )
+        )
+        blog.event(
+            "prepare_mb",
+            ok=bool(patched.get("ok")),
+            men_a=meta_mb.get("army_a_men"),
+            men_b=meta_mb.get("army_b_men"),
+            roles_a=ra,
+            roles_b=rb,
+            reason=patched.get("reason"),
+        )
     except Exception as e:
         print("BRIDGE: prepare_mb failed:", e)
+        blog.event("prepare_mb", ok=False, reason=str(e))
     print(
         "BRIDGE: save=%s method=%s men %s vs %s factions %s vs %s"
         % (
@@ -133,7 +157,7 @@ def prepare_armies(state):
 
 def launch_mb_for_armies(state):
     launchers.set_mb_module(config.MB_MODULE)
-    print("BRIDGE: starting M&B (%s) — no UI clicks; user: Graj then Nowa gra" % config.MB_MODULE)
+    print("BRIDGE: starting M&B (%s) - no UI clicks; user: Graj then Nowa gra" % config.MB_MODULE)
     if state.army_a and state.army_b:
         print(
             "BRIDGE: intended A=%d men B=%d men"
@@ -165,7 +189,7 @@ def on_mb_done(state, result):
     print("BRIDGE: M&B result", result)
     spec = getattr(state, "battle_spec", None)
     if not spec:
-        print("BRIDGE: no battle_spec — skip result save")
+        print("BRIDGE: no battle_spec - skip result save")
         return
     a_left = result.get("a_left")
     b_left = result.get("b_left")
@@ -295,7 +319,7 @@ def run_loop(simulate_result=None, once_demo=False, watch_rtw=True):
         register_err=hotkey.register_err,
         note="F5 backup; prefer GDI arm under Rome -ne",
     )
-    print("BRIDGE: idle — open pre-battle scroll (GDI arms) or press F5. Next click swallowed.")
+    print("BRIDGE: idle - open pre-battle scroll (GDI arms) or press F5. Next click swallowed.")
     print("BRIDGE: Recommended: start_romeblade.bat (Rome -ne, no Arm panel).")
 
     seen_rtw = False
@@ -438,7 +462,7 @@ def run_loop(simulate_result=None, once_demo=False, watch_rtw=True):
                     with state.lock:
                         if match.get("detected"):
                             if not state.armed and not state.busy:
-                                # Swallow-any even on GDI hit — Begin Battle must not miss.
+                                # Swallow-any even on GDI hit - Begin Battle must not miss.
                                 arm_now("gdi", match, swallow_any=True)
                             elif state.armed and hook_up and state.arm_source == "gdi":
                                 state.panel = match
