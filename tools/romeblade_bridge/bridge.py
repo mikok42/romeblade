@@ -30,6 +30,7 @@ if __name__ == "__main__" and __package__ is None:
 
 from . import apply_result
 from . import armies
+from . import arm_panel
 from . import blog
 from . import config
 from . import detect_prebattle
@@ -217,9 +218,12 @@ def _set_low_priority():
         print("BRIDGE: priority warn:", e)
 
 
-def _install_hook(hook, box):
-    hook.set_hitbox(*box)
+def _install_hook(hook, box=None, swallow_any=False):
     hook.start()
+    if swallow_any:
+        hook.set_swallow_any()
+    else:
+        hook.set_hitbox(*box)
     hook.arm()
 
 
@@ -228,6 +232,14 @@ def _remove_hook(hook):
         return
     hook.disarm()
     hook.stop()
+
+
+def _battle_rpy_mtime():
+    path = config.RTW_BATTLE_RPY
+    try:
+        return os.path.getmtime(path) if os.path.isfile(path) else None
+    except OSError:
+        return None
 
 
 def _start_battle_worker(state, x, y, box):
@@ -266,6 +278,7 @@ def run_loop(simulate_result=None, once_demo=False, watch_rtw=True):
     global _active_hook
     _set_low_priority()
     print(DIFFERENCES)
+    blog.rotate_for_new_run()
     blog.event("bridge_start", event_log=blog.log_path())
     print("BRIDGE: building prebattle fingerprints...")
     fps = detect_prebattle.build_fingerprints()
@@ -284,28 +297,52 @@ def run_loop(simulate_result=None, once_demo=False, watch_rtw=True):
     _active_hook = hook
     atexit.register(_cleanup_hook)
     hotkey.start()
-    blog.event("hotkey_listen", vk="F5", note="press F5 on the pre-battle scroll to arm")
-    print("BRIDGE: idle — no mouse hook until scroll detect OR you press F5.")
-    print("BRIDGE: on the scroll: F5 (arm) then click Begin Battle.")
+    time.sleep(0.2)
+    blog.event(
+        "hotkey_listen",
+        vk="F5",
+        register_ok=hotkey.register_ok,
+        register_err=hotkey.register_err,
+        note="F5 often fails in exclusive FS — use Arm panel or -ne",
+    )
+    # Clear stale arm flag from a previous panel click.
+    try:
+        fp = arm_panel.flag_path()
+        if os.path.isfile(fp):
+            os.remove(fp)
+    except OSError:
+        pass
+    print("BRIDGE: idle — use the Arm panel (or F5 / GDI). Next click is swallowed.")
+    print("BRIDGE: Recommended: start_romeblade.bat (-ne windowed + Arm window).")
 
     seen_rtw = False
     gone_since = None
     hook_up = False
+    rpy_baseline = _battle_rpy_mtime()
+    last_detect = 0.0
+    last_arm_flag_mtime = None
     import ctypes
 
     user32 = ctypes.windll.user32
 
-    def arm_now(source, panel):
+    def arm_now(source, panel, swallow_any=True):
         nonlocal hook_up
         sw = user32.GetSystemMetrics(0)
         sh = user32.GetSystemMetrics(1)
         box = detect_prebattle.begin_battle_hitbox(sw, sh, panel)
+        if not swallow_any:
+            box = (0, int(sh * 0.40), sw, sh)
         state.panel = panel
         state.armed = True
         state.arm_source = source
-        _install_hook(hook, box)
+        _install_hook(hook, box=box, swallow_any=swallow_any)
         hook_up = True
-        blog.event("hook_armed", source=source, box=box)
+        blog.event(
+            "hook_armed",
+            source=source,
+            swallow_any=int(swallow_any),
+            box=box if not swallow_any else "ANY",
+        )
 
     def disarm_now(reason):
         nonlocal hook_up
@@ -317,17 +354,61 @@ def run_loop(simulate_result=None, once_demo=False, watch_rtw=True):
             hook_up = False
             blog.event("hook_removed", reason=reason)
 
+    def try_manual_arm(source):
+        with state.lock:
+            busy = state.busy
+            armed = state.armed
+        if busy:
+            return
+        blog.event("arm_request", source=source)
+        if armed and hook_up:
+            hook.set_swallow_any()
+            hook.arm()
+            state.arm_source = source
+            blog.event("hook_rearmed", source=source, swallow_any=1)
+        else:
+            arm_now(
+                source,
+                {"detected": True, "x": 0, "y": 0, "tw": 0, "th": 0},
+                swallow_any=True,
+            )
+
     try:
         while True:
+            # Three arm paths: RegisterHotKey, GetAsyncKeyState(F5), Arm panel flag.
+            hotkey.poll_f5_async()
             if hotkey.take_press():
-                with state.lock:
-                    busy = state.busy
-                    armed = state.armed
-                if not busy and not armed:
-                    blog.event("hotkey_f5")
-                    arm_now("hotkey", {"detected": True, "x": 0, "y": 0, "tw": 0, "th": 0})
+                try_manual_arm("hotkey_f5")
 
-            swallowed = hook.take_swallow() if hook_up else None
+            try:
+                fp = arm_panel.flag_path()
+                if os.path.isfile(fp):
+                    mt = os.path.getmtime(fp)
+                    if last_arm_flag_mtime is None or mt > last_arm_flag_mtime:
+                        last_arm_flag_mtime = mt
+                        try_manual_arm("arm_panel")
+                        try:
+                            os.remove(fp)
+                        except OSError:
+                            pass
+            except OSError:
+                pass
+
+            # Swallow first; only then log a non-swallowed click (narrow box miss).
+            if hook_up:
+                swallowed = hook.take_swallow()
+                if swallowed is None:
+                    seen = hook.take_seen_click()
+                    if seen is not None:
+                        blog.event(
+                            "click_seen_not_swallowed",
+                            x=seen[0],
+                            y=seen[1],
+                            hint="press F5 for swallow-any, or use windowed -ne",
+                        )
+            else:
+                swallowed = None
+
             if swallowed is not None:
                 x, y = swallowed
                 with state.lock:
@@ -346,15 +427,35 @@ def run_loop(simulate_result=None, once_demo=False, watch_rtw=True):
                     box = detect_prebattle.begin_battle_hitbox(sw, sh, panel)
                     _start_battle_worker(state, x, y, box)
 
+            # Late signal: RTW started its own battle (Begin Battle not swallowed).
+            rpy_now = _battle_rpy_mtime()
+            if (
+                rpy_now is not None
+                and (rpy_baseline is None or rpy_now > rpy_baseline + 0.5)
+                and not state.busy
+            ):
+                blog.event(
+                    "MISS_rtw_battle_started",
+                    battle_rpy_mtime=rpy_now,
+                    armed=int(bool(state.armed)),
+                    hook_up=int(hook_up),
+                    hint="RTW got Begin Battle; F5+click or windowed bat next time",
+                )
+                rpy_baseline = rpy_now
+                disarm_now("rtw_started_own_battle")
+
             rtw_alive = launchers.process_running("RomeTW.exe")
             if rtw_alive:
                 if not seen_rtw:
                     blog.event("rtw_seen")
+                    rpy_baseline = _battle_rpy_mtime()
                 seen_rtw = True
                 gone_since = None
                 with state.lock:
                     busy = state.busy
-                if not busy:
+                now = time.time()
+                if not busy and (now - last_detect) >= config.DETECT_POLL_SEC:
+                    last_detect = now
                     t0 = time.perf_counter()
                     match = detect_prebattle.poll_prebattle(fps)
                     dt = time.perf_counter() - t0
@@ -369,18 +470,11 @@ def run_loop(simulate_result=None, once_demo=False, watch_rtw=True):
                     with state.lock:
                         if match.get("detected"):
                             if not state.armed and not state.busy:
-                                arm_now("gdi", match)
+                                # Swallow-any even on GDI hit — Begin Battle must not miss.
+                                arm_now("gdi", match, swallow_any=True)
                             elif state.armed and hook_up and state.arm_source == "gdi":
-                                sw = user32.GetSystemMetrics(0)
-                                sh = user32.GetSystemMetrics(1)
-                                hook.set_hitbox(
-                                    *detect_prebattle.begin_battle_hitbox(
-                                        sw, sh, match
-                                    )
-                                )
                                 state.panel = match
                         else:
-                            # Do not disarm a manual F5 arm just because GDI failed.
                             if (
                                 state.armed
                                 and not state.busy
@@ -397,7 +491,8 @@ def run_loop(simulate_result=None, once_demo=False, watch_rtw=True):
                     break
             if once_demo:
                 break
-            time.sleep(config.DETECT_POLL_SEC)
+            # Fast poll for Arm panel / F5; detect stays on DETECT_POLL_SEC.
+            time.sleep(0.05)
     except KeyboardInterrupt:
         blog.event("bridge_exit", reason="keyboard")
     finally:

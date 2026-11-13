@@ -1,30 +1,27 @@
 @echo off
-REM RomeBlade everyday starter: bridge in background, Rome as you normally play
-REM (fullscreen — no -ne). You load the campaign and open the battle scroll;
-REM the bridge only waits for the pre-battle panel and Begin Battle.
-REM
-REM Closing Rome exits the bridge and clears the mouse hook.
-REM Do not run this while another agent is driving the mouse.
+REM RomeBlade: bridge + Arm panel + Rome WINDOWED (-ne on CLI only, prefs untouched).
+REM Exclusive fullscreen blocks F5 — that is why we use -ne and a visible Arm button.
 
 setlocal
 cd /d "%~dp0"
-
 if not exist "out" mkdir "out"
 
-echo Starting RomeBlade bridge (logs: out\bridge_run.log + out\bridge_events.log) ...
+echo [1/3] Bridge (log: out\bridge_events.log) ...
 start "RomeBlade bridge" /MIN cmd /c "python -m tools.romeblade_bridge >> out\bridge_run.log 2>&1"
+timeout /t 1 /nobreak >nul
 
-REM Brief pause so the bridge process is up before Rome starts.
-timeout /t 2 /nobreak >nul
+echo [2/3] Arm panel (always on top) ...
+start "RomeBlade Arm" pythonw -m tools.romeblade_bridge.arm_panel
+timeout /t 1 /nobreak >nul
 
-echo Starting Rome: Total War (normal / fullscreen) ...
-start "" /D "C:\Program Files (x86)\Steam\steamapps\common\Rome Total War Gold" "C:\Program Files (x86)\Steam\steamapps\common\Rome Total War Gold\RomeTW.exe"
+echo [3/3] Rome WINDOWED (-ne) ...
+start "" /D "C:\Program Files (x86)\Steam\steamapps\common\Rome Total War Gold" ^
+  "C:\Program Files (x86)\Steam\steamapps\common\Rome Total War Gold\RomeTW.exe" -ne -show_err
 
 echo.
-echo 1. Load your campaign and open a land battle scroll.
-echo 2. Press F5 once (arms the mouse hook — needed if fullscreen GDI fails).
-echo 3. Click Begin Battle.
-echo Do NOT close the minimized "RomeBlade bridge" window before the fight.
-echo Events: out\bridge_events.log   When you quit Rome, the bridge exits.
+echo JEDNA INSTRUKCJA:
+echo   Zwój przed bitwa -^> kliknij UZBROJ w oknie RomeBlade -^> Begin Battle w Rome.
+echo   Rome NIE moze otworzyc wlasnej bitwy; ma startowac M&B.
+echo   Nie zamykaj okien "RomeBlade bridge" ani "RomeBlade Arm".
 echo.
 endlocal

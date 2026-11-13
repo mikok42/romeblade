@@ -21,6 +21,14 @@ def log_path():
     return _path
 
 
+def rotate_for_new_run():
+    """Keep prior events, start a clear separator for this bridge process."""
+    path = log_path()
+    with _lock:
+        with open(path, "a", encoding="utf-8") as f:
+            f.write("\n----- new_bridge_run -----\n")
+
+
 def event(kind, **fields):
     """Write `YYYY-mm-dd HH:MM:SS.mmm KIND key=val ...` and mirror to stdout."""
     ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S.") + "%03d" % (

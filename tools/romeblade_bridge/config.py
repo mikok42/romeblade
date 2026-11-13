@@ -8,6 +8,8 @@ REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 RTW_ROOT = r"C:\Program Files (x86)\Steam\steamapps\common\Rome Total War Gold"
 RTW_EXE = os.path.join(RTW_ROOT, "RomeTW.exe")
 RTW_SAVES = os.path.join(RTW_ROOT, "saves")
+# Appears only AFTER Begin Battle reaches RTW — late miss signal, not a pre-arm cue.
+RTW_BATTLE_RPY = os.path.join(RTW_ROOT, "temp", "battle.rpy")
 
 MB_ROOT = r"C:\Program Files (x86)\Steam\steamapps\common\Mount and Blade"
 MB_EXE = os.path.join(MB_ROOT, "mount&blade.exe")

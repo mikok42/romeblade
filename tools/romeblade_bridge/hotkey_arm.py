@@ -1,12 +1,8 @@
-"""Global F5 (configurable) to arm the Begin Battle hook without GDI detect.
+"""F5 arm paths: RegisterHotKey + GetAsyncKeyState poll (exclusive-FS backup).
 
-Justification: exclusive fullscreen often makes GDI BitBlt useless (black or
-desktop-behind-game). There is no reliable on-disk prebattle marker before
-Begin Battle (``temp\\battle.rpy`` appears only after the fight starts).
-A one-key arm while the scroll is visible is the screenshot-independent path.
-
-UNVERIFIED in-game: RegisterHotKey while RTW has exclusive focus may still
-receive F5; if not, user must Alt-Tab once or use windowed ``-ne``.
+Log proof (2026-11-13 13:58): bridge alive, many detect lines, ZERO hotkey_f5
+while user pressed F5 in exclusive Rome — RegisterHotKey alone is not enough.
+Main loop should also call ``poll_f5_async`` and the Arm panel flag.
 """
 from __future__ import print_function
 
@@ -21,6 +17,7 @@ user32 = ctypes.windll.user32
 WM_HOTKEY = 0x0312
 WM_QUIT = 0x0012
 MOD_NOREPEAT = 0x4000
+VK_F5 = 0x74
 
 
 class HotkeyArm(object):
@@ -30,10 +27,24 @@ class HotkeyArm(object):
         self._pressed = threading.Event()
         self._thread = None
         self._tid = None
+        self.register_ok = None
+        self.register_err = None
+        self._async_was_down = False
 
     def take_press(self):
         if self._pressed.is_set():
             self._pressed.clear()
+            return True
+        return False
+
+    def poll_f5_async(self):
+        """Edge-detect F5 via GetAsyncKeyState (works more often than HotKey under games)."""
+        state = user32.GetAsyncKeyState(self.vk)
+        down = bool(state & 0x8000)
+        edged = down and not self._async_was_down
+        self._async_was_down = down
+        if edged:
+            self._pressed.set()
             return True
         return False
 
@@ -44,11 +55,9 @@ class HotkeyArm(object):
         def runner():
             self._tid = ctypes.windll.kernel32.GetCurrentThreadId()
             ok = user32.RegisterHotKey(None, self.hotkey_id, MOD_NOREPEAT, self.vk)
+            self.register_ok = bool(ok)
             if not ok:
-                # Still run message loop; bridge logs failure.
-                self._register_ok = False
-            else:
-                self._register_ok = True
+                self.register_err = ctypes.get_last_error()
             msg = wt.MSG()
             while user32.GetMessageW(ctypes.byref(msg), 0, 0, 0) != 0:
                 if msg.message == WM_HOTKEY and msg.wParam == self.hotkey_id:
@@ -57,7 +66,6 @@ class HotkeyArm(object):
                 user32.DispatchMessageW(ctypes.byref(msg))
             user32.UnregisterHotKey(None, self.hotkey_id)
 
-        self._register_ok = None
         self._thread = threading.Thread(target=runner, name="rb-hotkey")
         self._thread.daemon = True
         self._thread.start()

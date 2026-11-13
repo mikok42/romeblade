@@ -1,13 +1,10 @@
-"""Low-level mouse hook — install only while the pre-battle scroll is armed.
+"""Low-level mouse hook — install only while armed for Begin Battle.
 
-Callback rules (cursor stutter fix):
-  * Do not install during normal campaign play.
-  * Non left-down: CallNextHookEx immediately.
-  * Left-down: ctypes hitbox compare only — no locks, prints, screenshots.
-  * Swallow sets a ctypes flag; the bridge main loop observes it.
+Modes:
+  * box — swallow left-down inside a ctypes hitbox
+  * any — swallow the next left-down anywhere (F5 path; most reliable)
 
-CallNextHookEx must use proper LPARAM/HHOOK argtypes on Win64 — otherwise
-Python raises OverflowError on every mouse message (seen in bridge_run.log).
+Callback stays ctypes-only on the hot path. CallNextHookEx uses Win64 argtypes.
 """
 from __future__ import print_function
 
@@ -51,14 +48,21 @@ class MSLLHOOKSTRUCT(ctypes.Structure):
 
 LowLevelMouseProc = ctypes.WINFUNCTYPE(LRESULT, ctypes.c_int, wt.WPARAM, wt.LPARAM)
 
+MODE_BOX = 0
+MODE_ANY = 1
+
 
 class MouseHook(object):
     def __init__(self):
         self._armed = ctypes.c_int(0)
+        self._mode = ctypes.c_int(MODE_BOX)
         self._box = (ctypes.c_long * 4)(0, 0, 0, 0)
         self._swallowed = ctypes.c_int(0)
         self._sx = ctypes.c_long(0)
         self._sy = ctypes.c_long(0)
+        self._seen = ctypes.c_int(0)  # left-downs while armed (swallowed or not)
+        self._lastx = ctypes.c_long(0)
+        self._lasty = ctypes.c_long(0)
         self._hook = None
         self._proc = LowLevelMouseProc(self._callback)
         self._thread = None
@@ -74,9 +78,15 @@ class MouseHook(object):
         self._box[1] = int(y0)
         self._box[2] = int(x1)
         self._box[3] = int(y1)
+        self._mode.value = MODE_BOX
+
+    def set_swallow_any(self):
+        """Next left-click anywhere is swallowed (F5 / reliability mode)."""
+        self._mode.value = MODE_ANY
 
     def arm(self):
         self._swallowed.value = 0
+        self._seen.value = 0
         self._armed.value = 1
 
     def disarm(self):
@@ -88,6 +98,13 @@ class MouseHook(object):
         self._swallowed.value = 0
         return (int(self._sx.value), int(self._sy.value))
 
+    def take_seen_click(self):
+        """Any left-down while armed (for miss diagnostics)."""
+        if not self._seen.value:
+            return None
+        self._seen.value = 0
+        return (int(self._lastx.value), int(self._lasty.value))
+
     def _callback(self, nCode, wParam, lParam):
         if nCode != HC_ACTION or wParam != WM_LBUTTONDOWN:
             return user32.CallNextHookEx(self._hook, nCode, wParam, lParam)
@@ -96,10 +113,14 @@ class MouseHook(object):
         info = ctypes.cast(lParam, ctypes.POINTER(MSLLHOOKSTRUCT)).contents
         x = info.pt.x
         y = info.pt.y
-        if (
+        self._lastx.value = x
+        self._lasty.value = y
+        self._seen.value = 1
+        hit = self._mode.value == MODE_ANY or (
             self._box[0] <= x <= self._box[2]
             and self._box[1] <= y <= self._box[3]
-        ):
+        )
+        if hit:
             self._armed.value = 0
             self._sx.value = x
             self._sy.value = y
