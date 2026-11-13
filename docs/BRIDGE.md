@@ -46,7 +46,8 @@ python tools\rtw_save_units.py diff "<saves>\RomaAroma.sav" "<saves>\most_proba.
 
 | Piece | Status |
 |-------|--------|
-| Army pick by composition fingerprint | `battle_select` — works on RomaAroma |
+| Army list (generals + captain_card faction) | `battle_select.list_battle_armies` — generals no longer dropped |
+| Battle pair from save alone | **Blocked** without map adjacency (not decoded). Needs `out/bridge_pending_battle.json` with `index_a/b` or composition `fingerprint_a/b` |
 | Bake sizes into RomeBladeRTS wave menu | `prepare_mb` patches `menus.txt` + writes `bridge_battle.json` |
 | M&B result line | `script_romeblade_wave_emit_result` → `ROME BLADE RESULT\|…` in rgl_log (module rebuilt) |
 | Result save | `write_result` → new `romeblade_result.sav` (current patches only — display recipe still open) |
