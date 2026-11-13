@@ -29,8 +29,9 @@ HOTKEY_ID = 1
 SAVE_POLL_SEC = 0.5
 LOG_POLL_SEC = 0.5
 
-# Result line written by RomeBladeRTS into rgl_log.txt (to be wired in module).
+# Result line written by RomeBladeRTS into rgl_log.txt (spaces may be underscores).
 RESULT_TAG = "ROME BLADE RESULT|"
+RESULT_TAG_ALT = "ROME_BLADE_RESULT|"
 
 # Protected saves — bridge must never overwrite / delete these.
 PROTECTED_SAVES = frozenset(

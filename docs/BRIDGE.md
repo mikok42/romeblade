@@ -30,19 +30,32 @@ Alternatives considered: process memory RE (no ready 1.5 tool), watching `battle
 
 ## E1 save proof
 
-Tool: `tools\rtw_save_units.py`  
-Copy already in the saves folder: **`most_proba`** (from `RomaAroma`, all 84 `roman hastati` current counts set to **30**). Same length; only the current-count low bytes change. No file-size field found in the save.
+Tool: `tools\rtw_save_units.py`
+
+- **current (+30) alone does not drive the card** (most_proba/proba2 = 30 in file, UI 80).
+- **full (+34) does** (`proba_full30` current=full=30 → UI 30).
+- Player faction in `RomaAroma`: **romans_julii**. No natural Julii depleted units (all depleted hastati are Brutii / FOW).
+- Next check: load **`proba_julii30`** — Julii ~1432-men field army, one Roman Hastati, expect **30** with full still 80 (slots 30–79 zeroed). Also waiting on **`proba3`** (end-turn from proba_full30).
 
 ```bat
 python tools\rtw_save_units.py list "<saves>\RomaAroma.sav" --type "roman hastati"
 python tools\rtw_save_units.py diff "<saves>\RomaAroma.sav" "<saves>\most_proba.sav"
 ```
 
+## Offline loop pieces (no RTW / no mouse hook)
+
+| Piece | Status |
+|-------|--------|
+| Army pick by composition fingerprint | `battle_select` — works on RomaAroma |
+| Bake sizes into RomeBladeRTS wave menu | `prepare_mb` patches `menus.txt` + writes `bridge_battle.json` |
+| M&B result line | `script_romeblade_wave_emit_result` → `ROME BLADE RESULT\|…` in rgl_log (module rebuilt) |
+| Result save | `write_result` → new `romeblade_result.sav` (current patches only — display recipe still open) |
+
 ## Manual leftover (until automation is solid)
 
 1. Bridge must be running before the scroll.
 2. Army pairing may be wrong until M1 ownership/position is done — check the console dump.
-3. M&B still opens the normal module entry (wave sizes from the save not fully wired into the mission yet).
+3. Wave sizes are patched into `menus.txt` by `prepare_mb`; troop-type plan is in `bridge_mb_meta.json` (spawn wiring still thin).
 4. If Auto Resolve click misses, click it once yourself after `auto_win`.
 5. Loading `romeblade_result` is not fully hands-free yet.
 

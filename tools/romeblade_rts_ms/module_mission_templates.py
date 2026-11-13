@@ -4391,6 +4391,7 @@ mission_templates = [
           (assign, "$g_battle_result", 1),
           (assign, "$battle_won", 1),
           (display_message, "str_romeblade_wave_win"),
+          (call_script, "script_romeblade_wave_emit_result", 0),
           (call_script, "script_custom_battle_end"),
           (finish_mission, 1),
         ]),
@@ -4406,6 +4407,7 @@ mission_templates = [
         [
           (assign, "$g_battle_result", -1),
           (display_message, "str_romeblade_wave_lose"),
+          (call_script, "script_romeblade_wave_emit_result", 1),
           (call_script, "script_custom_battle_end"),
           (finish_mission, 0),
         ]),
@@ -4420,6 +4422,7 @@ mission_templates = [
         [
           (assign, "$g_battle_result", -1),
           (display_message, "str_romeblade_wave_lose"),
+          (call_script, "script_romeblade_wave_emit_result", 1),
           (call_script, "script_custom_battle_end"),
           (finish_mission, 0),
         ]),

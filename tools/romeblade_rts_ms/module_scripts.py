@@ -20821,6 +20821,25 @@ scripts = [
       (try_end),
     ]),
 
+  # Emit a parseable line into rgl_log.txt for the bridge.
+  # Input: winner side 0=attacker/player, 1=defender/enemy
+  ("romeblade_wave_emit_result",
+    [
+      (store_script_param_1, ":winner_side"),
+      (call_script, "script_romeblade_wave_count_side", 0),
+      (store_add, reg1, reg0, "$g_rb_reserve_a"),
+      (call_script, "script_romeblade_wave_count_side", 1),
+      (store_add, reg2, reg0, "$g_rb_reserve_b"),
+      (try_begin),
+        (eq, ":winner_side", 0),
+        (str_store_string, s10, "str_romeblade_result_atk"),
+      (else_try),
+        (str_store_string, s10, "str_romeblade_result_def"),
+      (try_end),
+      (display_log_message, s10),
+      (display_message, s10),
+    ]),
+
 
   # script_remove_troop_from_prison
   # Input: troop_no
