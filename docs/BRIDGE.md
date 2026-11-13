@@ -1,14 +1,16 @@
 # RomeBlade bridge (RTW ↔ M&B)
 
-## CLI (M&B 1.011 na tym dysku)
+## M&B 1.011 — uczciwy tor (bez klikania przez bridge)
 
-**Nie** — `mount&blade.exe` nie ma przełącznika, który pomija launcher albo od razu ładuje misję / Custom Battle / Wave Battle. Moduł bierze z `HKCU\Software\MountAndBladeKeys\last_module`; potem zawsze SkinMagic (**Graj w Mount&Blade**), potem New Game (INIT Wave).
+Na tym dysku **nie da się** wyłączyć SkinMagic / pominąć launchera CLI / wejść w misję bez menu głównego (brak przełącznika w exe, tylko `last_module` + SkinMagic). Bridge **nie klika** okien.
+
+Po `mb_start`: Ty robisz **Graj w Mount&Blade**, potem **Nowa gra** (albo Bitwa własna) — INIT w RomeBladeRTS sam ładuje **Wave Battle**.
 
 ## One instruction (next try)
 
-1. Zamknij **okna** Rome / bridge / Arm / Mount&Blade z poprzedniej próby (nie zabijaj innych procesów).
+1. Zamknij okna Rome / bridge / Arm / Mount&Blade z poprzedniej próby.
 2. `start_romeblade.bat` → scroll → **UZBRÓJ** → **Begin Battle**.
-3. W logu kolejno: `mb_exe_started` (albo `mb_reuse_windows`) → **`mb_launcher_play`** (pid mount&blade) → `mb_wave_enter_clicked`. Jeśli znów tylko launcher bez `mb_launcher_play` — daj znać.
+3. Gdy wyskoczy M&B: **Graj** → **Nowa gra** → od razu Wave Battle (bez pickera scenariusza).
 
 ## Why F5 failed (log proof 2026-11-13 13:58)
 

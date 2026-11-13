@@ -36,7 +36,9 @@ from module_constants import *
 ####################################################################################################################
 
 # Bridge / RomeBladeRTS: ops that load the wave custom battle and jump into the mission.
-# Reused as menu INIT so New Game / Custom Battle skip Native-style menus and enter combat.
+# Wired as menu INIT on New Game + Custom Battle. 1.011 still requires the user to
+# press SkinMagic "Graj" then "Nowa gra" (or Custom Battle) — engine main menu is
+# not scriptable; there is no CLI / SkinMagic bypass on disk.
 romeblade_wave_battle_ops = [
            (assign, "$g_rb_army_a", rb_wave_army_a),
            (assign, "$g_rb_army_b", rb_wave_army_b),

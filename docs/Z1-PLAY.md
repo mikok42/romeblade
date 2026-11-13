@@ -7,9 +7,9 @@ Native is **not** modified.
 
 ## Launch
 
-1. Start Mount & Blade → module **RomeBladeRTS** (bridge sets `last_module` itself).
-2. **New Game** or **Custom Battle** both jump straight into **RomeBlade Wave Battle** (menu INIT — no scenario picker).
-3. Bridge also auto-clicks **New Game** after launch so you should land in the mission without Native menus.
+1. Start Mount & Blade with module **RomeBladeRTS** (bridge sets `last_module`).
+2. SkinMagic: click **Graj w Mount&Blade** (manual — no reliable skip on 1.011).
+3. Main menu: click **Nowa gra** or **Bitwa własna / Custom Battle** once — menu INIT jumps straight into **RomeBlade Wave Battle** (no scenario picker, no gender screen).
 
 ## Bird-eye controls (F10)
 

@@ -143,7 +143,7 @@ def prepare_armies(state):
 
 def launch_mb_for_armies(state):
     launchers.set_mb_module(config.MB_MODULE)
-    print("BRIDGE: starting M&B (%s)" % config.MB_MODULE)
+    print("BRIDGE: starting M&B (%s) — no UI clicks; user: Graj then Nowa gra" % config.MB_MODULE)
     if state.army_a and state.army_b:
         print(
             "BRIDGE: intended A=%d men B=%d men"
