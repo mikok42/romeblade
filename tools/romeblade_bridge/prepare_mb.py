@@ -50,52 +50,66 @@ def prepare_from_spec(spec, out_json=None):
 
 
 def patch_menus_army_sizes(men_a, men_b):
-    """Patch the compiled menus.txt wave entry immediates for army A/B.
+    """Patch compiled menus.txt wave army A/B assign immediates.
 
-    The wave menu assigns rb_wave_army_a/b then copies into globals. After build,
-    those show up as literal integers near the wave entry. We replace the first
-    pair of 300/150 style defaults carefully.
+    Wave option + start_game INIT blocks begin with:
+      2133 2 <var_a> <men_a>  2133 2 <var_b> <men_b> ...
+    Discover current values from mno_romeblade_wave_battle_entry (works after
+    prior patches, not only the 300/150 defaults), then replace every matching
+    assign pair and refresh the option title.
     """
     path = os.path.join(config.MB_MODULE_DIR, "menus.txt")
     if not os.path.isfile(path):
         return {"ok": False, "reason": "menus.txt missing"}
     text = open(path, "r", encoding="utf-8", errors="ignore").read()
-    # Anchor on the wave menu token exported as mno_romeblade_wave_battle_entry
-    anchor = "mno_romeblade_wave_battle_entry"
-    i = text.find(anchor)
-    if i < 0:
-        return {"ok": False, "reason": "wave menu entry not found"}
-    # Within the next ~500 chars, replace first standalone 300 then 150
-    # (defaults from module_constants). Use word-ish boundaries in the digit stream.
-    window = text[i : i + 800]
+    men_a = int(men_a)
+    men_b = int(men_b)
 
-    def repl_first(chunk, old, new):
-        # opcodes are space-separated ints; replace first exact token
-        parts = chunk.split(" ")
-        for idx, p in enumerate(parts):
-            if p == str(old):
-                parts[idx] = str(new)
-                return " ".join(parts), True
-        return chunk, False
+    head = re.search(
+        r"mno_romeblade_wave_battle_entry\s+0\s+(\S+)\s+(\d+)\s+"
+        r"2133\s+2\s+(\d+)\s+(\d+)\s+2133\s+2\s+(\d+)\s+(\d+)",
+        text,
+    )
+    if not head:
+        return {"ok": False, "reason": "wave assign immediates not found"}
+    old_title, _opcount, var_a, old_a_s, var_b, old_b_s = head.groups()
+    old_a = int(old_a_s)
+    old_b = int(old_b_s)
+    new_title = "RomeBlade_Wave_Battle_(%d_vs_%d)" % (men_a, men_b)
 
-    w2, ok_a = repl_first(window, 300, int(men_a))
-    w3, ok_b = repl_first(w2, 150, int(men_b))
-    if not (ok_a and ok_b):
-        # try whatever constants currently are by reading module_constants defaults pattern
+    pair = re.compile(
+        r"(2133\s+2\s+" + re.escape(var_a) + r"\s+)" + re.escape(str(old_a))
+        + r"(\s+2133\s+2\s+" + re.escape(var_b) + r"\s+)" + re.escape(str(old_b))
+    )
+    text2, n_pairs = pair.subn(
+        lambda mm: mm.group(1) + str(men_a) + mm.group(2) + str(men_b), text
+    )
+    if n_pairs < 1:
         return {
             "ok": False,
-            "reason": "could not find 300/150 tokens near wave entry",
-            "ok_a": ok_a,
-            "ok_b": ok_b,
+            "reason": "assign pair replace failed",
+            "old_a": old_a,
+            "old_b": old_b,
         }
-    text2 = text[:i] + w3 + text[i + 800 :]
-    # backup once
+
+    # Title token only on the menu option line (underscored, no spaces).
+    text2 = text2.replace(old_title, new_title, 1)
+
     bak = path + ".rb_bak"
     if not os.path.isfile(bak):
         shutil.copyfile(path, bak)
     with open(path, "w", encoding="utf-8", newline="\n") as f:
         f.write(text2)
-    return {"ok": True, "men_a": men_a, "men_b": men_b, "backup": bak}
+    return {
+        "ok": True,
+        "men_a": men_a,
+        "men_b": men_b,
+        "old_a": old_a,
+        "old_b": old_b,
+        "pairs_patched": n_pairs,
+        "title": new_title,
+        "backup": bak,
+    }
 
 
 def prepare_from_save_indices(save_path, index_a, index_b):

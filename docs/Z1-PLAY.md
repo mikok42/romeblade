@@ -7,10 +7,9 @@ Native is **not** modified.
 
 ## Launch
 
-1. Start Mount & Blade → module **RomeBladeRTS**.
-2. On the custom-battle / scenario list choose either:
-   - a stock Skirmish (old RTS camera test), or
-   - **RomeBlade Wave Battle (300 vs 150)** (new).
+1. Start Mount & Blade → module **RomeBladeRTS** (bridge sets `last_module` itself).
+2. **New Game** or **Custom Battle** both jump straight into **RomeBlade Wave Battle** (menu INIT — no scenario picker).
+3. Bridge also auto-clicks **New Game** after launch so you should land in the mission without Native menus.
 
 ## Bird-eye controls (F10)
 

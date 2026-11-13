@@ -94,6 +94,41 @@ def focus_window(hwnd):
     time.sleep(0.3)
 
 
+MOUSEEVENTF_LEFTDOWN = 0x0002
+MOUSEEVENTF_LEFTUP = 0x0004
+
+
+def click_screen(x, y, pause=0.2):
+    """Left-click at absolute screen coordinates via SetCursorPos + mouse_event."""
+    user32.SetCursorPos(int(x), int(y))
+    time.sleep(0.05)
+    user32.mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
+    time.sleep(0.05)
+    user32.mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
+    time.sleep(pause)
+
+
+def click_window_client_frac(hwnd, fx, fy, pause=0.35):
+    """Click inside hwnd's client area at fractional (fx, fy) in 0..1."""
+    rect = wt.RECT()
+    user32.GetClientRect(hwnd, ctypes.byref(rect))
+    pt = wt.POINT(int(rect.right * float(fx)), int(rect.bottom * float(fy)))
+    user32.ClientToScreen(hwnd, ctypes.byref(pt))
+    click_screen(pt.x, pt.y, pause=pause)
+    return pt.x, pt.y
+
+
+def wait_for_window(title_substr, timeout=90, poll=0.5):
+    """Return first visible hwnd whose title contains title_substr, or None."""
+    t0 = time.time()
+    while time.time() - t0 < timeout:
+        found = find_windows(title_substr)
+        if found:
+            return found[0][0]
+        time.sleep(poll)
+    return None
+
+
 def _bitmapinfo_topdown(width, height):
     class BITMAPINFOHEADER(ctypes.Structure):
         _fields_ = [

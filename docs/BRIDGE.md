@@ -2,13 +2,11 @@
 
 ## One instruction (next try)
 
-1. Close Rome and any old bridge windows.
-2. Run **`start_romeblade.bat`** (Rome **windowed** `-ne` + Arm panel + bridge).
-3. Load campaign → open land-battle scroll.
-4. Click **UZBRÓJ** in the on-top RomeBlade window.
-5. Click **Begin Battle** in Rome — RTW must **not** start its battle; M&B should.
+1. Close **only** Rome / bridge / Arm / M&B windows from the last try (do not kill unrelated processes).
+2. Run **`start_romeblade.bat`** → load campaign → open land-battle scroll → **UZBRÓJ** → **Begin Battle**.
+3. Expect: click swallowed → **RomeBladeRTS** starts → auto **New Game** click → **Wave Battle** mission (not Native / not idle main menu).
 
-Do not close “RomeBlade bridge” or “RomeBlade Arm”. Log: `out\bridge_events.log`.
+Log: `out\bridge_events.log` (`mb_start`, `mb_wave_enter_clicked`). If you land on the M&B title screen without a battle, click **New Game** once (INIT still forces Wave Battle).
 
 ## Why F5 failed (log proof 2026-11-13 13:58)
 
