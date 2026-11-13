@@ -4,6 +4,12 @@ Chosen signal (most reliable without memory RE):
   the pre-battle scroll embeds large faction eventpics such as
   data/ui/*/eventpics/prebattle_attack.tga (400x128). Those pixels are
   unique enough to find with a coarse RGB fingerprint on a desktop grab.
+
+Fullscreen note: ``win_input.screenshot_window_bmp`` uses GDI ``BitBlt`` of
+the desktop. Exclusive DirectX fullscreen often yields a black/empty image —
+scroll detection in everyday fullscreen is therefore UNVERIFIED until tried
+on desk. The mouse hook itself does not need the screenshot to swallow clicks
+once armed; arming still needs a successful detect pass.
 """
 from __future__ import print_function
 

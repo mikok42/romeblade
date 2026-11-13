@@ -279,13 +279,20 @@ def battle_spec(save_path, army_a, army_b):
     def side(a):
         units = []
         for u in a["units"]:
+            disp = int(u.get("display", u.get("full", u.get("current", 0))))
             units.append(
                 {
                     "name": u["name"],
                     "name_off": u["name_off"],
-                    "cur_off": u["cur_off"],
-                    "current": u["current"],
-                    "full": u["full"],
+                    "display_off": u.get("display_off", u.get("full_off")),
+                    "alt_off": u.get("alt_off", u.get("cur_off")),
+                    "display": disp,
+                    "alt": int(u.get("alt", u.get("current", disp))),
+                    # back-compat for older callers
+                    "cur_off": u.get("alt_off", u.get("cur_off")),
+                    "full_off": u.get("display_off", u.get("full_off")),
+                    "current": disp,
+                    "full": disp,
                 }
             )
         return {
@@ -295,6 +302,7 @@ def battle_spec(save_path, army_a, army_b):
             "culture": a.get("culture"),
             "faction_guess": a.get("faction_guess"),
             "fingerprint": a["fingerprint"],
+            "captain_off": a.get("captain_off"),
             "unit_rows": units,
         }
 
@@ -302,6 +310,9 @@ def battle_spec(save_path, army_a, army_b):
         "source_save": os.path.abspath(save_path),
         "army_a": side(army_a),
         "army_b": side(army_b),
+        "player_faction": detect_player_faction(
+            [army_a, army_b], save_path=save_path
+        ),
     }
 
 

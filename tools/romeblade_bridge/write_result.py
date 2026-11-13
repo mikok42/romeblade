@@ -1,16 +1,18 @@
-"""Apply M&B survivor totals onto a new RTW result save (additive only)."""
+"""Apply M&B survivor totals onto a new RTW result save (additive only).
+
+Proven (proba_disp41): the unit card shows name_end+34 (display).
++30 (alt) is a distinct field; natural 62/80 records still unexplained.
+Retrain-to-EDU-max after lowering +34 is UNVERIFIED in-game.
+"""
 from __future__ import print_function
 
 import os
 import re
-import struct
 
-from . import battle_select
 from . import config
 from . import save_io
 
 
-# Module strings.txt stores spaces as underscores; rgl_log may show either form.
 RESULT_RE = re.compile(
     r"ROME[ _]BLADE[ _]RESULT\|winner=(attacker|defender)\|a_left=(\d+)\|b_left=(\d+)"
 )
@@ -42,15 +44,22 @@ def parse_result_log(log_path, start_size=0):
     return found
 
 
-def _distribute(unit_rows, new_total):
-    """Scale each unit's current so the side sums to new_total (integers)."""
-    old_total = sum(int(u["current"]) for u in unit_rows)
+def _unit_display(u):
+    return int(u.get("display", u.get("full", u.get("current", 0))))
+
+
+def _unit_display_off(u):
+    return int(u.get("display_off", u.get("full_off")))
+
+
+def _distribute_display(unit_rows, new_total):
+    """Scale each unit's displayed strength (+34) to sum to new_total."""
+    old_total = sum(_unit_display(u) for u in unit_rows)
     if old_total <= 0:
-        return [(u["cur_off"], 0) for u in unit_rows]
-    # Largest-remainder method
+        return [(_unit_display_off(u), 0) for u in unit_rows]
     raw = []
     for u in unit_rows:
-        exact = new_total * float(u["current"]) / old_total
+        exact = new_total * float(_unit_display(u)) / old_total
         floor = int(exact)
         raw.append([u, floor, exact - floor])
     assigned = sum(r[1] for r in raw)
@@ -60,29 +69,43 @@ def _distribute(unit_rows, new_total):
         raw[i % len(raw)][1] += 1
     patches = []
     for u, val, _frac in raw:
-        val = max(0, min(int(u["full"]), val))
-        patches.append((int(u["cur_off"]), val))
+        # Cap at pre-battle display (do not grow a unit past what it brought).
+        cap = _unit_display(u)
+        val = max(0, min(cap, val))
+        patches.append((_unit_display_off(u), val))
     return patches
 
 
 def write_result_save(spec, a_left, b_left, dest_name=None):
-    """Copy source_save -> dest with patched currents for both armies."""
+    """Copy source_save -> dest; patch +34 display on both armies' units.
+
+    Does not rewrite +30 (alt). Does not delete unit records when survivors
+    hit 0 — sets display to 0 (closest safe substitute until po_bitwie).
+    Retrain after this patch is not proven.
+    """
     dest_name = dest_name or config.RESULT_SAVE_NAME
     src = spec["source_save"]
     dst = os.path.join(config.RTW_SAVES, dest_name)
     if os.path.basename(dst) in config.PROTECTED_SAVES:
         raise RuntimeError("protected dest")
     if os.path.exists(dst):
-        # only allow replacing our own previous result file
         if os.path.basename(dst) != config.RESULT_SAVE_NAME:
             raise RuntimeError("dest exists: %s" % dst)
         os.remove(dst)
 
     patches = []
-    patches.extend(_distribute(spec["army_a"]["unit_rows"], int(a_left)))
-    patches.extend(_distribute(spec["army_b"]["unit_rows"], int(b_left)))
-    save_io.patch_currents_in_copy(src, dst, patches, config.PROTECTED_SAVES)
-    return {"dest": dst, "patches": len(patches), "a_left": a_left, "b_left": b_left}
+    patches.extend(_distribute_display(spec["army_a"]["unit_rows"], int(a_left)))
+    patches.extend(_distribute_display(spec["army_b"]["unit_rows"], int(b_left)))
+    save_io.patch_displays_in_copy(src, dst, patches, config.PROTECTED_SAVES)
+    wiped = sum(1 for _off, v in patches if v == 0)
+    return {
+        "dest": dst,
+        "patches": len(patches),
+        "a_left": a_left,
+        "b_left": b_left,
+        "wiped_display_zero": wiped,
+        "retrain": "unverified",
+    }
 
 
 def write_result_from_log(spec, log_path=None, start_size=0):

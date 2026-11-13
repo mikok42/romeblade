@@ -4,12 +4,14 @@ from __future__ import print_function
 import ctypes
 import ctypes.wintypes as wt
 import threading
+import time
 
 user32 = ctypes.windll.user32
 kernel32 = ctypes.windll.kernel32
 
 WH_MOUSE_LL = 14
 WM_LBUTTONDOWN = 0x0201
+WM_QUIT = 0x0012
 HC_ACTION = 0
 
 
@@ -36,6 +38,7 @@ class MouseHook(object):
         self._proc = LowLevelMouseProc(self._callback)
         self._thread = None
         self._tid = None
+        self._stopped = threading.Event()
 
     def _callback(self, nCode, wParam, lParam):
         if nCode == HC_ACTION and wParam == WM_LBUTTONDOWN:
@@ -60,15 +63,30 @@ class MouseHook(object):
             while user32.GetMessageW(ctypes.byref(msg), 0, 0, 0) != 0:
                 user32.TranslateMessage(ctypes.byref(msg))
                 user32.DispatchMessageW(ctypes.byref(msg))
-            user32.UnhookWindowsHookEx(self._hook)
-            self._hook = None
+            if self._hook:
+                user32.UnhookWindowsHookEx(self._hook)
+                self._hook = None
+            self._stopped.set()
 
+        self._stopped.clear()
         self._thread = threading.Thread(target=runner, name="rb-mouse-hook")
         self._thread.daemon = True
         self._thread.start()
+        # Brief wait so SetWindowsHookEx has run before callers proceed.
+        time.sleep(0.15)
 
     def stop(self):
+        """Unhook and join the hook thread. Safe to call more than once."""
         if self._tid:
-            user32.PostThreadMessageW(self._tid, 0x0012, 0, 0)  # WM_QUIT
+            user32.PostThreadMessageW(self._tid, WM_QUIT, 0, 0)
         if self._thread:
-            self._thread.join(timeout=2)
+            self._thread.join(timeout=3)
+        # If the thread did not clear the hook (stuck GetMessage), force unhook.
+        if self._hook:
+            try:
+                user32.UnhookWindowsHookEx(self._hook)
+            except Exception:
+                pass
+            self._hook = None
+        self._tid = None
+        self._stopped.set()

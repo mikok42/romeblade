@@ -31,14 +31,25 @@ def start_mb(module_name=None):
     )
 
 
-def start_rtw(extra_args=None):
-    """Launch RomeTW. Prefer -ne (windowed) for automation."""
+def start_rtw(extra_args=None, windowed=False):
+    """Launch RomeTW.
+
+    Default matches everyday play (no -ne → fullscreen as in preferences).
+    Pass windowed=True only for agent automation; never rewrite preferences.
+    """
     if not os.path.isfile(config.RTW_EXE):
         raise RuntimeError("RTW exe missing: %s" % config.RTW_EXE)
-    args = [config.RTW_EXE, "-ne", "-show_err"]
+    args = [config.RTW_EXE]
+    if windowed:
+        args.extend(["-ne", "-show_err"])
     if extra_args:
         args.extend(extra_args)
     return subprocess.Popen(args, cwd=config.RTW_ROOT, close_fds=True)
+
+
+def start_rtw_windowed(extra_args=None):
+    """Explicit windowed launch (-ne on CLI only)."""
+    return start_rtw(extra_args=extra_args, windowed=True)
 
 
 def process_running(name_substr):

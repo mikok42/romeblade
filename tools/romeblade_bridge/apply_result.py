@@ -1,10 +1,19 @@
-"""After M&B: drive auto_win + Auto Resolve, then write a result save copy."""
+"""After M&B: clear the RTW scroll without a tactical fight, apply result save.
+
+Return path no longer uses the Load Game menu (proven unreliable). Primary
+path: write ``romeblade_result.sav``, install it as ``quicksave.sav`` (after
+backing up any existing quicksave), then Ctrl+L.
+
+``auto_win`` + Auto Resolve click remain as a fallback to dismiss the scroll
+if quick-load does not (both still best-effort / partly unverified).
+"""
 from __future__ import print_function
 
 import os
 import time
 
 from . import config
+from . import quicksave
 from . import save_io
 from . import win_input
 
@@ -30,18 +39,19 @@ def send_auto_win(side):
     return True
 
 
-def click_auto_resolve_guess(screen_w=1920, screen_h=1080):
+def click_auto_resolve_guess(screen_w=None, screen_h=None):
     """Best-effort click on Auto Resolve (middle of the three buttons)."""
-    # Without a confirmed hitbox, click near Begin Battle's left neighbour.
-    # User may still need to click Auto Resolve once if this misses.
     import ctypes
 
     user32 = ctypes.windll.user32
+    if screen_w is None:
+        screen_w = user32.GetSystemMetrics(0)
+    if screen_h is None:
+        screen_h = user32.GetSystemMetrics(1)
     cx = screen_w // 2 + 120
     cy = int(screen_h * 0.74)
     user32.SetCursorPos(cx, cy)
     time.sleep(0.05)
-    # mouse_event left down/up
     user32.mouse_event(0x0002, 0, 0, 0, 0)
     user32.mouse_event(0x0004, 0, 0, 0, 0)
     return (cx, cy)
@@ -52,9 +62,21 @@ def write_result_save_from_source(src_save, patches, dest_name=None):
     dest_name = dest_name or config.RESULT_SAVE_NAME
     dst = os.path.join(config.RTW_SAVES, dest_name)
     if os.path.exists(dst):
-        # Allow replacing OUR previous result save only.
         if os.path.basename(dst) in config.PROTECTED_SAVES:
             raise RuntimeError("protected")
         os.remove(dst)
     save_io.patch_currents_in_copy(src_save, dst, patches, config.PROTECTED_SAVES)
     return dst
+
+
+def return_via_quicksave(result_path):
+    """Install result as quicksave and send Ctrl+L. No menu navigation.
+
+    Returns a dict with backup path and whether Ctrl+L was sent.
+    Quick-load effect in-game is UNVERIFIED.
+    """
+    info = quicksave.install_result_as_quicksave(result_path)
+    sent = quicksave.send_quick_load()
+    info["ctrl_l_sent"] = sent
+    info["ctrl_l_effect"] = "unverified"
+    return info

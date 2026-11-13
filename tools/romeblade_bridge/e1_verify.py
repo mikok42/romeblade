@@ -51,7 +51,7 @@ def try_drive_load(save_stem="most_proba", shots_dir=None):
         proc = None
     else:
         print("starting RTW (-ne -show_err)...")
-        proc = launchers.start_rtw()
+        proc = launchers.start_rtw_windowed()
         time.sleep(8)
 
     # Skip intros / movies with Escape a few times

@@ -21,6 +21,12 @@ BRIDGE_SAVE_NAME = "romeblade_fight.sav"
 RESULT_SAVE_NAME = "romeblade_result.sav"
 E1_SAVE_NAME = "most_proba.sav"
 
+# RTW campaign quicksave slot (community + hotseat docs: quicksave.sav).
+# keys.dat binds save_stratmap / load_stratmap on strat_ui; FAQ: Ctrl+S / Ctrl+L.
+# In-game reload-after-replace is UNVERIFIED — see quicksave.py.
+QUICKSAVE_NAME = "quicksave.sav"
+QUICKSAVE_BACKUP_PREFIX = "rb_qs_backup_"
+
 # Global hotkey (virtual-key). F5 = 0x74. Used when the bridge process is running.
 HOTKEY_VK = 0x74
 HOTKEY_ID = 1
@@ -28,12 +34,15 @@ HOTKEY_ID = 1
 # Polling
 SAVE_POLL_SEC = 0.5
 LOG_POLL_SEC = 0.5
+# After RTW has been seen once, exit bridge this many seconds after it vanishes.
+RTW_GONE_EXIT_SEC = 3.0
 
 # Result line written by RomeBladeRTS into rgl_log.txt (spaces may be underscores).
 RESULT_TAG = "ROME BLADE RESULT|"
 RESULT_TAG_ALT = "ROME_BLADE_RESULT|"
 
 # Protected saves — bridge must never overwrite / delete these.
+# quicksave.sav is NOT listed: bridge may replace it only after copying aside.
 PROTECTED_SAVES = frozenset(
     {
         "RomaAroma.sav",
