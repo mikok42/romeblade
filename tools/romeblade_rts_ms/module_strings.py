@@ -29,6 +29,10 @@ strings = [
   ("romeblade_rts_order_point","Order: HOLD at point under camera."),
   ("romeblade_rts_order_charge","Order: CHARGE!"),
   ("romeblade_rts_order_follow","Order: FOLLOW."),
+  ("romeblade_wave_title","RomeBlade Wave Battle: your host vs the foe. Troops arrive in waves matching the entry ratio until reserves run out."),
+  ("romeblade_wave_hud","CONTROLS^F10 bird-eye | WASD move | Q down E up | Shift faster^F9 hold-at-point | F8 charge | F7 follow | Backspace orders^WAVE  field-cap {reg5}  refill@{reg6}%^YOU on-field:{reg3} reserve:{reg1}  |  ENEMY on-field:{reg4} reserve:{reg2}"),
+  ("romeblade_wave_win","Wave battle won - the enemy host is spent."),
+  ("romeblade_wave_lose","Wave battle lost - your host is spent."),
   ("tutorial_map1","You are now viewing the overland map. Left-click on the map to move your party to that location, enter the selected town, or pursue the selected party. Time will pause on the overland map if your party is not moving, waiting or resting. To wait anywhere simply press and hold down the space bar."),
 
 

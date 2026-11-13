@@ -8,6 +8,22 @@ from ID_factions import *
 # that it will be easy to change it if you need to.
 ##############################################################
 
+
+########################################################
+##  ROMEBLADE WAVE BATTLE (easy knobs)
+########################################################
+# Total army sizes entering the fight (reserves + first wave).
+rb_wave_army_a = 300          # player side
+rb_wave_army_b = 150          # enemy side
+# Max humans on the field at once (both sides combined, not counting the player hero).
+rb_wave_field_cap = 90
+# When a side's living troops fall below this percent of its field target, refill from reserve.
+rb_wave_refill_pct = 50
+# Max new agents spawned for one side in a single refill pulse (keeps hitch small).
+rb_wave_spawn_chunk = 12
+# Seconds between wave checks.
+rb_wave_check_interval = 3
+
 ########################################################
 ##  ITEM SLOTS             #############################
 ########################################################

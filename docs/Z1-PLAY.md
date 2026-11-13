@@ -1,37 +1,42 @@
-# Z1 — RomeBladeRTS bird's-eye battle (M&B 1.011)
+# Z1 — RomeBladeRTS (M&B 1.011)
 
-## What was installed
+## Module
 
-| Piece | Where |
-|-------|--------|
-| Module | `C:\Program Files (x86)\Steam\steamapps\common\Mount and Blade\Modules\RomeBladeRTS` |
-| Module System sources | `c:\Users\Mikok\Documents\RomeAndBlade\tools\romeblade_rts_ms\` |
-| Python 2.7.18 | `C:\Python27\python.exe` (compile only) |
+`C:\Program Files (x86)\Steam\steamapps\common\Mount and Blade\Modules\RomeBladeRTS`  
+Native is **not** modified.
 
-**Native was not modified.** Only `Modules\RomeBladeRTS` is added/updated.
+## Launch
 
-## How to launch
+1. Start Mount & Blade → module **RomeBladeRTS**.
+2. On the custom-battle / scenario list choose either:
+   - a stock Skirmish (old RTS camera test), or
+   - **RomeBlade Wave Battle (300 vs 150)** (new).
 
-1. Start **Mount & Blade**.
-2. Pick module **RomeBladeRTS**.
-3. Start a **Quick Battle**.
-4. On-screen **CONTROLS** legend appears at battle start (`tutorial_message`).
-
-## Controls
+## Bird-eye controls (F10)
 
 | Key | Action |
 |-----|--------|
-| **F10** | Toggle bird's-eye camera |
-| **WASD** / arrows | Move camera on the **horizontal plane**, relative to where the camera looks (W/S forward-back, A/D strafe) |
-| **Q** | Camera **down** |
-| **E** | Camera **up** |
-| **Shift** | Faster camera move |
-| **Backspace** | Stock order panel (auto-kept open while bird-eye is on; if you close it, it reopens) |
-| **F9** | HOLD everyone at ground under camera |
-| **F8** | CHARGE |
-| **F7** | FOLLOW |
+| **F10** | Toggle bird's-eye |
+| **WASD** | Move camera on horizontal plane (relative to look yaw) |
+| **Q / E** | Down / up |
+| **Shift** | Faster move |
+| **Backspace** | Order panel (kept open in bird-eye) |
+| **F9 / F8 / F7** | Hold-at-point / Charge / Follow |
 
-While bird-eye is on, the player body is frozen at a stashed high position + HP locked so WASD does not walk the soldier. There is no true input-disable op in stock 1.011.
+While bird-eye is on, **rider and horse** are frozen at a stash point + HP lock (1611cc7 only froze the rider; mounted WASD still moved the horse — fixed in this build).
+
+## Wave battle defaults (edit in `tools/romeblade_rts_ms/module_constants.py`)
+
+| Constant | Default | Meaning |
+|----------|---------|---------|
+| `rb_wave_army_a` | **300** | Player-side host size |
+| `rb_wave_army_b` | **150** | Enemy host size (entry ratio 2:1) |
+| `rb_wave_field_cap` | **90** | Max non-hero humans on field |
+| `rb_wave_refill_pct` | **50** | Refill when living &lt; 50% of that side's field target |
+| `rb_wave_spawn_chunk` | **12** | Max spawns per side per pulse |
+| `rb_wave_check_interval` | **3** | Seconds between checks |
+
+With 300 vs 150 and cap 90: field targets **60 vs 30**, reserves **240 vs 120**. HUD shows on-field + reserve counts.
 
 ## Rebuild
 
