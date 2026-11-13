@@ -1,0 +1,29 @@
+{
+  "host": "DESKTOP-QO223A2",
+  "project_root": "c:\\Users\\Mikok\\Documents\\RomeAndBlade",
+  "rome_total_war": {
+    "steam_appid": 4760,
+    "steam_name": "Rome: Total War",
+    "edition": "Rome Total War Gold",
+    "install": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Rome Total War Gold",
+    "exe": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Rome Total War Gold\\RomeTW.exe",
+    "product_version": "1.5.1.0",
+    "bi_exe": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Rome Total War Gold\\RomeTW-BI.exe",
+    "bi_product_version": "1.6.1.0",
+    "steam_buildid": "1002324",
+    "map_base": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Rome Total War Gold\\data\\world\\maps\\base",
+    "bi_map_base": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Rome Total War Gold\\bi\\data\\world\\maps\\base",
+    "imperial_campaign": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Rome Total War Gold\\data\\world\\maps\\campaign\\imperial_campaign"
+  },
+  "mount_and_blade": {
+    "steam_appid": 22100,
+    "steam_name": "Mount & Blade",
+    "edition": "Mount & Blade (original / Steam)",
+    "install": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Mount and Blade",
+    "exe": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Mount and Blade\\mount&blade.exe",
+    "engine_band": "works_with_version_min=1000 works_with_version_max=1011 (Native module.ini) → 1.011",
+    "steam_buildid": "1326955",
+    "modules": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Mount and Blade\\Modules",
+    "native_module": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Mount and Blade\\Modules\\Native"
+  }
+}

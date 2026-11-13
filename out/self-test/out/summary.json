@@ -1,0 +1,19 @@
+{
+  "source": "C:\\Users\\Mikok\\Documents\\RomeAndBlade\\out\\self-test\\base",
+  "src_tga": [
+    32,
+    20
+  ],
+  "tile": [
+    16,
+    10
+  ],
+  "downsampled": [
+    24,
+    15
+  ],
+  "verts": 360,
+  "faces": 644,
+  "settlements": 2,
+  "map": "C:\\Users\\Mikok\\Documents\\RomeAndBlade\\out\\self-test\\out\\map.txt"
+}

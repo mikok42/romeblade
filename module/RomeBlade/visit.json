@@ -1,0 +1,1344 @@
+{
+  "settlements": [
+    {
+      "id": "alesia",
+      "name": "Alesia",
+      "region": "Central_Gaul",
+      "faction": "gauls",
+      "x": -55.102,
+      "y": 23.823,
+      "rgb": [
+        31,
+        75,
+        37
+      ]
+    },
+    {
+      "id": "alexandria",
+      "name": "Alexandria",
+      "region": "Nile_Delta",
+      "faction": "egypt",
+      "x": 46.936,
+      "y": -48.621,
+      "rgb": [
+        244,
+        13,
+        214
+      ]
+    },
+    {
+      "id": "ancyra",
+      "name": "Ancyra",
+      "region": "Galatia",
+      "faction": "gauls",
+      "x": 41.829,
+      "y": -8.699,
+      "rgb": [
+        17,
+        165,
+        202
+      ]
+    },
+    {
+      "id": "antioch",
+      "name": "Antioch",
+      "region": "Syria",
+      "faction": "seleucid",
+      "x": 63.238,
+      "y": -19.476,
+      "rgb": [
+        13,
+        244,
+        165
+      ]
+    },
+    {
+      "id": "apollonia",
+      "name": "Apollonia",
+      "region": "Epirus",
+      "faction": "macedon",
+      "x": -0.248,
+      "y": -9.349,
+      "rgb": [
+        83,
+        58,
+        177
+      ]
+    },
+    {
+      "id": "aquincum",
+      "name": "Aquincum",
+      "region": "Pannonia",
+      "faction": "dacia",
+      "x": -12.442,
+      "y": 16.248,
+      "rgb": [
+        131,
+        61,
+        33
+      ]
+    },
+    {
+      "id": "ariminum",
+      "name": "Ariminum",
+      "region": "Umbria",
+      "faction": "macedon",
+      "x": -23.619,
+      "y": 0.322,
+      "rgb": [
+        198,
+        43,
+        13
+      ]
+    },
+    {
+      "id": "arretium",
+      "name": "Arretium",
+      "region": "Etruria",
+      "faction": "macedon",
+      "x": -30.269,
+      "y": 1.318,
+      "rgb": [
+        157,
+        198,
+        13
+      ]
+    },
+    {
+      "id": "arsakia",
+      "name": "Arsakia",
+      "region": "Media",
+      "faction": "parthia",
+      "x": 96.246,
+      "y": -8.219,
+      "rgb": [
+        58,
+        167,
+        177
+      ]
+    },
+    {
+      "id": "artaxarta",
+      "name": "Artaxarta",
+      "region": "Armenia",
+      "faction": "armenia",
+      "x": 76.52,
+      "y": 1.305,
+      "rgb": [
+        202,
+        61,
+        17
+      ]
+    },
+    {
+      "id": "asturica",
+      "name": "Asturica",
+      "region": "Gallaecia",
+      "faction": "spain",
+      "x": -88.666,
+      "y": 7.416,
+      "rgb": [
+        13,
+        157,
+        198
+      ]
+    },
+    {
+      "id": "athens",
+      "name": "Athens",
+      "region": "Attica",
+      "faction": "macedon",
+      "x": 13.801,
+      "y": -20.049,
+      "rgb": [
+        58,
+        177,
+        106
+      ]
+    },
+    {
+      "id": "batavodurum",
+      "name": "Batavodurum",
+      "region": "Germania_Inferior",
+      "faction": "germans",
+      "x": -41.146,
+      "y": 40.595,
+      "rgb": [
+        41,
+        162,
+        232
+      ]
+    },
+    {
+      "id": "bordesholm",
+      "name": "Bordesholm",
+      "region": "Tribus_Saxones",
+      "faction": "germans",
+      "x": -27.145,
+      "y": 55.666,
+      "rgb": [
+        232,
+        41,
+        55
+      ]
+    },
+    {
+      "id": "bostra",
+      "name": "Bostra",
+      "region": "Nabataea",
+      "faction": "parthia",
+      "x": 74.065,
+      "y": -50.461,
+      "rgb": [
+        13,
+        244,
+        160
+      ]
+    },
+    {
+      "id": "bylazora",
+      "name": "Bylazora",
+      "region": "Paionia",
+      "faction": "macedon",
+      "x": 6.215,
+      "y": 1.065,
+      "rgb": [
+        131,
+        33,
+        100
+      ]
+    },
+    {
+      "id": "byzantium",
+      "name": "Byzantium",
+      "region": "Propontis",
+      "faction": "macedon",
+      "x": 21.448,
+      "y": -4.984,
+      "rgb": [
+        118,
+        131,
+        33
+      ]
+    },
+    {
+      "id": "campus_alanni",
+      "name": "Campus Alanni",
+      "region": "Tribus_Alanni",
+      "faction": "scythia",
+      "x": 75.271,
+      "y": 40.679,
+      "rgb": [
+        177,
+        170,
+        58
+      ]
+    },
+    {
+      "id": "campus_getae",
+      "name": "Campus Getae",
+      "region": "Tribus_Getae",
+      "faction": "thrace",
+      "x": 21.977,
+      "y": 16.229,
+      "rgb": [
+        131,
+        33,
+        38
+      ]
+    },
+    {
+      "id": "campus_iazyges",
+      "name": "Campus Iazyges",
+      "region": "Tribus_Iazyges",
+      "faction": "dacia",
+      "x": -0.265,
+      "y": 22.808,
+      "rgb": [
+        33,
+        100,
+        131
+      ]
+    },
+    {
+      "id": "campus_sakae",
+      "name": "Campus Sakae",
+      "region": "Tribus_Sakae",
+      "faction": "parthia",
+      "x": 95.769,
+      "y": 50.879,
+      "rgb": [
+        58,
+        177,
+        75
+      ]
+    },
+    {
+      "id": "campus_sarmatae",
+      "name": "Campus Sarmatae",
+      "region": "Tribus_Sarmatae",
+      "faction": "scythia",
+      "x": 44.012,
+      "y": 46.868,
+      "rgb": [
+        177,
+        58,
+        83
+      ]
+    },
+    {
+      "id": "campus_scythii",
+      "name": "Campus Scythii",
+      "region": "Scythia",
+      "faction": "scythia",
+      "x": 25.868,
+      "y": 28.606,
+      "rgb": [
+        33,
+        131,
+        116
+      ]
+    },
+    {
+      "id": "capua",
+      "name": "Capua",
+      "region": "Campania",
+      "faction": "macedon",
+      "x": -20.113,
+      "y": -8.979,
+      "rgb": [
+        198,
+        13,
+        174
+      ]
+    },
+    {
+      "id": "caralis",
+      "name": "Caralis",
+      "region": "Sardinia",
+      "faction": "carthage",
+      "x": -38.751,
+      "y": -9.657,
+      "rgb": [
+        198,
+        35,
+        13
+      ]
+    },
+    {
+      "id": "carthage",
+      "name": "Carthage",
+      "region": "Africa",
+      "faction": "carthage",
+      "x": -39.639,
+      "y": -29.114,
+      "rgb": [
+        202,
+        191,
+        17
+      ]
+    },
+    {
+      "id": "carthago_nova",
+      "name": "Carthago Nova",
+      "region": "Hispania",
+      "faction": "spain",
+      "x": -75.291,
+      "y": -12.109,
+      "rgb": [
+        187,
+        198,
+        13
+      ]
+    },
+    {
+      "id": "chersonesos",
+      "name": "Chersonesos",
+      "region": "Bosphorus",
+      "faction": "macedon",
+      "x": 40.903,
+      "y": 18.457,
+      "rgb": [
+        17,
+        74,
+        202
+      ]
+    },
+    {
+      "id": "cirta",
+      "name": "Cirta",
+      "region": "Numidia",
+      "faction": "numidia",
+      "x": -54.582,
+      "y": -34.307,
+      "rgb": [
+        17,
+        83,
+        202
+      ]
+    },
+    {
+      "id": "condate_redonum",
+      "name": "Condate Redonum",
+      "region": "Armorica",
+      "faction": "gauls",
+      "x": -66.978,
+      "y": 27.827,
+      "rgb": [
+        232,
+        41,
+        135
+      ]
+    },
+    {
+      "id": "corduba",
+      "name": "Corduba",
+      "region": "Baetica",
+      "faction": "spain",
+      "x": -88.751,
+      "y": -15.519,
+      "rgb": [
+        17,
+        13,
+        198
+      ]
+    },
+    {
+      "id": "corinth",
+      "name": "Corinth",
+      "region": "Peloponnesus",
+      "faction": "macedon",
+      "x": 7.946,
+      "y": -23.319,
+      "rgb": [
+        225,
+        192,
+        192
+      ]
+    },
+    {
+      "id": "croton",
+      "name": "Croton",
+      "region": "Bruttium",
+      "faction": "macedon",
+      "x": -14.078,
+      "y": -16.698,
+      "rgb": [
+        13,
+        170,
+        198
+      ]
+    },
+    {
+      "id": "cyrene",
+      "name": "Cyrene",
+      "region": "Cyrenaica",
+      "faction": "macedon",
+      "x": 9.461,
+      "y": -49.195,
+      "rgb": [
+        244,
+        171,
+        13
+      ]
+    },
+    {
+      "id": "damascus",
+      "name": "Damascus",
+      "region": "Coele_Syria",
+      "faction": "seleucid",
+      "x": 65.815,
+      "y": -29.37,
+      "rgb": [
+        244,
+        203,
+        14
+      ]
+    },
+    {
+      "id": "damme",
+      "name": "Damme",
+      "region": "Tribus_Chattii",
+      "faction": "germans",
+      "x": -27.245,
+      "y": 39.752,
+      "rgb": [
+        232,
+        198,
+        41
+      ]
+    },
+    {
+      "id": "deva",
+      "name": "Deva",
+      "region": "Tribus_Silurii",
+      "faction": "britons",
+      "x": -68.969,
+      "y": 45.927,
+      "rgb": [
+        41,
+        232,
+        63
+      ]
+    },
+    {
+      "id": "dimmidi",
+      "name": "Dimmidi",
+      "region": "Gaetulia",
+      "faction": "numidia",
+      "x": -68.936,
+      "y": -48.133,
+      "rgb": [
+        244,
+        13,
+        138
+      ]
+    },
+    {
+      "id": "domus_dulcis_domus",
+      "name": "Domus Dulcis Domus",
+      "region": "Locus_Gepidae",
+      "faction": "germans",
+      "x": 13.557,
+      "y": 57.354,
+      "rgb": [
+        58,
+        177,
+        95
+      ]
+    },
+    {
+      "id": "dumatha",
+      "name": "Dumatha",
+      "region": "Arabia",
+      "faction": "parthia",
+      "x": 92.536,
+      "y": -47.151,
+      "rgb": [
+        13,
+        171,
+        244
+      ]
+    },
+    {
+      "id": "eburacum",
+      "name": "Eburacum",
+      "region": "Britannia_Inferior",
+      "faction": "britons",
+      "x": -63.162,
+      "y": 57.499,
+      "rgb": [
+        232,
+        41,
+        198
+      ]
+    },
+    {
+      "id": "halicarnasus",
+      "name": "Halicarnasus",
+      "region": "Lycia",
+      "faction": "macedon",
+      "x": 37.95,
+      "y": -21.684,
+      "rgb": [
+        131,
+        83,
+        77
+      ]
+    },
+    {
+      "id": "hatra",
+      "name": "Hatra",
+      "region": "Assyria",
+      "faction": "seleucid",
+      "x": 75.681,
+      "y": -14.886,
+      "rgb": [
+        244,
+        122,
+        13
+      ]
+    },
+    {
+      "id": "iuvavum",
+      "name": "Iuvavum",
+      "region": "Noricum",
+      "faction": "gauls",
+      "x": -30.732,
+      "y": 19.604,
+      "rgb": [
+        230,
+        41,
+        232
+      ]
+    },
+    {
+      "id": "jerusalem",
+      "name": "Jerusalem",
+      "region": "Judaea",
+      "faction": "parthia",
+      "x": 61.459,
+      "y": -40.828,
+      "rgb": [
+        244,
+        13,
+        29
+      ]
+    },
+    {
+      "id": "kotais",
+      "name": "Kotais",
+      "region": "Colchis",
+      "faction": "armenia",
+      "x": 70.36,
+      "y": 16.039,
+      "rgb": [
+        199,
+        31,
+        143
+      ]
+    },
+    {
+      "id": "kydonia",
+      "name": "Kydonia",
+      "region": "Crete",
+      "faction": "macedon",
+      "x": 17.992,
+      "y": -33.429,
+      "rgb": [
+        193,
+        162,
+        206
+      ]
+    },
+    {
+      "id": "larissa",
+      "name": "Larissa",
+      "region": "Thessalia",
+      "faction": "macedon",
+      "x": 7.217,
+      "y": -14.141,
+      "rgb": [
+        177,
+        83,
+        58
+      ]
+    },
+    {
+      "id": "lemonum",
+      "name": "Lemonum",
+      "region": "Aquitania",
+      "faction": "gauls",
+      "x": -64.58,
+      "y": 13.162,
+      "rgb": [
+        68,
+        232,
+        41
+      ]
+    },
+    {
+      "id": "lepcis_magna",
+      "name": "Lepcis Magna",
+      "region": "Tripolitania",
+      "faction": "carthage",
+      "x": -25.522,
+      "y": -55.85,
+      "rgb": [
+        202,
+        17,
+        48
+      ]
+    },
+    {
+      "id": "lilybaeum",
+      "name": "Lilybaeum",
+      "region": "Sicilia_Poeni",
+      "faction": "carthage",
+      "x": -24.107,
+      "y": -24.004,
+      "rgb": [
+        65,
+        17,
+        202
+      ]
+    },
+    {
+      "id": "londinium",
+      "name": "Londinium",
+      "region": "Britannia_Superior",
+      "faction": "britons",
+      "x": -60.654,
+      "y": 43.254,
+      "rgb": [
+        232,
+        41,
+        46
+      ]
+    },
+    {
+      "id": "lovosice",
+      "name": "Lovosice",
+      "region": "Boihaemum",
+      "faction": "gauls",
+      "x": -14.662,
+      "y": 28.498,
+      "rgb": [
+        58,
+        150,
+        177
+      ]
+    },
+    {
+      "id": "lugdunum",
+      "name": "Lugdunum",
+      "region": "Lugdinensis",
+      "faction": "gauls",
+      "x": -50.507,
+      "y": 15.916,
+      "rgb": [
+        85,
+        114,
+        141
+      ]
+    },
+    {
+      "id": "massilia",
+      "name": "Massilia",
+      "region": "Transalpine_Gaul",
+      "faction": "gauls",
+      "x": -48.104,
+      "y": 6.842,
+      "rgb": [
+        117,
+        198,
+        13
+      ]
+    },
+    {
+      "id": "mazaka",
+      "name": "Mazaka",
+      "region": "Cappadocia",
+      "faction": "pontus",
+      "x": 60.249,
+      "y": -7.351,
+      "rgb": [
+        177,
+        58,
+        148
+      ]
+    },
+    {
+      "id": "mediolanium",
+      "name": "Mediolanium",
+      "region": "Cisalpine_Gaul",
+      "faction": "gauls",
+      "x": -39.162,
+      "y": 11.559,
+      "rgb": [
+        221,
+        232,
+        41
+      ]
+    },
+    {
+      "id": "memphis",
+      "name": "Memphis",
+      "region": "Middle_Egypt",
+      "faction": "egypt",
+      "x": 49.674,
+      "y": -56.153,
+      "rgb": [
+        122,
+        13,
+        244
+      ]
+    },
+    {
+      "id": "messana",
+      "name": "Messana",
+      "region": "Sicilia_Romanus",
+      "faction": "macedon",
+      "x": -18.701,
+      "y": -23.125,
+      "rgb": [
+        177,
+        142,
+        58
+      ]
+    },
+    {
+      "id": "mogontiacum",
+      "name": "Mogontiacum",
+      "region": "Agri_Decumates",
+      "faction": "germans",
+      "x": -31.669,
+      "y": 29.236,
+      "rgb": [
+        63,
+        232,
+        41
+      ]
+    },
+    {
+      "id": "narbo_martius",
+      "name": "Narbo Martius",
+      "region": "Narbonensis",
+      "faction": "gauls",
+      "x": -59.244,
+      "y": 5.297,
+      "rgb": [
+        196,
+        13,
+        198
+      ]
+    },
+    {
+      "id": "nepte",
+      "name": "Nepte",
+      "region": "Sahara",
+      "faction": "numidia",
+      "x": -73.783,
+      "y": -59.696,
+      "rgb": [
+        41,
+        86,
+        232
+      ]
+    },
+    {
+      "id": "nicomedia",
+      "name": "Nicomedia",
+      "region": "Bithynia",
+      "faction": "macedon",
+      "x": 33.149,
+      "y": -5.831,
+      "rgb": [
+        202,
+        17,
+        122
+      ]
+    },
+    {
+      "id": "numantia",
+      "name": "Numantia",
+      "region": "Celtiberia",
+      "faction": "gauls",
+      "x": -80.02,
+      "y": -1.278,
+      "rgb": [
+        198,
+        13,
+        35
+      ]
+    },
+    {
+      "id": "osca",
+      "name": "Osca",
+      "region": "Taraconenis",
+      "faction": "spain",
+      "x": -66.833,
+      "y": -0.908,
+      "rgb": [
+        13,
+        196,
+        198
+      ]
+    },
+    {
+      "id": "palma",
+      "name": "Palma",
+      "region": "Baliares",
+      "faction": "spain",
+      "x": -60.814,
+      "y": -12.808,
+      "rgb": [
+        41,
+        232,
+        225
+      ]
+    },
+    {
+      "id": "palmyra",
+      "name": "Palmyra",
+      "region": "Regnum_Palmyrae",
+      "faction": "armenia",
+      "x": 75.996,
+      "y": -28.379,
+      "rgb": [
+        175,
+        171,
+        244
+      ]
+    },
+    {
+      "id": "patavium",
+      "name": "Patavium",
+      "region": "Venetia",
+      "faction": "gauls",
+      "x": -28.452,
+      "y": 10.831,
+      "rgb": [
+        13,
+        198,
+        117
+      ]
+    },
+    {
+      "id": "pergamum",
+      "name": "Pergamum",
+      "region": "Phrygia",
+      "faction": "macedon",
+      "x": 27.697,
+      "y": -12.208,
+      "rgb": [
+        33,
+        59,
+        131
+      ]
+    },
+    {
+      "id": "petra",
+      "name": "Petra",
+      "region": "Sinai",
+      "faction": "parthia",
+      "x": 60.986,
+      "y": -52.272,
+      "rgb": [
+        35,
+        244,
+        13
+      ]
+    },
+    {
+      "id": "phraaspa",
+      "name": "Phraaspa",
+      "region": "Atropatene",
+      "faction": "parthia",
+      "x": 92.405,
+      "y": 8.121,
+      "rgb": [
+        61,
+        239,
+        246
+      ]
+    },
+    {
+      "id": "porrolissum",
+      "name": "Porrolissum",
+      "region": "Dacia",
+      "faction": "dacia",
+      "x": 11.124,
+      "y": 16.19,
+      "rgb": [
+        72,
+        177,
+        58
+      ]
+    },
+    {
+      "id": "rhodes",
+      "name": "Rhodes",
+      "region": "Rhodos",
+      "faction": "macedon",
+      "x": 27.835,
+      "y": -27.465,
+      "rgb": [
+        131,
+        33,
+        77
+      ]
+    },
+    {
+      "id": "rome",
+      "name": "Rome",
+      "region": "Latium",
+      "faction": "macedon",
+      "x": -25.933,
+      "y": -4.328,
+      "rgb": [
+        52,
+        13,
+        198
+      ]
+    },
+    {
+      "id": "salamis",
+      "name": "Salamis",
+      "region": "Cyprus",
+      "faction": "macedon",
+      "x": 50.335,
+      "y": -27.068,
+      "rgb": [
+        126,
+        144,
+        111
+      ]
+    },
+    {
+      "id": "salona",
+      "name": "Salona",
+      "region": "Dalmatia",
+      "faction": "greek_cities",
+      "x": -13.004,
+      "y": 2.339,
+      "rgb": [
+        61,
+        177,
+        58
+      ]
+    },
+    {
+      "id": "samarobriva",
+      "name": "Samarobriva",
+      "region": "Belgica",
+      "faction": "britons",
+      "x": -51.435,
+      "y": 34.178,
+      "rgb": [
+        232,
+        90,
+        41
+      ]
+    },
+    {
+      "id": "sardis",
+      "name": "Sardis",
+      "region": "Ionia",
+      "faction": "seleucid",
+      "x": 33.403,
+      "y": -17.018,
+      "rgb": [
+        149,
+        109,
+        127
+      ]
+    },
+    {
+      "id": "scallabis",
+      "name": "Scallabis",
+      "region": "Lusitania",
+      "faction": "spain",
+      "x": -96.077,
+      "y": -5.064,
+      "rgb": [
+        13,
+        198,
+        30
+      ]
+    },
+    {
+      "id": "segesta",
+      "name": "Segesta",
+      "region": "Liguria",
+      "faction": "gauls",
+      "x": -38.384,
+      "y": 6.119,
+      "rgb": [
+        157,
+        13,
+        198
+      ]
+    },
+    {
+      "id": "segestica",
+      "name": "Segestica",
+      "region": "Illyria",
+      "faction": "greek_cities",
+      "x": -8.069,
+      "y": 5.63,
+      "rgb": [
+        58,
+        173,
+        177
+      ]
+    },
+    {
+      "id": "seleucia",
+      "name": "Seleucia",
+      "region": "Babylonia",
+      "faction": "seleucid",
+      "x": 90.791,
+      "y": -22.939,
+      "rgb": [
+        177,
+        58,
+        167
+      ]
+    },
+    {
+      "id": "sidon",
+      "name": "Sidon",
+      "region": "Phoenicia",
+      "faction": "seleucid",
+      "x": 60.224,
+      "y": -30.115,
+      "rgb": [
+        33,
+        131,
+        128
+      ]
+    },
+    {
+      "id": "sinope",
+      "name": "Sinope",
+      "region": "Pontus",
+      "faction": "pontus",
+      "x": 53.404,
+      "y": 0.968,
+      "rgb": [
+        202,
+        156,
+        17
+      ]
+    },
+    {
+      "id": "siwa",
+      "name": "Siwa",
+      "region": "Libya",
+      "faction": "egypt",
+      "x": 23.02,
+      "y": -57.773,
+      "rgb": [
+        42,
+        232,
+        77
+      ]
+    },
+    {
+      "id": "sparta",
+      "name": "Sparta",
+      "region": "Laconia",
+      "faction": "macedon",
+      "x": 10.025,
+      "y": -26.684,
+      "rgb": [
+        244,
+        13,
+        24
+      ]
+    },
+    {
+      "id": "susa",
+      "name": "Susa",
+      "region": "Elymais",
+      "faction": "parthia",
+      "x": 103.217,
+      "y": -26.137,
+      "rgb": [
+        72,
+        58,
+        177
+      ]
+    },
+    {
+      "id": "syracuse",
+      "name": "Syracuse",
+      "region": "Sicilia_Graecus",
+      "faction": "macedon",
+      "x": -19.459,
+      "y": -27.078,
+      "rgb": [
+        198,
+        178,
+        13
+      ]
+    },
+    {
+      "id": "tanais",
+      "name": "Tanais",
+      "region": "Maeotis",
+      "faction": "scythia",
+      "x": 51.863,
+      "y": 29.452,
+      "rgb": [
+        131,
+        89,
+        33
+      ]
+    },
+    {
+      "id": "tara",
+      "name": "Tara",
+      "region": "Hibernia",
+      "faction": "britons",
+      "x": -78.675,
+      "y": 55.245,
+      "rgb": [
+        212,
+        232,
+        41
+      ]
+    },
+    {
+      "id": "tarentum",
+      "name": "Tarentum",
+      "region": "Apulia",
+      "faction": "macedon",
+      "x": -13.414,
+      "y": -9.225,
+      "rgb": [
+        33,
+        196,
+        58
+      ]
+    },
+    {
+      "id": "tarsus",
+      "name": "Tarsus",
+      "region": "Cilicia",
+      "faction": "seleucid",
+      "x": 53.415,
+      "y": -14.637,
+      "rgb": [
+        17,
+        202,
+        52
+      ]
+    },
+    {
+      "id": "thapsus",
+      "name": "Thapsus",
+      "region": "Byzacium",
+      "faction": "carthage",
+      "x": -38.715,
+      "y": -35.987,
+      "rgb": [
+        31,
+        202,
+        17
+      ]
+    },
+    {
+      "id": "thebes",
+      "name": "Thebes",
+      "region": "Thebais",
+      "faction": "egypt",
+      "x": 52.433,
+      "y": -62.522,
+      "rgb": [
+        241,
+        244,
+        13
+      ]
+    },
+    {
+      "id": "themiskyra",
+      "name": "Themiskyra",
+      "region": "Hyperboria",
+      "faction": "scythia",
+      "x": 47.183,
+      "y": 61.544,
+      "rgb": [
+        58,
+        89,
+        177
+      ]
+    },
+    {
+      "id": "thermon",
+      "name": "Thermon",
+      "region": "Aetolia",
+      "faction": "macedon",
+      "x": 4.615,
+      "y": -17.932,
+      "rgb": [
+        13,
+        18,
+        244
+      ]
+    },
+    {
+      "id": "thessalonica",
+      "name": "Thessalonica",
+      "region": "Macedonia",
+      "faction": "macedon",
+      "x": 8.845,
+      "y": -7.758,
+      "rgb": [
+        177,
+        58,
+        145
+      ]
+    },
+    {
+      "id": "tingi",
+      "name": "Tingi",
+      "region": "Mauretania",
+      "faction": "numidia",
+      "x": -88.3,
+      "y": -36.126,
+      "rgb": [
+        202,
+        126,
+        17
+      ]
+    },
+    {
+      "id": "trier",
+      "name": "Trier",
+      "region": "Germania_Superior",
+      "faction": "germans",
+      "x": -42.45,
+      "y": 27.446,
+      "rgb": [
+        72,
+        41,
+        232
+      ]
+    },
+    {
+      "id": "tylis",
+      "name": "Tylis",
+      "region": "Thrace",
+      "faction": "thrace",
+      "x": 19.267,
+      "y": 3.691,
+      "rgb": [
+        218,
+        246,
+        61
+      ]
+    },
+    {
+      "id": "vicus_gothi",
+      "name": "Vicus Gothi",
+      "region": "Locus_Gothi",
+      "faction": "germans",
+      "x": -11.262,
+      "y": 47.709,
+      "rgb": [
+        203,
+        41,
+        232
+      ]
+    },
+    {
+      "id": "vicus_marcomannii",
+      "name": "Vicus Marcomannii",
+      "region": "Regnum_Marcomannii",
+      "faction": "germans",
+      "x": -9.418,
+      "y": 37.989,
+      "rgb": [
+        177,
+        78,
+        58
+      ]
+    },
+    {
+      "id": "vicus_venedae",
+      "name": "Vicus Venedae",
+      "region": "Pripet",
+      "faction": "dacia",
+      "x": 14.579,
+      "y": 41.791,
+      "rgb": [
+        131,
+        33,
+        125
+      ]
+    }
+  ],
+  "note": "Town visit requires .sco; field/battle usable after Module System compile."
+}

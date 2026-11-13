@@ -1,0 +1,746 @@
+[
+  {
+    "id": "rome_hastati",
+    "name": "Hastati",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "rome_principes",
+    "name": "Principes",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "rome_triarii",
+    "name": "Triarii",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "rome_velites",
+    "name": "Velites",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "rome_roman_archers",
+    "name": "Roman Archers",
+    "group": "archers",
+    "stand_in": false
+  },
+  {
+    "id": "rome_equites",
+    "name": "Equites",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "rome_roman_general",
+    "name": "Roman General",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "rome_urban_cohort",
+    "name": "Urban Cohort",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "rome_praetorian",
+    "name": "Praetorian Cohort",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "rome_auxilia_infantry",
+    "name": "Auxilia Infantry",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "rome_auxilia_cavalry",
+    "name": "Auxilia Cavalry",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "rome_arcani",
+    "name": "Arcani",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "greek_militia_hoplites",
+    "name": "Militia Hoplites",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "greek_hoplites",
+    "name": "Hoplites",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "greek_armoured_hoplites",
+    "name": "Armoured Hoplites",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "greek_peltasts",
+    "name": "Peltasts",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "greek_cretan_archers",
+    "name": "Cretan Archers",
+    "group": "archers",
+    "stand_in": false
+  },
+  {
+    "id": "greek_greek_cavalry",
+    "name": "Greek Cavalry",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "greek_general_guard",
+    "name": "General's Guard",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "greek_phalanx_pikemen",
+    "name": "Phalanx Pikemen",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "greek_silver_shields",
+    "name": "Silver Shield Pikemen",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "greek_companion_cavalry",
+    "name": "Companion Cavalry",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "greek_prodromoi",
+    "name": "Prodromoi",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "greek_thorakitai",
+    "name": "Thorakitai",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "carth_iberian_infantry",
+    "name": "Iberian Infantry",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "carth_libyan_spearmen",
+    "name": "Libyan Spearmen",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "carth_sacred_band",
+    "name": "Sacred Band",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "carth_balearic_slingers",
+    "name": "Balearic Slingers",
+    "group": "archers",
+    "stand_in": false
+  },
+  {
+    "id": "carth_numidian_cavalry",
+    "name": "Numidian Cavalry",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "carth_poeni_cavalry",
+    "name": "Poeni Cavalry",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "carth_war_elephants",
+    "name": "War Elephants",
+    "group": "cavalry",
+    "stand_in": true
+  },
+  {
+    "id": "carth_long_shield_cavalry",
+    "name": "Long Shield Cavalry",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "carth_round_shield_cavalry",
+    "name": "Round Shield Cavalry",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "carth_desert_infantry",
+    "name": "Desert Infantry",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "barb_warband",
+    "name": "Warband",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "barb_swordsmen",
+    "name": "Swordsmen",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "barb_spearmen",
+    "name": "Spearmen",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "barb_chosen_swordsmen",
+    "name": "Chosen Swordsmen",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "barb_skirmisher",
+    "name": "Skirmishers",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "barb_archer",
+    "name": "Barbarian Archers",
+    "group": "archers",
+    "stand_in": false
+  },
+  {
+    "id": "barb_cavalry",
+    "name": "Barbarian Cavalry",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "barb_noble_cavalry",
+    "name": "Noble Cavalry",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "barb_warhounds",
+    "name": "Warhounds",
+    "group": "infantry",
+    "stand_in": true
+  },
+  {
+    "id": "barb_wardogs",
+    "name": "Wardogs",
+    "group": "infantry",
+    "stand_in": true
+  },
+  {
+    "id": "barb_head_hurlers",
+    "name": "Head Hurlers",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "barb_woad_warriors",
+    "name": "Woad Warriors",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "barb_druids",
+    "name": "Druids",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "barb_screeching_women",
+    "name": "Screeching Women",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "barb_night_raiders",
+    "name": "Night Raiders",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "barb_chosen_axemen",
+    "name": "Chosen Axemen",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "barb_axemen",
+    "name": "Axemen",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "barb_berserkers",
+    "name": "Berserkers",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "barb_gothic_cavalry",
+    "name": "Gothic Cavalry",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "barb_barbarian_general",
+    "name": "Barbarian Warlord",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "east_nubian_spearmen",
+    "name": "Nubian Spearmen",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "east_nubian_archers",
+    "name": "Nubian Archers",
+    "group": "archers",
+    "stand_in": false
+  },
+  {
+    "id": "east_egyptian_archers",
+    "name": "Egyptian Archers",
+    "group": "archers",
+    "stand_in": false
+  },
+  {
+    "id": "east_pharaohs_guards",
+    "name": "Pharaoh's Guards",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "east_desert_cavalry",
+    "name": "Desert Cavalry",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "east_nile_peasants",
+    "name": "Nile Peasants",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "east_camel_archers",
+    "name": "Camel Archers",
+    "group": "cavalry",
+    "stand_in": true
+  },
+  {
+    "id": "east_cataphracts",
+    "name": "Cataphracts",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "east_persian_cavalry",
+    "name": "Persian Cavalry",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "east_eastern_infantry",
+    "name": "Eastern Infantry",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "east_horse_archers",
+    "name": "Horse Archers",
+    "group": "archers",
+    "stand_in": false
+  },
+  {
+    "id": "east_war_elephants_east",
+    "name": "Eastern Elephants",
+    "group": "cavalry",
+    "stand_in": true
+  },
+  {
+    "id": "east_chariots",
+    "name": "British Chariots",
+    "group": "cavalry",
+    "stand_in": true
+  },
+  {
+    "id": "east_scythed_chariots",
+    "name": "Scythed Chariots",
+    "group": "cavalry",
+    "stand_in": true
+  },
+  {
+    "id": "east_onagers",
+    "name": "Onagers",
+    "group": "infantry",
+    "stand_in": true
+  },
+  {
+    "id": "east_ballistas",
+    "name": "Ballistas",
+    "group": "infantry",
+    "stand_in": true
+  },
+  {
+    "id": "east_scorpions",
+    "name": "Scorpions",
+    "group": "infantry",
+    "stand_in": true
+  },
+  {
+    "id": "east_incendiary_pigs",
+    "name": "Incendiary Pigs",
+    "group": "infantry",
+    "stand_in": true
+  },
+  {
+    "id": "bi_comitatenses",
+    "name": "Comitatenses",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_limitanei",
+    "name": "Limitanei",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_auxilia_palatina",
+    "name": "Auxilia Palatina",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_foederati_infantry",
+    "name": "Foederati Infantry",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_foederati_cavalry",
+    "name": "Foederati Cavalry",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_sarmatian_cavalry",
+    "name": "Sarmatian Cavalry",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_hun_horse_archers",
+    "name": "Hun Horse Archers",
+    "group": "archers",
+    "stand_in": false
+  },
+  {
+    "id": "bi_gothic_warriors",
+    "name": "Gothic Warriors",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_vandals",
+    "name": "Vandal Raiders",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_alan_cavalry",
+    "name": "Alan Cavalry",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_peasant_levy",
+    "name": "Peasant Levy",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_town_watch",
+    "name": "Town Watch",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_pirates",
+    "name": "Pirates",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_brigands",
+    "name": "Brigands",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_rebel_cavalry",
+    "name": "Rebel Cavalry",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_naval_crew",
+    "name": "Naval Crew",
+    "group": "infantry",
+    "stand_in": true
+  },
+  {
+    "id": "bi_bireme_crew",
+    "name": "Bireme Crew",
+    "group": "infantry",
+    "stand_in": true
+  },
+  {
+    "id": "bi_triere_crew",
+    "name": "Trireme Crew",
+    "group": "infantry",
+    "stand_in": true
+  },
+  {
+    "id": "bi_saxon_hearth_troops",
+    "name": "Saxon Hearth Troops",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_celtic_nobles",
+    "name": "Celtic Nobles",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_steppe_raiders",
+    "name": "Steppe Raiders",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_desert_raiders",
+    "name": "Desert Raiders",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_mountain_men",
+    "name": "Mountain Men",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_slingers",
+    "name": "Slingers",
+    "group": "archers",
+    "stand_in": false
+  },
+  {
+    "id": "bi_javelinmen",
+    "name": "Javelinmen",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_heavy_spearmen",
+    "name": "Heavy Spearmen",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_light_cavalry",
+    "name": "Light Cavalry",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_heavy_cavalry",
+    "name": "Heavy Cavalry",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_archer_militia",
+    "name": "Archer Militia",
+    "group": "archers",
+    "stand_in": false
+  },
+  {
+    "id": "bi_crossbow_standin",
+    "name": "Crossbow Stand-in",
+    "group": "archers",
+    "stand_in": false
+  },
+  {
+    "id": "bi_scout_equites",
+    "name": "Scout Equites",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_legionary_cohort",
+    "name": "Legionary Cohort",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_eagle_cohort",
+    "name": "First Cohort",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_gladiators",
+    "name": "Gladiators",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_samnite_gladiators",
+    "name": "Samnite Gladiators",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_bishop_guards",
+    "name": "Bishop's Guards",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_christian_priests",
+    "name": "Priests",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_steppe_nobles",
+    "name": "Steppe Nobles",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_amazon_chariots",
+    "name": "Amazon Chariots",
+    "group": "cavalry",
+    "stand_in": true
+  },
+  {
+    "id": "bi_amazon_cavalry",
+    "name": "Amazon Cavalry",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "bi_amazon_archers",
+    "name": "Amazon Archers",
+    "group": "archers",
+    "stand_in": false
+  },
+  {
+    "id": "bi_pictish_cavalry",
+    "name": "Pictish Cavalry",
+    "group": "cavalry",
+    "stand_in": false
+  },
+  {
+    "id": "fill_115",
+    "name": "Levy 115",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "fill_116",
+    "name": "Levy 116",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "fill_117",
+    "name": "Levy 117",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "fill_118",
+    "name": "Levy 118",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "fill_119",
+    "name": "Levy 119",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "fill_120",
+    "name": "Levy 120",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "fill_121",
+    "name": "Levy 121",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "fill_122",
+    "name": "Levy 122",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "fill_123",
+    "name": "Levy 123",
+    "group": "infantry",
+    "stand_in": false
+  },
+  {
+    "id": "fill_124",
+    "name": "Levy 124",
+    "group": "infantry",
+    "stand_in": false
+  }
+]

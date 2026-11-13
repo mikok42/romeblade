@@ -1,0 +1,32 @@
+[
+  {
+    "id": "party_rome",
+    "settlement": "rome",
+    "x": 8.0,
+    "y": 12.0
+  },
+  {
+    "id": "party_carthage",
+    "settlement": "carthage",
+    "x": -18.0,
+    "y": -8.0
+  },
+  {
+    "id": "party_athens",
+    "settlement": "athens",
+    "x": 42.0,
+    "y": 6.0
+  },
+  {
+    "id": "party_alexandria",
+    "settlement": "alexandria",
+    "x": 55.0,
+    "y": -35.0
+  },
+  {
+    "id": "party_massilia",
+    "settlement": "massilia",
+    "x": -25.0,
+    "y": 35.0
+  }
+]

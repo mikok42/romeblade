@@ -1,0 +1,11 @@
+{
+  "dest": "module\\RomeBlade",
+  "map": "module\\RomeBlade\\map.txt",
+  "settlements": 103,
+  "troops": 124,
+  "battle_kind": "battle",
+  "blockers": [
+    "Module System 1.011 + Python 2.7 compile not run",
+    ".sco town scenes not generated"
+  ]
+}

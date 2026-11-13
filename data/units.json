@@ -1,0 +1,2214 @@
+[
+  {
+    "id": "rome_hastati",
+    "name": "Hastati",
+    "role": "light_legion",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "roman"
+  },
+  {
+    "id": "rome_principes",
+    "name": "Principes",
+    "role": "heavy_legion",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "roman"
+  },
+  {
+    "id": "rome_triarii",
+    "name": "Triarii",
+    "role": "elite_spear",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "roman"
+  },
+  {
+    "id": "rome_velites",
+    "name": "Velites",
+    "role": "skirmisher",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "roman"
+  },
+  {
+    "id": "rome_roman_archers",
+    "name": "Roman Archers",
+    "role": "archer",
+    "group": "archers",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": null
+    },
+    "notes": "roman"
+  },
+  {
+    "id": "rome_equites",
+    "name": "Equites",
+    "role": "medium_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "roman"
+  },
+  {
+    "id": "rome_roman_general",
+    "name": "Roman General",
+    "role": "general",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "roman"
+  },
+  {
+    "id": "rome_urban_cohort",
+    "name": "Urban Cohort",
+    "role": "elite_legion",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "roman"
+  },
+  {
+    "id": "rome_praetorian",
+    "name": "Praetorian Cohort",
+    "role": "elite_legion",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "roman"
+  },
+  {
+    "id": "rome_auxilia_infantry",
+    "name": "Auxilia Infantry",
+    "role": "aux_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "roman"
+  },
+  {
+    "id": "rome_auxilia_cavalry",
+    "name": "Auxilia Cavalry",
+    "role": "aux_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "roman"
+  },
+  {
+    "id": "rome_arcani",
+    "name": "Arcani",
+    "role": "infiltrator",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "roman"
+  },
+  {
+    "id": "greek_militia_hoplites",
+    "name": "Militia Hoplites",
+    "role": "militia_spear",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "greek"
+  },
+  {
+    "id": "greek_hoplites",
+    "name": "Hoplites",
+    "role": "spear",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "greek"
+  },
+  {
+    "id": "greek_armoured_hoplites",
+    "name": "Armoured Hoplites",
+    "role": "elite_spear",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "greek"
+  },
+  {
+    "id": "greek_peltasts",
+    "name": "Peltasts",
+    "role": "skirmisher",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "greek"
+  },
+  {
+    "id": "greek_cretan_archers",
+    "name": "Cretan Archers",
+    "role": "elite_archer",
+    "group": "archers",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": null
+    },
+    "notes": "greek"
+  },
+  {
+    "id": "greek_greek_cavalry",
+    "name": "Greek Cavalry",
+    "role": "medium_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "greek"
+  },
+  {
+    "id": "greek_general_guard",
+    "name": "General's Guard",
+    "role": "general",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "greek"
+  },
+  {
+    "id": "greek_phalanx_pikemen",
+    "name": "Phalanx Pikemen",
+    "role": "pike",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "greek"
+  },
+  {
+    "id": "greek_silver_shields",
+    "name": "Silver Shield Pikemen",
+    "role": "elite_pike",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "greek"
+  },
+  {
+    "id": "greek_companion_cavalry",
+    "name": "Companion Cavalry",
+    "role": "elite_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "greek"
+  },
+  {
+    "id": "greek_prodromoi",
+    "name": "Prodromoi",
+    "role": "light_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "greek"
+  },
+  {
+    "id": "greek_thorakitai",
+    "name": "Thorakitai",
+    "role": "heavy_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "greek"
+  },
+  {
+    "id": "carth_iberian_infantry",
+    "name": "Iberian Infantry",
+    "role": "medium_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "carthage"
+  },
+  {
+    "id": "carth_libyan_spearmen",
+    "name": "Libyan Spearmen",
+    "role": "spear",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "carthage"
+  },
+  {
+    "id": "carth_sacred_band",
+    "name": "Sacred Band",
+    "role": "elite_spear",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "carthage"
+  },
+  {
+    "id": "carth_balearic_slingers",
+    "name": "Balearic Slingers",
+    "role": "slinger",
+    "group": "archers",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": null
+    },
+    "notes": "carthage"
+  },
+  {
+    "id": "carth_numidian_cavalry",
+    "name": "Numidian Cavalry",
+    "role": "light_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "carthage"
+  },
+  {
+    "id": "carth_poeni_cavalry",
+    "name": "Poeni Cavalry",
+    "role": "medium_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "carthage"
+  },
+  {
+    "id": "carth_war_elephants",
+    "name": "War Elephants",
+    "role": "elephant",
+    "group": "cavalry",
+    "body": "elephant",
+    "stand_in": true,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "carthage stand-in body; no RTW mesh"
+  },
+  {
+    "id": "carth_long_shield_cavalry",
+    "name": "Long Shield Cavalry",
+    "role": "heavy_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "carthage"
+  },
+  {
+    "id": "carth_round_shield_cavalry",
+    "name": "Round Shield Cavalry",
+    "role": "medium_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "carthage"
+  },
+  {
+    "id": "carth_desert_infantry",
+    "name": "Desert Infantry",
+    "role": "light_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "carthage"
+  },
+  {
+    "id": "barb_warband",
+    "name": "Warband",
+    "role": "light_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "barbarian"
+  },
+  {
+    "id": "barb_swordsmen",
+    "name": "Swordsmen",
+    "role": "medium_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "barbarian"
+  },
+  {
+    "id": "barb_spearmen",
+    "name": "Spearmen",
+    "role": "spear",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "barbarian"
+  },
+  {
+    "id": "barb_chosen_swordsmen",
+    "name": "Chosen Swordsmen",
+    "role": "elite_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "barbarian"
+  },
+  {
+    "id": "barb_skirmisher",
+    "name": "Skirmishers",
+    "role": "skirmisher",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "barbarian"
+  },
+  {
+    "id": "barb_archer",
+    "name": "Barbarian Archers",
+    "role": "archer",
+    "group": "archers",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": null
+    },
+    "notes": "barbarian"
+  },
+  {
+    "id": "barb_cavalry",
+    "name": "Barbarian Cavalry",
+    "role": "medium_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "barbarian"
+  },
+  {
+    "id": "barb_noble_cavalry",
+    "name": "Noble Cavalry",
+    "role": "elite_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "barbarian"
+  },
+  {
+    "id": "barb_warhounds",
+    "name": "Warhounds",
+    "role": "dogs",
+    "group": "infantry",
+    "body": "dog",
+    "stand_in": true,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "barbarian stand-in body; no RTW mesh"
+  },
+  {
+    "id": "barb_wardogs",
+    "name": "Wardogs",
+    "role": "dogs",
+    "group": "infantry",
+    "body": "dog",
+    "stand_in": true,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "barbarian stand-in body; no RTW mesh"
+  },
+  {
+    "id": "barb_head_hurlers",
+    "name": "Head Hurlers",
+    "role": "skirmisher",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "barbarian"
+  },
+  {
+    "id": "barb_woad_warriors",
+    "name": "Woad Warriors",
+    "role": "light_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "barbarian"
+  },
+  {
+    "id": "barb_druids",
+    "name": "Druids",
+    "role": "support",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "barbarian"
+  },
+  {
+    "id": "barb_screeching_women",
+    "name": "Screeching Women",
+    "role": "support",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "barbarian"
+  },
+  {
+    "id": "barb_night_raiders",
+    "name": "Night Raiders",
+    "role": "infiltrator",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "barbarian"
+  },
+  {
+    "id": "barb_chosen_axemen",
+    "name": "Chosen Axemen",
+    "role": "elite_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "barbarian"
+  },
+  {
+    "id": "barb_axemen",
+    "name": "Axemen",
+    "role": "medium_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "barbarian"
+  },
+  {
+    "id": "barb_berserkers",
+    "name": "Berserkers",
+    "role": "elite_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "barbarian"
+  },
+  {
+    "id": "barb_gothic_cavalry",
+    "name": "Gothic Cavalry",
+    "role": "heavy_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "barbarian"
+  },
+  {
+    "id": "barb_barbarian_general",
+    "name": "Barbarian Warlord",
+    "role": "general",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "barbarian"
+  },
+  {
+    "id": "east_nubian_spearmen",
+    "name": "Nubian Spearmen",
+    "role": "spear",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "eastern"
+  },
+  {
+    "id": "east_nubian_archers",
+    "name": "Nubian Archers",
+    "role": "archer",
+    "group": "archers",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": null
+    },
+    "notes": "eastern"
+  },
+  {
+    "id": "east_egyptian_archers",
+    "name": "Egyptian Archers",
+    "role": "archer",
+    "group": "archers",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": null
+    },
+    "notes": "eastern"
+  },
+  {
+    "id": "east_pharaohs_guards",
+    "name": "Pharaoh's Guards",
+    "role": "elite_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "eastern"
+  },
+  {
+    "id": "east_desert_cavalry",
+    "name": "Desert Cavalry",
+    "role": "light_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "eastern"
+  },
+  {
+    "id": "east_nile_peasants",
+    "name": "Nile Peasants",
+    "role": "militia",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "eastern"
+  },
+  {
+    "id": "east_camel_archers",
+    "name": "Camel Archers",
+    "role": "camel_archer",
+    "group": "cavalry",
+    "body": "camel",
+    "stand_in": true,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "eastern stand-in body; no RTW mesh"
+  },
+  {
+    "id": "east_cataphracts",
+    "name": "Cataphracts",
+    "role": "elite_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "eastern"
+  },
+  {
+    "id": "east_persian_cavalry",
+    "name": "Persian Cavalry",
+    "role": "medium_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "eastern"
+  },
+  {
+    "id": "east_eastern_infantry",
+    "name": "Eastern Infantry",
+    "role": "medium_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "eastern"
+  },
+  {
+    "id": "east_horse_archers",
+    "name": "Horse Archers",
+    "role": "horse_archer",
+    "group": "archers",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": null
+    },
+    "notes": "eastern"
+  },
+  {
+    "id": "east_war_elephants_east",
+    "name": "Eastern Elephants",
+    "role": "elephant",
+    "group": "cavalry",
+    "body": "elephant",
+    "stand_in": true,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "eastern stand-in body; no RTW mesh"
+  },
+  {
+    "id": "east_chariots",
+    "name": "British Chariots",
+    "role": "chariot",
+    "group": "cavalry",
+    "body": "chariot",
+    "stand_in": true,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "eastern stand-in body; no RTW mesh"
+  },
+  {
+    "id": "east_scythed_chariots",
+    "name": "Scythed Chariots",
+    "role": "chariot",
+    "group": "cavalry",
+    "body": "chariot",
+    "stand_in": true,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "eastern stand-in body; no RTW mesh"
+  },
+  {
+    "id": "east_onagers",
+    "name": "Onagers",
+    "role": "siege",
+    "group": "infantry",
+    "body": "onager",
+    "stand_in": true,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "eastern stand-in body; no RTW mesh"
+  },
+  {
+    "id": "east_ballistas",
+    "name": "Ballistas",
+    "role": "siege",
+    "group": "infantry",
+    "body": "ballista",
+    "stand_in": true,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "eastern stand-in body; no RTW mesh"
+  },
+  {
+    "id": "east_scorpions",
+    "name": "Scorpions",
+    "role": "siege",
+    "group": "infantry",
+    "body": "scorpion",
+    "stand_in": true,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "eastern stand-in body; no RTW mesh"
+  },
+  {
+    "id": "east_incendiary_pigs",
+    "name": "Incendiary Pigs",
+    "role": "special",
+    "group": "infantry",
+    "body": "pig",
+    "stand_in": true,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "eastern stand-in body; no RTW mesh"
+  },
+  {
+    "id": "bi_comitatenses",
+    "name": "Comitatenses",
+    "role": "heavy_legion",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_limitanei",
+    "name": "Limitanei",
+    "role": "light_legion",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_auxilia_palatina",
+    "name": "Auxilia Palatina",
+    "role": "elite_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_foederati_infantry",
+    "name": "Foederati Infantry",
+    "role": "medium_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_foederati_cavalry",
+    "name": "Foederati Cavalry",
+    "role": "medium_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_sarmatian_cavalry",
+    "name": "Sarmatian Cavalry",
+    "role": "heavy_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_hun_horse_archers",
+    "name": "Hun Horse Archers",
+    "role": "horse_archer",
+    "group": "archers",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_gothic_warriors",
+    "name": "Gothic Warriors",
+    "role": "medium_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_vandals",
+    "name": "Vandal Raiders",
+    "role": "light_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_alan_cavalry",
+    "name": "Alan Cavalry",
+    "role": "medium_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_peasant_levy",
+    "name": "Peasant Levy",
+    "role": "militia",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_town_watch",
+    "name": "Town Watch",
+    "role": "militia",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_pirates",
+    "name": "Pirates",
+    "role": "light_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_brigands",
+    "name": "Brigands",
+    "role": "light_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_rebel_cavalry",
+    "name": "Rebel Cavalry",
+    "role": "light_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_naval_crew",
+    "name": "Naval Crew",
+    "role": "naval",
+    "group": "infantry",
+    "body": "naval",
+    "stand_in": true,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic stand-in body; no RTW mesh"
+  },
+  {
+    "id": "bi_bireme_crew",
+    "name": "Bireme Crew",
+    "role": "naval",
+    "group": "infantry",
+    "body": "naval",
+    "stand_in": true,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic stand-in body; no RTW mesh"
+  },
+  {
+    "id": "bi_triere_crew",
+    "name": "Trireme Crew",
+    "role": "naval",
+    "group": "infantry",
+    "body": "naval",
+    "stand_in": true,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic stand-in body; no RTW mesh"
+  },
+  {
+    "id": "bi_saxon_hearth_troops",
+    "name": "Saxon Hearth Troops",
+    "role": "elite_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_celtic_nobles",
+    "name": "Celtic Nobles",
+    "role": "elite_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_steppe_raiders",
+    "name": "Steppe Raiders",
+    "role": "light_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_desert_raiders",
+    "name": "Desert Raiders",
+    "role": "light_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_mountain_men",
+    "name": "Mountain Men",
+    "role": "light_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_slingers",
+    "name": "Slingers",
+    "role": "slinger",
+    "group": "archers",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_javelinmen",
+    "name": "Javelinmen",
+    "role": "skirmisher",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_heavy_spearmen",
+    "name": "Heavy Spearmen",
+    "role": "heavy_spear",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_light_cavalry",
+    "name": "Light Cavalry",
+    "role": "light_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_heavy_cavalry",
+    "name": "Heavy Cavalry",
+    "role": "heavy_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_archer_militia",
+    "name": "Archer Militia",
+    "role": "militia_archer",
+    "group": "archers",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_crossbow_standin",
+    "name": "Crossbow Stand-in",
+    "role": "archer",
+    "group": "archers",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_scout_equites",
+    "name": "Scout Equites",
+    "role": "light_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_legionary_cohort",
+    "name": "Legionary Cohort",
+    "role": "heavy_legion",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_eagle_cohort",
+    "name": "First Cohort",
+    "role": "elite_legion",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_gladiators",
+    "name": "Gladiators",
+    "role": "elite_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_samnite_gladiators",
+    "name": "Samnite Gladiators",
+    "role": "elite_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_bishop_guards",
+    "name": "Bishop's Guards",
+    "role": "elite_infantry",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_christian_priests",
+    "name": "Priests",
+    "role": "support",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_steppe_nobles",
+    "name": "Steppe Nobles",
+    "role": "elite_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_amazon_chariots",
+    "name": "Amazon Chariots",
+    "role": "chariot",
+    "group": "cavalry",
+    "body": "chariot",
+    "stand_in": true,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "bi_or_generic stand-in body; no RTW mesh"
+  },
+  {
+    "id": "bi_amazon_cavalry",
+    "name": "Amazon Cavalry",
+    "role": "medium_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_amazon_archers",
+    "name": "Amazon Archers",
+    "role": "archer",
+    "group": "archers",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": null
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "bi_pictish_cavalry",
+    "name": "Pictish Cavalry",
+    "role": "light_cavalry",
+    "group": "cavalry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": null,
+      "horse": "courser"
+    },
+    "notes": "bi_or_generic"
+  },
+  {
+    "id": "fill_115",
+    "name": "Levy 115",
+    "role": "militia",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "filler"
+  },
+  {
+    "id": "fill_116",
+    "name": "Levy 116",
+    "role": "militia",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "filler"
+  },
+  {
+    "id": "fill_117",
+    "name": "Levy 117",
+    "role": "militia",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "filler"
+  },
+  {
+    "id": "fill_118",
+    "name": "Levy 118",
+    "role": "militia",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "filler"
+  },
+  {
+    "id": "fill_119",
+    "name": "Levy 119",
+    "role": "militia",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "filler"
+  },
+  {
+    "id": "fill_120",
+    "name": "Levy 120",
+    "role": "militia",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "filler"
+  },
+  {
+    "id": "fill_121",
+    "name": "Levy 121",
+    "role": "militia",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "filler"
+  },
+  {
+    "id": "fill_122",
+    "name": "Levy 122",
+    "role": "militia",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "filler"
+  },
+  {
+    "id": "fill_123",
+    "name": "Levy 123",
+    "role": "militia",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "filler"
+  },
+  {
+    "id": "fill_124",
+    "name": "Levy 124",
+    "role": "militia",
+    "group": "infantry",
+    "body": "human",
+    "stand_in": false,
+    "gear": {
+      "weapons": [
+        "short_sword",
+        "javelin"
+      ],
+      "armor": "leather_armor",
+      "helmet": "leather_cap",
+      "shield": "shield_round",
+      "horse": null
+    },
+    "notes": "filler"
+  }
+]

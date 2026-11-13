@@ -1,0 +1,28 @@
+[
+  {
+    "id": "eastfort",
+    "name": "Eastfort",
+    "region": "Test_East",
+    "faction": "gauls",
+    "x": 54.194,
+    "y": 0.0,
+    "rgb": [
+      58,
+      177,
+      95
+    ]
+  },
+  {
+    "id": "westport",
+    "name": "Westport",
+    "region": "Test_West",
+    "faction": "romans_julii",
+    "x": -54.194,
+    "y": 0.0,
+    "rgb": [
+      232,
+      41,
+      198
+    ]
+  }
+]

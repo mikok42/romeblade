@@ -1,0 +1,19 @@
+{
+  "source": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Rome Total War Gold\\data\\world\\maps\\base",
+  "src_tga": [
+    511,
+    313
+  ],
+  "tile": [
+    255,
+    156
+  ],
+  "downsampled": [
+    140,
+    86
+  ],
+  "verts": 12040,
+  "faces": 23630,
+  "settlements": 103,
+  "map": "C:\\Users\\Mikok\\Documents\\RomeAndBlade\\out\\from-rome\\map.txt"
+}

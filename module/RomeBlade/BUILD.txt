@@ -1,0 +1,21 @@
+RomeBlade module build (Windows)
+================================
+
+This folder is a DATA SKELETON, not a compiled Mount & Blade module.
+
+Blocked / required on the game PC:
+1. Mount & Blade Module System for **1.011** (official / community pack matching original M&B).
+2. **Python 2.7** to run the Module System `build_module.bat` / process_*.py scripts.
+3. Copy or merge generated texts into a Module System project, compile to Native-format
+   `*.txt` under `Modules/RomeBlade/` beside the game:
+   C:\Program Files (x86)\Steam\steamapps\common\Mount and Blade\Modules\RomeBlade
+4. Town street geometry (`.sco`) must be created in the in-game **scene editor**.
+   This toolkit does NOT generate .sco files.
+
+What is present here:
+- module.ini (1.011 band)
+- map.txt (synthetic or RTW-baked)
+- JSON planning files: settlements, scenes, troops, menus, parties, battle_parties, visit
+
+Honest status: until Module System compile succeeds and .sco scenes exist, the module
+is NOT loadable as a playable mod.

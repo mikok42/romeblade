@@ -1,0 +1,41 @@
+{
+  "kind": "battle",
+  "player_faction": "romans_julii",
+  "army": [
+    {
+      "id": "rome_hastati",
+      "count": 80
+    },
+    {
+      "id": "rome_principes",
+      "count": 60
+    },
+    {
+      "id": "rome_velites",
+      "count": 40
+    },
+    {
+      "id": "rome_equites",
+      "count": 20
+    },
+    {
+      "id": "rome_roman_archers",
+      "count": 30
+    }
+  ],
+  "enemy": [
+    {
+      "id": "barb_warband",
+      "count": 100
+    },
+    {
+      "id": "barb_skirmisher",
+      "count": 40
+    },
+    {
+      "id": "barb_cavalry",
+      "count": 25
+    }
+  ],
+  "terrain": "plain"
+}

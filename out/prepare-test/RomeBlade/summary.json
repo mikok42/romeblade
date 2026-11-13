@@ -1,0 +1,11 @@
+{
+  "dest": "C:\\Users\\Mikok\\Documents\\RomeAndBlade\\out\\prepare-test\\RomeBlade",
+  "map": "C:\\Users\\Mikok\\Documents\\RomeAndBlade\\out\\prepare-test\\RomeBlade\\map.txt",
+  "settlements": 5,
+  "troops": 124,
+  "battle_kind": "battle",
+  "blockers": [
+    "Module System 1.011 + Python 2.7 compile not run",
+    ".sco town scenes not generated"
+  ]
+}

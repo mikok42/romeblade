@@ -1,0 +1,171 @@
+{
+  "handoff": "to-blade",
+  "kind": "battle",
+  "campaign": {
+    "turn": 1,
+    "faction": "romans_julii",
+    "notes": "Manual army export from RTW; no save write-back."
+  },
+  "mapped_army": [
+    {
+      "id": "rome_hastati",
+      "name": "Hastati",
+      "role": "light_legion",
+      "group": "infantry",
+      "body": "human",
+      "stand_in": false,
+      "gear": {
+        "weapons": [
+          "short_sword",
+          "javelin"
+        ],
+        "armor": "leather_armor",
+        "helmet": "leather_cap",
+        "shield": "shield_round",
+        "horse": null
+      },
+      "notes": "roman",
+      "count": 80
+    },
+    {
+      "id": "rome_principes",
+      "name": "Principes",
+      "role": "heavy_legion",
+      "group": "infantry",
+      "body": "human",
+      "stand_in": false,
+      "gear": {
+        "weapons": [
+          "short_sword",
+          "javelin"
+        ],
+        "armor": "leather_armor",
+        "helmet": "leather_cap",
+        "shield": "shield_round",
+        "horse": null
+      },
+      "notes": "roman",
+      "count": 60
+    },
+    {
+      "id": "rome_velites",
+      "name": "Velites",
+      "role": "skirmisher",
+      "group": "infantry",
+      "body": "human",
+      "stand_in": false,
+      "gear": {
+        "weapons": [
+          "short_sword",
+          "javelin"
+        ],
+        "armor": "leather_armor",
+        "helmet": "leather_cap",
+        "shield": "shield_round",
+        "horse": null
+      },
+      "notes": "roman",
+      "count": 40
+    },
+    {
+      "id": "rome_equites",
+      "name": "Equites",
+      "role": "medium_cavalry",
+      "group": "cavalry",
+      "body": "human",
+      "stand_in": false,
+      "gear": {
+        "weapons": [],
+        "armor": "leather_armor",
+        "helmet": "leather_cap",
+        "shield": null,
+        "horse": "courser"
+      },
+      "notes": "roman",
+      "count": 20
+    },
+    {
+      "id": "rome_roman_archers",
+      "name": "Roman Archers",
+      "role": "archer",
+      "group": "archers",
+      "body": "human",
+      "stand_in": false,
+      "gear": {
+        "weapons": [],
+        "armor": "leather_armor",
+        "helmet": "leather_cap",
+        "shield": null,
+        "horse": null
+      },
+      "notes": "roman",
+      "count": 30
+    }
+  ],
+  "mapped_enemy": [
+    {
+      "id": "barb_warband",
+      "name": "Warband",
+      "role": "light_infantry",
+      "group": "infantry",
+      "body": "human",
+      "stand_in": false,
+      "gear": {
+        "weapons": [
+          "short_sword",
+          "javelin"
+        ],
+        "armor": "leather_armor",
+        "helmet": "leather_cap",
+        "shield": "shield_round",
+        "horse": null
+      },
+      "notes": "barbarian",
+      "count": 100
+    },
+    {
+      "id": "barb_skirmisher",
+      "name": "Skirmishers",
+      "role": "skirmisher",
+      "group": "infantry",
+      "body": "human",
+      "stand_in": false,
+      "gear": {
+        "weapons": [
+          "short_sword",
+          "javelin"
+        ],
+        "armor": "leather_armor",
+        "helmet": "leather_cap",
+        "shield": "shield_round",
+        "horse": null
+      },
+      "notes": "barbarian",
+      "count": 40
+    },
+    {
+      "id": "barb_cavalry",
+      "name": "Barbarian Cavalry",
+      "role": "medium_cavalry",
+      "group": "cavalry",
+      "body": "human",
+      "stand_in": false,
+      "gear": {
+        "weapons": [],
+        "armor": "leather_armor",
+        "helmet": "leather_cap",
+        "shield": null,
+        "horse": "courser"
+      },
+      "notes": "barbarian",
+      "count": 25
+    }
+  ],
+  "module_hint": "module/RomeBlade \u2014 compile with Module System 1.011 + Python 2.7 (see BUILD.txt)",
+  "manual": [
+    "Export army composition from RTW by hand into handoff/state.json",
+    "Fight in Mount & Blade 1.011 (battle / town / field)",
+    "Write losses JSON, then run: python switch.py to-rome --result <file>",
+    "Apply remaining counts back into RTW manually (no save write-back)"
+  ]
+}

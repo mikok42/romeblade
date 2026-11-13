@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "mode": "rome",
+  "updated": "2026-11-13T09:39:18Z",
+  "campaign": {
+    "turn": 2,
+    "faction": "romans_julii",
+    "notes": "Manual army export from RTW; no save write-back."
+  },
+  "army": [
+    {
+      "id": "rome_hastati",
+      "count": 68
+    },
+    {
+      "id": "rome_principes",
+      "count": 55
+    },
+    {
+      "id": "rome_velites",
+      "count": 32
+    },
+    {
+      "id": "rome_equites",
+      "count": 18
+    },
+    {
+      "id": "rome_roman_archers",
+      "count": 27
+    }
+  ],
+  "enemy": [
+    {
+      "id": "barb_warband",
+      "count": 45
+    },
+    {
+      "id": "barb_skirmisher",
+      "count": 20
+    },
+    {
+      "id": "barb_cavalry",
+      "count": 15
+    }
+  ],
+  "context": {
+    "kind": "battle",
+    "settlement": null,
+    "terrain": "plain"
+  },
+  "last_result": {
+    "winner": "player",
+    "losses": {
+      "rome_hastati": 12,
+      "rome_principes": 5,
+      "rome_velites": 8,
+      "rome_equites": 2,
+      "rome_roman_archers": 3
+    },
+    "enemy_losses": {
+      "barb_warband": 55,
+      "barb_skirmisher": 20,
+      "barb_cavalry": 10
+    },
+    "notes": "Paste real M&B battle losses here, then: switch.py to-rome --result handoff/result.sample.json"
+  },
+  "mapped_army": [],
+  "mapped_enemy": []
+}

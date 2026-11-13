@@ -1,0 +1,242 @@
+[
+  {
+    "id": "party_alesia",
+    "settlement": "alesia",
+    "x": -55.102,
+    "y": 23.823
+  },
+  {
+    "id": "party_alexandria",
+    "settlement": "alexandria",
+    "x": 46.936,
+    "y": -48.621
+  },
+  {
+    "id": "party_ancyra",
+    "settlement": "ancyra",
+    "x": 41.829,
+    "y": -8.699
+  },
+  {
+    "id": "party_antioch",
+    "settlement": "antioch",
+    "x": 63.238,
+    "y": -19.476
+  },
+  {
+    "id": "party_apollonia",
+    "settlement": "apollonia",
+    "x": -0.248,
+    "y": -9.349
+  },
+  {
+    "id": "party_aquincum",
+    "settlement": "aquincum",
+    "x": -12.442,
+    "y": 16.248
+  },
+  {
+    "id": "party_ariminum",
+    "settlement": "ariminum",
+    "x": -23.619,
+    "y": 0.322
+  },
+  {
+    "id": "party_arretium",
+    "settlement": "arretium",
+    "x": -30.269,
+    "y": 1.318
+  },
+  {
+    "id": "party_arsakia",
+    "settlement": "arsakia",
+    "x": 96.246,
+    "y": -8.219
+  },
+  {
+    "id": "party_artaxarta",
+    "settlement": "artaxarta",
+    "x": 76.52,
+    "y": 1.305
+  },
+  {
+    "id": "party_asturica",
+    "settlement": "asturica",
+    "x": -88.666,
+    "y": 7.416
+  },
+  {
+    "id": "party_athens",
+    "settlement": "athens",
+    "x": 13.801,
+    "y": -20.049
+  },
+  {
+    "id": "party_batavodurum",
+    "settlement": "batavodurum",
+    "x": -41.146,
+    "y": 40.595
+  },
+  {
+    "id": "party_bordesholm",
+    "settlement": "bordesholm",
+    "x": -27.145,
+    "y": 55.666
+  },
+  {
+    "id": "party_bostra",
+    "settlement": "bostra",
+    "x": 74.065,
+    "y": -50.461
+  },
+  {
+    "id": "party_bylazora",
+    "settlement": "bylazora",
+    "x": 6.215,
+    "y": 1.065
+  },
+  {
+    "id": "party_byzantium",
+    "settlement": "byzantium",
+    "x": 21.448,
+    "y": -4.984
+  },
+  {
+    "id": "party_campus_alanni",
+    "settlement": "campus_alanni",
+    "x": 75.271,
+    "y": 40.679
+  },
+  {
+    "id": "party_campus_getae",
+    "settlement": "campus_getae",
+    "x": 21.977,
+    "y": 16.229
+  },
+  {
+    "id": "party_campus_iazyges",
+    "settlement": "campus_iazyges",
+    "x": -0.265,
+    "y": 22.808
+  },
+  {
+    "id": "party_campus_sakae",
+    "settlement": "campus_sakae",
+    "x": 95.769,
+    "y": 50.879
+  },
+  {
+    "id": "party_campus_sarmatae",
+    "settlement": "campus_sarmatae",
+    "x": 44.012,
+    "y": 46.868
+  },
+  {
+    "id": "party_campus_scythii",
+    "settlement": "campus_scythii",
+    "x": 25.868,
+    "y": 28.606
+  },
+  {
+    "id": "party_capua",
+    "settlement": "capua",
+    "x": -20.113,
+    "y": -8.979
+  },
+  {
+    "id": "party_caralis",
+    "settlement": "caralis",
+    "x": -38.751,
+    "y": -9.657
+  },
+  {
+    "id": "party_carthage",
+    "settlement": "carthage",
+    "x": -39.639,
+    "y": -29.114
+  },
+  {
+    "id": "party_carthago_nova",
+    "settlement": "carthago_nova",
+    "x": -75.291,
+    "y": -12.109
+  },
+  {
+    "id": "party_chersonesos",
+    "settlement": "chersonesos",
+    "x": 40.903,
+    "y": 18.457
+  },
+  {
+    "id": "party_cirta",
+    "settlement": "cirta",
+    "x": -54.582,
+    "y": -34.307
+  },
+  {
+    "id": "party_condate_redonum",
+    "settlement": "condate_redonum",
+    "x": -66.978,
+    "y": 27.827
+  },
+  {
+    "id": "party_corduba",
+    "settlement": "corduba",
+    "x": -88.751,
+    "y": -15.519
+  },
+  {
+    "id": "party_corinth",
+    "settlement": "corinth",
+    "x": 7.946,
+    "y": -23.319
+  },
+  {
+    "id": "party_croton",
+    "settlement": "croton",
+    "x": -14.078,
+    "y": -16.698
+  },
+  {
+    "id": "party_cyrene",
+    "settlement": "cyrene",
+    "x": 9.461,
+    "y": -49.195
+  },
+  {
+    "id": "party_damascus",
+    "settlement": "damascus",
+    "x": 65.815,
+    "y": -29.37
+  },
+  {
+    "id": "party_damme",
+    "settlement": "damme",
+    "x": -27.245,
+    "y": 39.752
+  },
+  {
+    "id": "party_deva",
+    "settlement": "deva",
+    "x": -68.969,
+    "y": 45.927
+  },
+  {
+    "id": "party_dimmidi",
+    "settlement": "dimmidi",
+    "x": -68.936,
+    "y": -48.133
+  },
+  {
+    "id": "party_domus_dulcis_domus",
+    "settlement": "domus_dulcis_domus",
+    "x": 13.557,
+    "y": 57.354
+  },
+  {
+    "id": "party_dumatha",
+    "settlement": "dumatha",
+    "x": 92.536,
+    "y": -47.151
+  }
+]

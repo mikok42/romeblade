@@ -1,0 +1,17 @@
+;
+Test_West
+	Westport
+	romans_julii
+	Rebels
+	232 41 198
+	grain
+	5
+	5
+Test_East
+	Eastfort
+	gauls
+	Rebels
+	58 177 95
+	timber
+	5
+	3

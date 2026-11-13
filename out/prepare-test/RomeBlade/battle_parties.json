@@ -1,0 +1,47 @@
+{
+  "player": [
+    {
+      "id": "rome_hastati",
+      "name": "Hastati",
+      "role": "light_legion",
+      "group": "infantry",
+      "body": "human",
+      "stand_in": false,
+      "gear": {
+        "weapons": [
+          "short_sword",
+          "javelin"
+        ],
+        "armor": "leather_armor",
+        "helmet": "leather_cap",
+        "shield": "shield_round",
+        "horse": null
+      },
+      "notes": "roman",
+      "count": 40
+    }
+  ],
+  "enemy": [
+    {
+      "id": "barb_warband",
+      "name": "Warband",
+      "role": "light_infantry",
+      "group": "infantry",
+      "body": "human",
+      "stand_in": false,
+      "gear": {
+        "weapons": [
+          "short_sword",
+          "javelin"
+        ],
+        "armor": "leather_armor",
+        "helmet": "leather_cap",
+        "shield": "shield_round",
+        "horse": null
+      },
+      "notes": "barbarian",
+      "count": 50
+    }
+  ],
+  "kind": "battle"
+}

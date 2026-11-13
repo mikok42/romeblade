@@ -1,0 +1,14 @@
+[
+  {
+    "id": "town_streets_placeholder",
+    "type": "town",
+    "sco": null,
+    "status": "missing \u2014 create in M&B scene editor"
+  },
+  {
+    "id": "field_battle",
+    "type": "field",
+    "sco": null,
+    "status": "uses engine field"
+  }
+]
