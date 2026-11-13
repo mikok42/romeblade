@@ -53,16 +53,47 @@ def start_rtw_windowed(extra_args=None):
 
 
 def process_running(name_substr):
-    # Lightweight check via tasklist (no psutil dependency).
-    try:
-        out = subprocess.check_output(
-            ["tasklist", "/FI", "IMAGENAME eq %s" % name_substr],
-            universal_newlines=True,
-            errors="ignore",
-        )
-        return name_substr.lower() in out.lower() and "No tasks" not in out
-    except Exception:
+    """True if a process image name contains name_substr (case-insensitive).
+
+    Uses Toolhelp snapshot — cheaper than spawning tasklist every poll.
+    """
+    import ctypes
+    import ctypes.wintypes as wt
+
+    TH32CS_SNAPPROCESS = 0x00000002
+    kernel32 = ctypes.windll.kernel32
+
+    class PROCESSENTRY32W(ctypes.Structure):
+        _fields_ = [
+            ("dwSize", wt.DWORD),
+            ("cntUsage", wt.DWORD),
+            ("th32ProcessID", wt.DWORD),
+            ("th32DefaultHeapID", ctypes.POINTER(ctypes.c_ulong)),
+            ("th32ModuleID", wt.DWORD),
+            ("cntThreads", wt.DWORD),
+            ("th32ParentProcessID", wt.DWORD),
+            ("pcPriClassBase", ctypes.c_long),
+            ("dwFlags", wt.DWORD),
+            ("szExeFile", wt.WCHAR * 260),
+        ]
+
+    want = name_substr.lower()
+    snap = kernel32.CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0)
+    if snap == ctypes.c_void_p(-1).value or snap == -1:
         return False
+    try:
+        entry = PROCESSENTRY32W()
+        entry.dwSize = ctypes.sizeof(PROCESSENTRY32W)
+        if not kernel32.Process32FirstW(snap, ctypes.byref(entry)):
+            return False
+        while True:
+            if want in entry.szExeFile.lower():
+                return True
+            if not kernel32.Process32NextW(snap, ctypes.byref(entry)):
+                break
+        return False
+    finally:
+        kernel32.CloseHandle(snap)
 
 
 def wait_for_process(image_name, timeout=120):

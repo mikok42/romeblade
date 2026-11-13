@@ -34,6 +34,14 @@ HOTKEY_ID = 1
 # Polling
 SAVE_POLL_SEC = 0.5
 LOG_POLL_SEC = 0.5
+# Pre-battle scroll detect — keep rare; full GDI grabs stutter the machine.
+DETECT_POLL_SEC = 1.5
+# Center crop for detect (scroll sits mid-screen). Smaller = cheaper BitBlt/match.
+DETECT_CROP_W = 960
+DETECT_CROP_H = 540
+DETECT_TEMPLATES = 2
+DETECT_STRIDE = 24
+DETECT_FP_STEP = 12
 # After RTW has been seen once, exit bridge this many seconds after it vanishes.
 RTW_GONE_EXIT_SEC = 3.0
 

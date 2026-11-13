@@ -1,4 +1,14 @@
-"""Low-level mouse hook to see (and optionally eat) left clicks."""
+"""Low-level mouse hook — install only while the pre-battle scroll is armed.
+
+Callback rules (cursor stutter fix):
+  * Do not install during normal campaign play.
+  * Non left-down: CallNextHookEx immediately.
+  * Left-down: ctypes hitbox compare only — no locks, prints, screenshots.
+  * Swallow sets a ctypes flag; the bridge main loop observes it.
+
+CallNextHookEx must use proper LPARAM/HHOOK argtypes on Win64 — otherwise
+Python raises OverflowError on every mouse message (seen in bridge_run.log).
+"""
 from __future__ import print_function
 
 import ctypes
@@ -14,6 +24,20 @@ WM_LBUTTONDOWN = 0x0201
 WM_QUIT = 0x0012
 HC_ACTION = 0
 
+LRESULT = ctypes.c_ssize_t
+HHOOK = ctypes.c_void_p
+user32.CallNextHookEx.argtypes = [HHOOK, ctypes.c_int, wt.WPARAM, wt.LPARAM]
+user32.CallNextHookEx.restype = LRESULT
+user32.SetWindowsHookExW.argtypes = [
+    ctypes.c_int,
+    ctypes.c_void_p,
+    wt.HINSTANCE,
+    wt.DWORD,
+]
+user32.SetWindowsHookExW.restype = HHOOK
+user32.UnhookWindowsHookEx.argtypes = [HHOOK]
+user32.UnhookWindowsHookEx.restype = wt.BOOL
+
 
 class MSLLHOOKSTRUCT(ctypes.Structure):
     _fields_ = [
@@ -25,33 +49,68 @@ class MSLLHOOKSTRUCT(ctypes.Structure):
     ]
 
 
-LowLevelMouseProc = ctypes.WINFUNCTYPE(
-    ctypes.c_long, ctypes.c_int, wt.WPARAM, wt.LPARAM
-)
+LowLevelMouseProc = ctypes.WINFUNCTYPE(LRESULT, ctypes.c_int, wt.WPARAM, wt.LPARAM)
 
 
 class MouseHook(object):
-    def __init__(self, on_left_down):
-        """on_left_down(x, y) -> True to swallow the click."""
-        self.on_left_down = on_left_down
+    def __init__(self):
+        self._armed = ctypes.c_int(0)
+        self._box = (ctypes.c_long * 4)(0, 0, 0, 0)
+        self._swallowed = ctypes.c_int(0)
+        self._sx = ctypes.c_long(0)
+        self._sy = ctypes.c_long(0)
         self._hook = None
         self._proc = LowLevelMouseProc(self._callback)
         self._thread = None
         self._tid = None
         self._stopped = threading.Event()
 
+    @property
+    def installed(self):
+        return self._thread is not None and self._thread.is_alive()
+
+    def set_hitbox(self, x0, y0, x1, y1):
+        self._box[0] = int(x0)
+        self._box[1] = int(y0)
+        self._box[2] = int(x1)
+        self._box[3] = int(y1)
+
+    def arm(self):
+        self._swallowed.value = 0
+        self._armed.value = 1
+
+    def disarm(self):
+        self._armed.value = 0
+
+    def take_swallow(self):
+        if not self._swallowed.value:
+            return None
+        self._swallowed.value = 0
+        return (int(self._sx.value), int(self._sy.value))
+
     def _callback(self, nCode, wParam, lParam):
-        if nCode == HC_ACTION and wParam == WM_LBUTTONDOWN:
-            info = ctypes.cast(lParam, ctypes.POINTER(MSLLHOOKSTRUCT)).contents
-            try:
-                swallow = self.on_left_down(info.pt.x, info.pt.y)
-            except Exception:
-                swallow = False
-            if swallow:
-                return 1  # nonzero = don't pass to next hook / app
+        if nCode != HC_ACTION or wParam != WM_LBUTTONDOWN:
+            return user32.CallNextHookEx(self._hook, nCode, wParam, lParam)
+        if not self._armed.value:
+            return user32.CallNextHookEx(self._hook, nCode, wParam, lParam)
+        info = ctypes.cast(lParam, ctypes.POINTER(MSLLHOOKSTRUCT)).contents
+        x = info.pt.x
+        y = info.pt.y
+        if (
+            self._box[0] <= x <= self._box[2]
+            and self._box[1] <= y <= self._box[3]
+        ):
+            self._armed.value = 0
+            self._sx.value = x
+            self._sy.value = y
+            self._swallowed.value = 1
+            return 1
         return user32.CallNextHookEx(self._hook, nCode, wParam, lParam)
 
     def start(self):
+        if self._thread is not None and self._thread.is_alive():
+            return
+
         def runner():
             self._tid = kernel32.GetCurrentThreadId()
             self._hook = user32.SetWindowsHookExW(
@@ -66,22 +125,21 @@ class MouseHook(object):
             if self._hook:
                 user32.UnhookWindowsHookEx(self._hook)
                 self._hook = None
+            self._armed.value = 0
             self._stopped.set()
 
         self._stopped.clear()
         self._thread = threading.Thread(target=runner, name="rb-mouse-hook")
         self._thread.daemon = True
         self._thread.start()
-        # Brief wait so SetWindowsHookEx has run before callers proceed.
-        time.sleep(0.15)
+        time.sleep(0.05)
 
     def stop(self):
-        """Unhook and join the hook thread. Safe to call more than once."""
+        self._armed.value = 0
         if self._tid:
             user32.PostThreadMessageW(self._tid, WM_QUIT, 0, 0)
         if self._thread:
             self._thread.join(timeout=3)
-        # If the thread did not clear the hook (stuck GetMessage), force unhook.
         if self._hook:
             try:
                 user32.UnhookWindowsHookEx(self._hook)
@@ -89,4 +147,5 @@ class MouseHook(object):
                 pass
             self._hook = None
         self._tid = None
+        self._thread = None
         self._stopped.set()

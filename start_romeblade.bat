@@ -11,18 +11,20 @@ cd /d "%~dp0"
 
 if not exist "out" mkdir "out"
 
-echo Starting RomeBlade bridge (minimized log: out\bridge_run.log) ...
+echo Starting RomeBlade bridge (logs: out\bridge_run.log + out\bridge_events.log) ...
 start "RomeBlade bridge" /MIN cmd /c "python -m tools.romeblade_bridge >> out\bridge_run.log 2>&1"
 
-REM Brief pause so the hook is up before Rome grabs the mouse.
+REM Brief pause so the bridge process is up before Rome starts.
 timeout /t 2 /nobreak >nul
 
 echo Starting Rome: Total War (normal / fullscreen) ...
 start "" /D "C:\Program Files (x86)\Steam\steamapps\common\Rome Total War Gold" "C:\Program Files (x86)\Steam\steamapps\common\Rome Total War Gold\RomeTW.exe"
 
 echo.
-echo Bridge is watching. Load your campaign, fight as usual until the
-echo pre-battle scroll, then click Begin Battle once.
-echo When you quit Rome, the bridge should exit by itself.
+echo 1. Load your campaign and open a land battle scroll.
+echo 2. Press F5 once (arms the mouse hook — needed if fullscreen GDI fails).
+echo 3. Click Begin Battle.
+echo Do NOT close the minimized "RomeBlade bridge" window before the fight.
+echo Events: out\bridge_events.log   When you quit Rome, the bridge exits.
 echo.
 endlocal

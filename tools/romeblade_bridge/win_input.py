@@ -94,19 +94,7 @@ def focus_window(hwnd):
     time.sleep(0.3)
 
 
-def screenshot_window_bmp(path):
-    """Capture virtual screen to BMP via GDI (no extra deps)."""
-    # Full virtual screen — good enough to see if RTW is on a menu / crashed.
-    gdi32 = ctypes.windll.gdi32
-    hdc = user32.GetDC(0)
-    width = user32.GetSystemMetrics(0)
-    height = user32.GetSystemMetrics(1)
-    mem = gdi32.CreateCompatibleDC(hdc)
-    bmp = gdi32.CreateCompatibleBitmap(hdc, width, height)
-    gdi32.SelectObject(mem, bmp)
-    gdi32.BitBlt(mem, 0, 0, width, height, hdc, 0, 0, 0x00CC0020)
-    # Save via temporary clipboard-less path using GetDIBits is verbose;
-    # use PrintWindow-free approach: write BMP file manually.
+def _bitmapinfo_topdown(width, height):
     class BITMAPINFOHEADER(ctypes.Structure):
         _fields_ = [
             ("biSize", wt.DWORD),
@@ -122,6 +110,53 @@ def screenshot_window_bmp(path):
             ("biClrImportant", wt.DWORD),
         ]
 
+    bi = BITMAPINFOHEADER()
+    bi.biSize = ctypes.sizeof(BITMAPINFOHEADER)
+    bi.biWidth = width
+    bi.biHeight = -height  # top-down
+    bi.biPlanes = 1
+    bi.biBitCount = 24
+    bi.biCompression = 0
+    row = ((width * 3 + 3) & ~3)
+    bi.biSizeImage = row * height
+    return bi, row
+
+
+def grab_screen_rgb(x=0, y=0, width=None, height=None):
+    """GDI BitBlt a screen rectangle → (w, h, bytearray BGR rows padded).
+
+    Prefer a center crop over the full desktop — full 2560×1440 grabs are costly.
+    """
+    gdi32 = ctypes.windll.gdi32
+    sw = user32.GetSystemMetrics(0)
+    sh = user32.GetSystemMetrics(1)
+    if width is None:
+        width = sw - x
+    if height is None:
+        height = sh - y
+    width = max(1, min(int(width), sw - int(x)))
+    height = max(1, min(int(height), sh - int(y)))
+    x, y = int(x), int(y)
+
+    hdc = user32.GetDC(0)
+    mem = gdi32.CreateCompatibleDC(hdc)
+    bmp = gdi32.CreateCompatibleBitmap(hdc, width, height)
+    gdi32.SelectObject(mem, bmp)
+    gdi32.BitBlt(mem, 0, 0, width, height, hdc, x, y, 0x00CC0020)
+    bi, row = _bitmapinfo_topdown(width, height)
+    buf = ctypes.create_string_buffer(bi.biSizeImage)
+    gdi32.GetDIBits(mem, bmp, 0, height, buf, ctypes.byref(bi), 0)
+    gdi32.DeleteObject(bmp)
+    gdi32.DeleteDC(mem)
+    user32.ReleaseDC(0, hdc)
+    return width, height, bytearray(buf.raw), row, x, y
+
+
+def screenshot_window_bmp(path, x=0, y=0, width=None, height=None):
+    """Capture screen (full or crop) to BMP via GDI (no extra deps)."""
+    w, h, pixels, row, _ox, _oy = grab_screen_rgb(x, y, width, height)
+    bi, _row = _bitmapinfo_topdown(w, h)
+
     class BITMAPFILEHEADER(ctypes.Structure):
         _pack_ = 1
         _fields_ = [
@@ -132,26 +167,12 @@ def screenshot_window_bmp(path):
             ("bfOffBits", wt.DWORD),
         ]
 
-    bi = BITMAPINFOHEADER()
-    bi.biSize = ctypes.sizeof(BITMAPINFOHEADER)
-    bi.biWidth = width
-    bi.biHeight = -height  # top-down
-    bi.biPlanes = 1
-    bi.biBitCount = 24
-    bi.biCompression = 0
-    row = ((width * 3 + 3) & ~3)
-    bi.biSizeImage = row * height
-    buf = ctypes.create_string_buffer(bi.biSizeImage)
-    gdi32.GetDIBits(mem, bmp, 0, height, buf, ctypes.byref(bi), 0)
     bf = BITMAPFILEHEADER()
     bf.bfType = 0x4D42
-    bf.bfOffBits = ctypes.sizeof(BITMAPFILEHEADER) + ctypes.sizeof(BITMAPINFOHEADER)
+    bf.bfOffBits = ctypes.sizeof(BITMAPFILEHEADER) + bi.biSize
     bf.bfSize = bf.bfOffBits + bi.biSizeImage
     with open(path, "wb") as f:
         f.write(ctypes.string_at(ctypes.byref(bf), ctypes.sizeof(bf)))
-        f.write(ctypes.string_at(ctypes.byref(bi), ctypes.sizeof(bi)))
-        f.write(buf.raw)
-    gdi32.DeleteObject(bmp)
-    gdi32.DeleteDC(mem)
-    user32.ReleaseDC(0, hdc)
+        f.write(ctypes.string_at(ctypes.byref(bi), bi.biSize))
+        f.write(pixels)
     return path

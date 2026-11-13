@@ -30,8 +30,10 @@ if __name__ == "__main__" and __package__ is None:
 
 from . import apply_result
 from . import armies
+from . import blog
 from . import config
 from . import detect_prebattle
+from . import hotkey_arm
 from . import launchers
 from . import mouse_hook
 from . import win_input
@@ -46,8 +48,10 @@ armies -> RTW continues with losses applied and no RTW tactical battle.
 THIS BUILD:
 * Detects the scroll by matching prebattle_*.tga art on a GDI desktop grab.
   Fullscreen exclusive DirectX may yield a black capture — UNVERIFIED on desk.
-* Intercepts the Begin Battle click with a mouse hook and swallows it so RTW
-  should stay on the scroll. If the hook loses the race, Escape is a fallback.
+* Mouse hook is installed ONLY while armed (GDI scroll detect OR F5), then
+  removed. Callback: ctypes hitbox only. Permanent WH_MOUSE_LL stuttered the
+  cursor; CallNextHookEx without Win64 argtypes flooded OverflowError.
+* F5 arms the hook without screenshots (GDI often sees desktop/black in FS).
 * Armies come from the newest .sav (often Autosave / last save) unless a
   pending-battle manifest is present. Pairing is not map-adjacency proof.
 * M&B module RomeBladeRTS; wave sizes via prepare_mb (menus.txt patch).
@@ -200,102 +204,211 @@ def on_mb_done(state, result):
     print("BRIDGE: Auto Resolve guess at %s (fallback)" % (pos,))
 
 
-def make_click_handler(state, fingerprints):
-    def handler(x, y):
-        with state.lock:
-            if state.busy or not state.armed or not state.panel:
-                return False
-            import ctypes
+def _set_low_priority():
+    """Keep the bridge below games so detect passes do not fight the GPU/CPU."""
+    try:
+        import ctypes
 
-            sw = ctypes.windll.user32.GetSystemMetrics(0)
-            sh = ctypes.windll.user32.GetSystemMetrics(1)
-            box = detect_prebattle.begin_battle_hitbox(sw, sh, state.panel)
-            if not detect_prebattle.point_in_box(x, y, box):
-                return False
-            print("BRIDGE: swallowed Begin Battle click at %d,%d box=%s" % (x, y, box))
-            state.busy = True
-            state.armed = False
+        IDLE = 0x00000040
+        BELOW = 0x00004000
+        kernel32 = ctypes.windll.kernel32
+        kernel32.SetPriorityClass(kernel32.GetCurrentProcess(), BELOW)
+    except Exception as e:
+        print("BRIDGE: priority warn:", e)
 
-        def worker():
-            try:
-                time.sleep(0.2)
-                win_input.tap_vk(win_input.VK_ESCAPE, pause=0.2)
-                if not prepare_armies(state):
-                    print("BRIDGE: army prep failed")
-                    return
-                launch_mb_for_armies(state)
-                result = wait_mb_result(simulate=state.simulate_result)
-                if not result:
-                    print("BRIDGE: no M&B result in time")
-                    return
-                on_mb_done(state, result)
-            finally:
-                with state.lock:
-                    state.busy = False
 
-        threading.Thread(target=worker, name="rb-battle", daemon=True).start()
-        return True  # swallow
+def _install_hook(hook, box):
+    hook.set_hitbox(*box)
+    hook.start()
+    hook.arm()
 
-    return handler
+
+def _remove_hook(hook):
+    if hook is None:
+        return
+    hook.disarm()
+    hook.stop()
+
+
+def _start_battle_worker(state, x, y, box):
+    blog.event("click_swallowed", x=x, y=y, box=box)
+
+    def worker():
+        try:
+            time.sleep(0.2)
+            win_input.tap_vk(win_input.VK_ESCAPE, pause=0.2)
+            if not prepare_armies(state):
+                blog.event("army_prep_failed")
+                return
+            blog.event(
+                "mb_start",
+                module=config.MB_MODULE,
+                men_a=state.army_a["summary"]["men"] if state.army_a else None,
+                men_b=state.army_b["summary"]["men"] if state.army_b else None,
+            )
+            launch_mb_for_armies(state)
+            result = wait_mb_result(simulate=state.simulate_result)
+            if not result:
+                blog.event("mb_result_timeout")
+                return
+            blog.event("mb_result", **{k: result.get(k) for k in ("winner", "a_left", "b_left", "source")})
+            on_mb_done(state, result)
+            blog.event("return_done")
+        finally:
+            with state.lock:
+                state.busy = False
+                state.arm_source = None
+
+    threading.Thread(target=worker, name="rb-battle", daemon=True).start()
 
 
 def run_loop(simulate_result=None, once_demo=False, watch_rtw=True):
     global _active_hook
+    _set_low_priority()
     print(DIFFERENCES)
+    blog.event("bridge_start", event_log=blog.log_path())
     print("BRIDGE: building prebattle fingerprints...")
     fps = detect_prebattle.build_fingerprints()
-    print("BRIDGE: templates=%d" % len(fps))
+    blog.event(
+        "fingerprints_ready",
+        templates=len(fps),
+        poll_sec=config.DETECT_POLL_SEC,
+        crop_w=config.DETECT_CROP_W,
+        crop_h=config.DETECT_CROP_H,
+    )
     state = BridgeState()
     state.simulate_result = simulate_result
-    hook = mouse_hook.MouseHook(make_click_handler(state, fps))
+    state.arm_source = None  # "gdi" | "hotkey"
+    hook = mouse_hook.MouseHook()
+    hotkey = hotkey_arm.HotkeyArm()
     _active_hook = hook
     atexit.register(_cleanup_hook)
-    hook.start()
-    print("BRIDGE: mouse hook on. Load your campaign yourself, open a pre-battle")
-    print("BRIDGE: scroll, click Begin Battle — click is intercepted, M&B starts.")
-    print("BRIDGE: no RTW menu automation; result returns via quicksave + Ctrl+L.")
+    hotkey.start()
+    blog.event("hotkey_listen", vk="F5", note="press F5 on the pre-battle scroll to arm")
+    print("BRIDGE: idle — no mouse hook until scroll detect OR you press F5.")
+    print("BRIDGE: on the scroll: F5 (arm) then click Begin Battle.")
 
     seen_rtw = False
     gone_since = None
+    hook_up = False
+    import ctypes
+
+    user32 = ctypes.windll.user32
+
+    def arm_now(source, panel):
+        nonlocal hook_up
+        sw = user32.GetSystemMetrics(0)
+        sh = user32.GetSystemMetrics(1)
+        box = detect_prebattle.begin_battle_hitbox(sw, sh, panel)
+        state.panel = panel
+        state.armed = True
+        state.arm_source = source
+        _install_hook(hook, box)
+        hook_up = True
+        blog.event("hook_armed", source=source, box=box)
+
+    def disarm_now(reason):
+        nonlocal hook_up
+        state.armed = False
+        state.arm_source = None
+        state.panel = None
+        if hook_up:
+            _remove_hook(hook)
+            hook_up = False
+            blog.event("hook_removed", reason=reason)
+
     try:
         while True:
+            if hotkey.take_press():
+                with state.lock:
+                    busy = state.busy
+                    armed = state.armed
+                if not busy and not armed:
+                    blog.event("hotkey_f5")
+                    arm_now("hotkey", {"detected": True, "x": 0, "y": 0, "tw": 0, "th": 0})
+
+            swallowed = hook.take_swallow() if hook_up else None
+            if swallowed is not None:
+                x, y = swallowed
+                with state.lock:
+                    if state.busy:
+                        swallowed = None
+                    else:
+                        state.busy = True
+                        state.armed = False
+                        panel = state.panel
+                if swallowed is not None:
+                    _remove_hook(hook)
+                    hook_up = False
+                    state.arm_source = None
+                    sw = user32.GetSystemMetrics(0)
+                    sh = user32.GetSystemMetrics(1)
+                    box = detect_prebattle.begin_battle_hitbox(sw, sh, panel)
+                    _start_battle_worker(state, x, y, box)
+
             rtw_alive = launchers.process_running("RomeTW.exe")
             if rtw_alive:
+                if not seen_rtw:
+                    blog.event("rtw_seen")
                 seen_rtw = True
                 gone_since = None
-                match = detect_prebattle.poll_prebattle(fps)
                 with state.lock:
-                    if match and match.get("detected"):
-                        if not state.armed and not state.busy:
-                            print(
-                                "BRIDGE: pre-battle scroll detected score=%.1f tpl=%s"
-                                % (
-                                    match["score"],
-                                    os.path.basename(match["template"]),
+                    busy = state.busy
+                if not busy:
+                    t0 = time.perf_counter()
+                    match = detect_prebattle.poll_prebattle(fps)
+                    dt = time.perf_counter() - t0
+                    blog.event(
+                        "detect",
+                        ms=int(dt * 1000),
+                        detected=bool(match.get("detected")),
+                        score=round(float(match.get("score", 1e9)), 1),
+                        gdi=match.get("gdi"),
+                        mean=match.get("gdi_stats", {}).get("mean_rgb_sum"),
+                    )
+                    with state.lock:
+                        if match.get("detected"):
+                            if not state.armed and not state.busy:
+                                arm_now("gdi", match)
+                            elif state.armed and hook_up and state.arm_source == "gdi":
+                                sw = user32.GetSystemMetrics(0)
+                                sh = user32.GetSystemMetrics(1)
+                                hook.set_hitbox(
+                                    *detect_prebattle.begin_battle_hitbox(
+                                        sw, sh, match
+                                    )
                                 )
-                            )
-                            prepare_armies(state)
-                            state.panel = match
-                            state.armed = True
-                    else:
-                        if state.armed and not state.busy:
-                            state.armed = False
-                            state.panel = None
+                                state.panel = match
+                        else:
+                            # Do not disarm a manual F5 arm just because GDI failed.
+                            if (
+                                state.armed
+                                and not state.busy
+                                and state.arm_source == "gdi"
+                            ):
+                                disarm_now("gdi_lost")
             elif watch_rtw and seen_rtw:
                 if gone_since is None:
                     gone_since = time.time()
-                    print("BRIDGE: RomeTW.exe gone — will exit after cleanup")
+                    blog.event("rtw_gone")
+                    disarm_now("rtw_gone")
                 elif time.time() - gone_since >= config.RTW_GONE_EXIT_SEC:
-                    print("BRIDGE: exiting (RTW closed, no leftover hook)")
+                    blog.event("bridge_exit", reason="rtw_closed")
                     break
             if once_demo:
                 break
-            time.sleep(0.75)
+            time.sleep(config.DETECT_POLL_SEC)
     except KeyboardInterrupt:
-        print("BRIDGE: stop (KeyboardInterrupt)")
+        blog.event("bridge_exit", reason="keyboard")
     finally:
+        try:
+            hotkey.stop()
+        except Exception:
+            pass
+        _remove_hook(hook)
         _cleanup_hook()
-        print("BRIDGE: hook cleared; process exiting")
+        blog.event("cleanup_done")
+
 
 
 def main(argv=None):

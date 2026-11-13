@@ -12,9 +12,12 @@ Double-click or run:
 start_romeblade.bat
 ```
 
-That starts the bridge minimized (`out\bridge_run.log`) and launches `RomeTW.exe` **without** `-ne` (your normal fullscreen). You load the campaign and bring up a land battle yourself. The bridge only waits for the scroll.
+That starts the bridge minimized and launches `RomeTW.exe` **without** `-ne` (your normal fullscreen). Do **not** close the minimized bridge window before the fight.
 
-Close Rome when done — the bridge unhooks and exits. No leftover hook/process by design.
+On the land battle scroll: press **F5** once, then click **Begin Battle**.  
+Step log: `out\bridge_events.log` (also `out\bridge_run.log`).
+
+Close Rome when done — the bridge unhooks and exits.
 
 Manual (bridge only, you start Rome yourself):
 
@@ -29,8 +32,8 @@ Optional: `--simulate-result attacker` · `--no-watch-rtw` (keep bridge after Ro
 
 | Step | Method |
 |------|--------|
-| Know a battle scroll is up | Match on-screen pixels to `data\ui\*\eventpics\prebattle_*.tga` (GDI desktop grab) |
-| Know you pressed Begin Battle | Low-level mouse hook; click in the guessed button hitbox is **swallowed** |
+| Know a battle scroll is up | GDI center-crop match **or** user **F5** (screenshot-independent; no prebattle file exists before Begin Battle) |
+| Know you pressed Begin Battle | Low-level mouse hook armed only then; click in hitbox is **swallowed** |
 | Know the two armies | Newest `.sav` / pending-battle manifest (M1 heuristic until adjacency) |
 | Skip RTW fight | Click never reaches Begin Battle; fallback Escape |
 | Apply outcome | `romeblade_result.sav` → backup any `quicksave.sav` → overwrite `quicksave.sav` → **Ctrl+L** |
@@ -54,10 +57,17 @@ If a player `quicksave.sav` already exists, the bridge copies it to `rb_qs_backu
 
 | Piece | Expectation | Uncertainty |
 |-------|-------------|-------------|
-| `WH_MOUSE_LL` hook | Usually works over exclusive fullscreen | Game may use raw input; swallow race still possible |
+| `WH_MOUSE_LL` hook | **Installed only while scroll is detected**, then removed. Callback: ctypes hitbox compare only (no Python I/O/logs). Permanent hook made the **cursor** stutter. | Mild stutter possible *while* the scroll is up (hook briefly active); swallow race still possible |
 | Begin Battle hitbox | Derived from matched template + screen metrics | Tuned for 1920×1080; other resolutions need a real shot |
-| Scroll detect (`BitBlt` desktop) | Works for windowed / borderless | **Exclusive fullscreen DirectX often captures black** — UNVERIFIED on this machine in fullscreen |
-| Starter launches without `-ne` | Matches everyday play | If detect stays dark, try one windowed session only via CLI `-ne` (not prefs) |
+| Scroll detect | Center crop (~960×540) in RAM, ~2 templates, stride 24, poll 1.5 s, process below-normal | **Exclusive fullscreen DirectX often captures black** — UNVERIFIED |
+| Starter launches without `-ne` | Matches everyday play | If detect stays dark, try one windowed `-ne` session (CLI only) |
+
+### Detect cost (offline, this desk, no RTW)
+
+| Path | Mean one pass |
+|------|----------------|
+| **Before** (full desktop BMP + 12 templates, stride 16) | **~22.0 s** |
+| **After** (center crop in RAM + 2 templates, stride 24) | **~0.13 s** |
 
 ## E1 save proof
 
