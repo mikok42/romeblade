@@ -30,7 +30,6 @@ if __name__ == "__main__" and __package__ is None:
 
 from . import apply_result
 from . import armies
-from . import arm_panel
 from . import blog
 from . import config
 from . import detect_prebattle
@@ -48,22 +47,13 @@ armies -> RTW continues with losses applied and no RTW tactical battle.
 
 THIS BUILD:
 * Detects the scroll by matching prebattle_*.tga art on a GDI desktop grab.
-  Fullscreen exclusive DirectX may yield a black capture — UNVERIFIED on desk.
-* Mouse hook is installed ONLY while armed (GDI scroll detect OR F5), then
-  removed. Callback: ctypes hitbox only. Permanent WH_MOUSE_LL stuttered the
-  cursor; CallNextHookEx without Win64 argtypes flooded OverflowError.
-* F5 arms the hook without screenshots (GDI often sees desktop/black in FS).
-* Armies come from the newest .sav (often Autosave / last save) unless a
-  pending-battle manifest is present. Pairing is not map-adjacency proof.
-* M&B module RomeBladeRTS; wave sizes via prepare_mb (menus.txt patch).
-* Result channel: rgl_log.txt 'ROME BLADE RESULT|' (or --simulate-result).
-* Return path: NEW romeblade_result.sav -> backup existing quicksave.sav ->
-  overwrite quicksave.sav -> Ctrl+L. No Load Game menu.
-  Ctrl+L effect mid-scroll is UNVERIFIED. auto_win + Auto Resolve remain as
-  scroll-dismiss fallback (Auto Resolve hitbox still a guess).
-* Never overwrites RomaAroma.sav / Autosave.sav / niunia.sav.
-* Existing quicksave.sav is copied to rb_qs_backup_<stamp>.sav before replace.
-* Bridge exits and unhooks when RTW closes (or on Ctrl+C / atexit).
+  Prefer Rome -ne (windowed): exclusive FS often yields black GDI.
+* Mouse hook ONLY while armed (GDI scroll match, or F5 backup), then removed.
+* No Arm panel / external UZBRÓJ window in the default starter.
+* Armies from newest .sav (+34 display); prepare_mb patches wave totals + role mix.
+* M&B: user Graj -> Nowa gra; module INIT enters Wave Battle (no UI clicks by bridge).
+* Result: rgl_log.txt; return via quicksave + Ctrl+L (UNVERIFIED mid-scroll).
+* Never overwrites RomaAroma / Autosave / niunia. Bridge exits when RTW closes.
 """
 
 
@@ -303,24 +293,16 @@ def run_loop(simulate_result=None, once_demo=False, watch_rtw=True):
         vk="F5",
         register_ok=hotkey.register_ok,
         register_err=hotkey.register_err,
-        note="F5 often fails in exclusive FS — use Arm panel or -ne",
+        note="F5 backup; prefer GDI arm under Rome -ne",
     )
-    # Clear stale arm flag from a previous panel click.
-    try:
-        fp = arm_panel.flag_path()
-        if os.path.isfile(fp):
-            os.remove(fp)
-    except OSError:
-        pass
-    print("BRIDGE: idle — use the Arm panel (or F5 / GDI). Next click is swallowed.")
-    print("BRIDGE: Recommended: start_romeblade.bat (-ne windowed + Arm window).")
+    print("BRIDGE: idle — open pre-battle scroll (GDI arms) or press F5. Next click swallowed.")
+    print("BRIDGE: Recommended: start_romeblade.bat (Rome -ne, no Arm panel).")
 
     seen_rtw = False
     gone_since = None
     hook_up = False
     rpy_baseline = _battle_rpy_mtime()
     last_detect = 0.0
-    last_arm_flag_mtime = None
     import ctypes
 
     user32 = ctypes.windll.user32
@@ -375,24 +357,10 @@ def run_loop(simulate_result=None, once_demo=False, watch_rtw=True):
 
     try:
         while True:
-            # Three arm paths: RegisterHotKey, GetAsyncKeyState(F5), Arm panel flag.
+            # Arm paths: GDI scroll (below) or F5. No Arm panel UI.
             hotkey.poll_f5_async()
             if hotkey.take_press():
                 try_manual_arm("hotkey_f5")
-
-            try:
-                fp = arm_panel.flag_path()
-                if os.path.isfile(fp):
-                    mt = os.path.getmtime(fp)
-                    if last_arm_flag_mtime is None or mt > last_arm_flag_mtime:
-                        last_arm_flag_mtime = mt
-                        try_manual_arm("arm_panel")
-                        try:
-                            os.remove(fp)
-                        except OSError:
-                            pass
-            except OSError:
-                pass
 
             # Swallow first; only then log a non-swallowed click (narrow box miss).
             if hook_up:
@@ -491,7 +459,7 @@ def run_loop(simulate_result=None, once_demo=False, watch_rtw=True):
                     break
             if once_demo:
                 break
-            # Fast poll for Arm panel / F5; detect stays on DETECT_POLL_SEC.
+            # Fast poll for F5; detect stays on DETECT_POLL_SEC.
             time.sleep(0.05)
     except KeyboardInterrupt:
         blog.event("bridge_exit", reason="keyboard")

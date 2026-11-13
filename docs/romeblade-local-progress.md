@@ -9,4 +9,8 @@ Updated: 2026-11-13
 
 ## No UI clicking (user veto)
 
-Auto-click launcher/New Game abandoned — unreliable and a bad trip. Disk check: no SkinMagic off-switch, no CLI mission entry. Honest path: bridge only `last_module` + start exe; user **Graj** → **Nowa gra**; module INIT already enters Wave Battle.
+Auto-click launcher/New Game abandoned. Honest path: bridge `last_module` + exe; user **Graj** → **Nowa gra**; Wave INIT.
+
+## RTW composition + no Arm panel
+
+`prepare_mb` patches army totals + inf/mis/cav role mix into menus; spawn weighted by those globals. Stand-ins still Swadian/Vaegir (not 1:1 RTW models). Default starter: Rome `-ne` + GDI arm, **no UZBRÓJ panel**.

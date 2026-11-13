@@ -13,8 +13,17 @@ from ID_factions import *
 ##  ROMEBLADE WAVE BATTLE (easy knobs)
 ########################################################
 # Total army sizes entering the fight (reserves + first wave).
+# Bridge prepare_mb patches these immediates in menus.txt from RTW +34 displays.
 rb_wave_army_a = 300          # player side
 rb_wave_army_b = 150          # enemy side
+# Role headcounts (infantry / missile / cavalry) - same source as army totals.
+# Defaults are a neutral split; prepare_mb overwrites from EDU fingerprint roles.
+rb_wave_inf_a = 180
+rb_wave_mis_a = 80
+rb_wave_cav_a = 40
+rb_wave_inf_b = 90
+rb_wave_mis_b = 40
+rb_wave_cav_b = 20
 # Max humans on the field at once (both sides combined, not counting the player hero).
 rb_wave_field_cap = 90
 # When a side's living troops fall below this percent of its field target, refill from reserve.

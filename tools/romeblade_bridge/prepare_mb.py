@@ -1,4 +1,4 @@
-"""Bake a bridge_battle.json into RomeBladeRTS wave sizes (no RTW needed)."""
+"""Bake a bridge_battle.json into RomeBladeRTS wave sizes + role mix."""
 from __future__ import print_function
 
 import json
@@ -15,8 +15,18 @@ def battle_json_in_module():
     return os.path.join(config.MB_MODULE_DIR, "bridge_battle.json")
 
 
+def _role_triple(fingerprint):
+    roles = edu_map.role_counts(fingerprint)
+    inf = int(roles.get("infantry", 0))
+    mis = int(roles.get("missile", 0))
+    cav = int(roles.get("cavalry", 0))
+    if inf + mis + cav <= 0:
+        return 1, 0, 0
+    return inf, mis, cav
+
+
 def prepare_from_spec(spec, out_json=None):
-    """Write battle JSON (repo out/ + module copy) and patch installed menus.txt sizes."""
+    """Write battle JSON and patch menus.txt army totals + role headcounts."""
     out_json = out_json or battle_select.default_battle_json_path()
     battle_select.write_battle_json(spec, out_json)
     mod_json = battle_json_in_module()
@@ -25,12 +35,16 @@ def prepare_from_spec(spec, out_json=None):
 
     men_a = int(spec["army_a"]["men"])
     men_b = int(spec["army_b"]["men"])
+    inf_a, mis_a, cav_a = _role_triple(spec["army_a"]["fingerprint"])
+    inf_b, mis_b, cav_b = _role_triple(spec["army_b"]["fingerprint"])
     plan_a = edu_map.troop_plan(spec["army_a"]["fingerprint"], "player")
     plan_b = edu_map.troop_plan(spec["army_b"]["fingerprint"], "enemy")
 
     meta = {
         "army_a_men": men_a,
         "army_b_men": men_b,
+        "roles_a": {"infantry": inf_a, "missile": mis_a, "cavalry": cav_a},
+        "roles_b": {"infantry": inf_b, "missile": mis_b, "cavalry": cav_b},
         "plan_a": plan_a,
         "plan_b": plan_b,
         "source_save": spec.get("source_save"),
@@ -42,57 +56,91 @@ def prepare_from_spec(spec, out_json=None):
     with open(meta_path, "w", encoding="utf-8") as f:
         json.dump(meta, f, indent=2)
 
-    patched = patch_menus_army_sizes(men_a, men_b)
+    patched = patch_menus_wave_immediates(
+        men_a, men_b, inf_a, mis_a, cav_a, inf_b, mis_b, cav_b
+    )
     meta["menus_patched"] = patched
     with open(meta_path, "w", encoding="utf-8") as f:
         json.dump(meta, f, indent=2)
     return meta
 
 
-def patch_menus_army_sizes(men_a, men_b):
-    """Patch compiled menus.txt wave army A/B assign immediates.
+def patch_menus_wave_immediates(
+    men_a, men_b, inf_a, mis_a, cav_a, inf_b, mis_b, cav_b
+):
+    """Patch the eight leading assign immediates of the wave ops block.
 
-    Wave option + start_game INIT blocks begin with:
-      2133 2 <var_a> <men_a>  2133 2 <var_b> <men_b> ...
-    Discover current values from mno_romeblade_wave_battle_entry (works after
-    prior patches, not only the 300/150 defaults), then replace every matching
-    assign pair and refresh the option title.
+    Compiled shape (after build):
+      mno_romeblade_wave_battle_entry 0 <title> <opcount>
+      2133 2 <var_army_a> <men_a>
+      2133 2 <var_army_b> <men_b>
+      2133 2 <var_inf_a> <inf_a>
+      ... mis_a, cav_a, inf_b, mis_b, cav_b
+    Same octet appears in start_game_1 / start_game_3 INIT.
     """
     path = os.path.join(config.MB_MODULE_DIR, "menus.txt")
     if not os.path.isfile(path):
         return {"ok": False, "reason": "menus.txt missing"}
     text = open(path, "r", encoding="utf-8", errors="ignore").read()
-    men_a = int(men_a)
-    men_b = int(men_b)
+    vals = [
+        int(men_a),
+        int(men_b),
+        int(inf_a),
+        int(mis_a),
+        int(cav_a),
+        int(inf_b),
+        int(mis_b),
+        int(cav_b),
+    ]
 
     head = re.search(
         r"mno_romeblade_wave_battle_entry\s+0\s+(\S+)\s+(\d+)\s+"
-        r"2133\s+2\s+(\d+)\s+(\d+)\s+2133\s+2\s+(\d+)\s+(\d+)",
+        r"2133\s+2\s+(\d+)\s+(\d+)\s+"
+        r"2133\s+2\s+(\d+)\s+(\d+)\s+"
+        r"2133\s+2\s+(\d+)\s+(\d+)\s+"
+        r"2133\s+2\s+(\d+)\s+(\d+)\s+"
+        r"2133\s+2\s+(\d+)\s+(\d+)\s+"
+        r"2133\s+2\s+(\d+)\s+(\d+)\s+"
+        r"2133\s+2\s+(\d+)\s+(\d+)\s+"
+        r"2133\s+2\s+(\d+)\s+(\d+)",
         text,
     )
     if not head:
-        return {"ok": False, "reason": "wave assign immediates not found"}
-    old_title, _opcount, var_a, old_a_s, var_b, old_b_s = head.groups()
-    old_a = int(old_a_s)
-    old_b = int(old_b_s)
-    new_title = "RomeBlade_Wave_Battle_(%d_vs_%d)" % (men_a, men_b)
+        return {"ok": False, "reason": "wave 8-assign block not found"}
 
-    pair = re.compile(
-        r"(2133\s+2\s+" + re.escape(var_a) + r"\s+)" + re.escape(str(old_a))
-        + r"(\s+2133\s+2\s+" + re.escape(var_b) + r"\s+)" + re.escape(str(old_b))
-    )
-    text2, n_pairs = pair.subn(
-        lambda mm: mm.group(1) + str(men_a) + mm.group(2) + str(men_b), text
-    )
+    old_title = head.group(1)
+    # groups: title, opcount, then (var, val) x8 → vars at 3,5,7,..., vals at 4,6,8,...
+    old_vals = [int(head.group(4 + 2 * i)) for i in range(8)]
+    vars_ = [head.group(3 + 2 * i) for i in range(8)]
+
+    # Build regex for the octet of assign pairs (whitespace between pairs).
+    pair_bits = []
+    for i in range(8):
+        if i:
+            pair_bits.append(r"\s+")
+        pair_bits.append(
+            r"(2133\s+2\s+" + re.escape(vars_[i]) + r"\s+)" + re.escape(str(old_vals[i]))
+        )
+    octet = re.compile("".join(pair_bits))
+
+    def _sub_octet(_m):
+        # Groups are only the '(2133 2 VAR )' prefixes; re-insert spaces between pairs.
+        out = []
+        for i in range(8):
+            if i:
+                out.append(" ")
+            out.append(_m.group(i + 1) + str(vals[i]))
+        return "".join(out)
+
+    text2, n_pairs = octet.subn(_sub_octet, text)
     if n_pairs < 1:
         return {
             "ok": False,
-            "reason": "assign pair replace failed",
-            "old_a": old_a,
-            "old_b": old_b,
+            "reason": "octet replace failed",
+            "old_vals": old_vals,
         }
 
-    # Title token only on the menu option line (underscored, no spaces).
+    new_title = "RomeBlade_Wave_Battle_(%d_vs_%d)" % (vals[0], vals[1])
     text2 = text2.replace(old_title, new_title, 1)
 
     bak = path + ".rb_bak"
@@ -102,14 +150,17 @@ def patch_menus_army_sizes(men_a, men_b):
         f.write(text2)
     return {
         "ok": True,
-        "men_a": men_a,
-        "men_b": men_b,
-        "old_a": old_a,
-        "old_b": old_b,
-        "pairs_patched": n_pairs,
+        "vals": vals,
+        "old_vals": old_vals,
+        "blocks_patched": n_pairs,
         "title": new_title,
         "backup": bak,
     }
+
+
+# Back-compat alias used by older call sites / docs.
+def patch_menus_army_sizes(men_a, men_b):
+    return patch_menus_wave_immediates(men_a, men_b, men_a, 0, 0, men_b, 0, 0)
 
 
 def prepare_from_save_indices(save_path, index_a, index_b):
