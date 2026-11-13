@@ -34,8 +34,8 @@ Tool: `tools\rtw_save_units.py`
 
 - **current (+30) alone does not drive the card** (most_proba/proba2 = 30 in file, UI 80).
 - **full (+34) does** (`proba_full30` current=full=30 → UI 30).
-- Player faction in `RomaAroma`: **romans_julii**. No natural Julii depleted units (all depleted hastati are Brutii / FOW).
-- Next check: load **`proba_julii30`** — Julii ~1432-men field army, one Roman Hastati, expect **30** with full still 80 (slots 30–79 zeroed). Also waiting on **`proba3`** (end-turn from proba_full30).
+- Player faction in `RomaAroma`: **romans_brutii** (first `captain_card_*` block in the save — not Julii). Natural depleted hastati are his.
+- Next check: load **`proba_all30`** — every hastati current=30 / full=80 / slots 30–79 zeroed; expect **30** on any of his stacks. Alt: **`proba_all17`** → expect **17**. Still waiting on **`proba3`**.
 
 ```bat
 python tools\rtw_save_units.py list "<saves>\RomaAroma.sav" --type "roman hastati"

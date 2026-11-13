@@ -88,32 +88,55 @@ def captain_card_faction(data, name_off, back=80000):
     return window[j:end].decode("ascii", errors="ignore")
 
 
-def detect_player_faction(armies, hint=None):
+def player_faction_from_save(save_path):
+    """Return the human faction id from a campaign save.
+
+    In RTW 1.5 single-player saves the player's faction character/army block
+    is written first: the earliest ``captain_card_<faction>.tga`` path (skipping
+    ``*_rebel``) is the player. On RomaAroma that is ``romans_brutii``, which
+    matches the user — the old Julii heuristic was wrong.
+    """
+    data = open(save_path, "rb").read()
+    key = b"data/ui/captain banners/captain_card_"
+    start = 0
+    while True:
+        i = data.find(key, start)
+        if i < 0:
+            return None
+        j = i + len(key)
+        end = data.find(b".tga", j)
+        if end < 0 or end - j > 40:
+            start = i + 1
+            continue
+        fac = data[j:end].decode("ascii", errors="ignore")
+        if fac and not fac.endswith("_rebel"):
+            return fac
+        start = i + 1
+
+
+def detect_player_faction(armies, hint=None, save_path=None):
     """Player faction for this campaign.
 
-    Prefer an explicit hint (manifest / config). Otherwise, if Julii stacks
-    exist this project treats them as the human side (RomaAroma / imperial
-    campaign). Fall back to the roman_* with the most stacks, then any top
-    faction by men — never 'whoever has the biggest AI doomstack'.
+    Prefer an explicit hint (manifest). Else read the save via
+    ``player_faction_from_save``. Last resort: most stacks among armies.
     """
     if hint:
         return hint
-    by_men = Counter()
+    if save_path:
+        fac = player_faction_from_save(save_path)
+        if fac:
+            return fac
     by_stacks = Counter()
+    by_men = Counter()
     for a in armies:
         fac = a.get("faction_guess")
         if not fac:
             continue
-        by_men[fac] += a["summary"]["men"]
         by_stacks[fac] += 1
-    if not by_men:
+        by_men[fac] += a["summary"]["men"]
+    if not by_stacks:
         return None
-    if "romans_julii" in by_stacks:
-        return "romans_julii"
-    romans = [k for k in by_stacks if k.startswith("romans_")]
-    if romans:
-        return max(romans, key=lambda k: (by_stacks[k], by_men[k]))
-    return max(by_men.items(), key=lambda kv: kv[1])[0]
+    return max(by_stacks.items(), key=lambda kv: (kv[1], by_men[kv[0]]))[0]
 
 def enrich_army(data, army):
     by = army["summary"]["by_type"]
@@ -226,7 +249,9 @@ def select_battle_pair(save_path, manifest=None, manifest_path=None):
     if man is None:
         man = load_pending_manifest(manifest_path)
     player = detect_player_faction(
-        armies, hint=(man or {}).get("player_faction") if man else None
+        armies,
+        hint=(man or {}).get("player_faction") if man else None,
+        save_path=save_path,
     )
     meta = {
         "player_faction": player,
