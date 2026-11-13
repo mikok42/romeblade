@@ -2,11 +2,11 @@
 
 ## One instruction (next try)
 
-1. Close **only** Rome / bridge / Arm / M&B windows from the last try (do not kill unrelated processes).
-2. Run **`start_romeblade.bat`** → load campaign → open land-battle scroll → **UZBRÓJ** → **Begin Battle**.
-3. Expect: click swallowed → **RomeBladeRTS** starts → auto **New Game** click → **Wave Battle** mission (not Native / not idle main menu).
+1. Close **only** Rome / bridge / Arm / M&B windows from the last try (nie zabijaj innych procesów).
+2. Run **`start_romeblade.bat`** → scroll → **UZBRÓJ** → **Begin Battle**.
+3. Expect: swallow → M&B launcher → auto **Graj w Mount&Blade** → auto **New Game** → **Wave Battle** (nie zostaje na launcherze).
 
-Log: `out\bridge_events.log` (`mb_start`, `mb_wave_enter_clicked`). If you land on the M&B title screen without a battle, click **New Game** once (INIT still forces Wave Battle).
+Log: `out\bridge_events.log` — szukaj `mb_launcher_play`, potem `mb_wave_enter_clicked`.
 
 ## Why F5 failed (log proof 2026-11-13 13:58)
 

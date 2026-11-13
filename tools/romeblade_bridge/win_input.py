@@ -129,6 +129,76 @@ def wait_for_window(title_substr, timeout=90, poll=0.5):
     return None
 
 
+BM_CLICK = 0x00F5
+
+
+def window_title(hwnd):
+    buf = ctypes.create_unicode_buffer(512)
+    user32.GetWindowTextW(hwnd, buf, 512)
+    return buf.value
+
+
+def window_class(hwnd):
+    buf = ctypes.create_unicode_buffer(256)
+    user32.GetClassNameW(hwnd, buf, 256)
+    return buf.value
+
+
+def window_client_size(hwnd):
+    rect = wt.RECT()
+    user32.GetClientRect(hwnd, ctypes.byref(rect))
+    return int(rect.right), int(rect.bottom)
+
+
+def enum_child_windows(hwnd):
+    """Return [(child_hwnd, class_name, title), ...] for direct+nested children."""
+    found = []
+
+    def cb(child, _lparam):
+        found.append((child, window_class(child), window_title(child)))
+        return True
+
+    user32.EnumChildWindows(hwnd, EnumWindowsProc(cb), 0)
+    return found
+
+
+def find_button_hwnd(parent, text_needles):
+    """Find a child control whose title contains any needle (case-insensitive).
+
+    M&B launcher stores labels with '&&' for a single '&' (SkinMagic).
+    Prefer class names containing 'button', but accept any text match.
+    """
+    needles = [n.lower() for n in text_needles]
+    fallback = (None, None)
+    for child, cls, title in enum_child_windows(parent):
+        if not title:
+            continue
+        norm = title.replace("&&", "&").lower()
+        if not any(n in norm for n in needles):
+            continue
+        cls_l = (cls or "").lower()
+        if "button" in cls_l:
+            return child, title
+        if fallback[0] is None:
+            fallback = (child, title)
+    return fallback
+
+
+def bm_click(hwnd):
+    """Send BM_CLICK to a Win32 button (works on the M&B SkinMagic launcher)."""
+    user32.SendMessageW(hwnd, BM_CLICK, 0, 0)
+
+
+def click_control_center(hwnd, pause=0.35):
+    """Left-click the center of a control's window rect (screen coords)."""
+    rect = wt.RECT()
+    user32.GetWindowRect(hwnd, ctypes.byref(rect))
+    x = (rect.left + rect.right) // 2
+    y = (rect.top + rect.bottom) // 2
+    click_screen(x, y, pause=pause)
+    return x, y
+
+
 def _bitmapinfo_topdown(width, height):
     class BITMAPINFOHEADER(ctypes.Structure):
         _fields_ = [

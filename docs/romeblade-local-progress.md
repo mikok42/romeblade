@@ -7,4 +7,6 @@ Updated: 2026-11-13
 
 `last_module` was already RomeBladeRTS; `start_mb` only set registry + Popen. Fix: Wave Battle ops in `start_game_1` / `start_game_3` INIT + launcher auto-clicks New Game; `prepare_mb` patches army sizes on all three assign pairs. Rebuild done into Modules/RomeBladeRTS.
 
-Next try: see `docs/BRIDGE.md` — one instruction.
+## Launcher stuck (after c1f2e46)
+
+Auto-clicks hit the SkinMagic **launcher** (PL: Graj w Mount&Blade), not the in-game New Game. Fix: BM_CLICK Play → wait for game window → then New Game. See `docs/BRIDGE.md`.
