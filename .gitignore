@@ -7,3 +7,6 @@ venv/
 *.log
 Thumbs.db
 .DS_Store
+tools/module_system_1010/**/*.pyc
+tools/romeblade_rts_ms/**/*.pyc
+tools/romeblade_rts_ms/ID_*.py
